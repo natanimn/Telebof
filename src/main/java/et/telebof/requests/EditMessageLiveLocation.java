@@ -1,0 +1,55 @@
+package et.telebof.requests;
+
+import et.telebof.Parser;
+import et.telebof.types.InlineKeyboardMarkup;
+import et.telebof.types.Message;
+
+public class EditMessageLiveLocation extends AbstractBaseRequest<EditMessageLiveLocation, Message> {
+    public EditMessageLiveLocation(Object chatId, float latitude, float longitude, int messageId, RequestSender requestSender) {
+        super(chatId, requestSender, "editMessageLiveLocation");
+       
+        add("latitude", latitude);
+        add("longitude", longitude);
+        add("message_id", messageId);
+    }
+
+    public EditMessageLiveLocation(String inlineMessageId, float latitude, float longitude, RequestSender requestSender) {
+        super(requestSender, "editMessageLiveLocation");
+        add("latitude", latitude);
+        add("longitude", longitude);
+        add("inline_message_id", inlineMessageId);
+    }
+
+    public EditMessageLiveLocation chatId(Object chatId) {
+        return add("chat_id", chatId);
+    }
+
+    public EditMessageLiveLocation messageId(int messageId){
+        return add("message_id", messageId);
+    }
+
+    public EditMessageLiveLocation inlineMessageId(String inlineMessageId){
+        return add("inline_message_id", inlineMessageId);
+    }
+
+    public EditMessageLiveLocation horizontalAccuracy(float horizontalAccuracy){
+        return add("horizontal_accuracy", horizontalAccuracy);
+    }
+
+    public EditMessageLiveLocation heading(int heading){
+        return add("heading", heading);
+    }
+
+    public EditMessageLiveLocation proximityAlertRadius(int proximityAlertRadius){
+        return add("proximity_alert_radius", proximityAlertRadius);
+    }
+
+    public EditMessageLiveLocation replyMarkup(InlineKeyboardMarkup markup) {
+        return add("reply_markup", markup);
+    }
+
+    @Override
+    public Message bind() {
+        return Parser.parse(requestSender.makeRequest(this), Message.class);
+    }
+}

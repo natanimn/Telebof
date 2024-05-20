@@ -1,0 +1,969 @@
+package et.telebof;
+import et.telebof.enums.ChatAction;
+import et.telebof.enums.ParseMode;
+import et.telebof.requests.*;
+import et.telebof.states.StateMemoryStorage;
+import et.telebof.types.*;
+
+import java.io.File;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * This class contains all telegram methods.
+ *
+ * @author Natanim Negash
+ * @version 1.0.0
+ */
+
+@SuppressWarnings("unused")
+public class TelegramContext {
+    private final Update update;
+    private final ParseMode parseMode;
+    private final RequestSender requestSender;
+    private final StateMemoryStorage memoryStorage;
+
+    public TelegramContext(Update update, RequestSender requestSender, ParseMode parseMode, StateMemoryStorage memoryStorage){
+        this.update = update;
+        this.requestSender = requestSender;
+        this.parseMode = parseMode;
+        this.memoryStorage = memoryStorage;
+    }
+
+    public TelegramContext(RequestSender requestSender, ParseMode parseMode, StateMemoryStorage memoryStorage){
+        this.update = new Update();
+        this.requestSender = requestSender;
+        this.parseMode = parseMode;
+        this.memoryStorage = memoryStorage;
+    }
+
+    public GetMe getMe() {
+        return new GetMe(this.requestSender);
+    }
+
+    public LogOut logOut() {
+        return new LogOut(this.requestSender);
+    }
+
+    public Close close() {
+        return new Close(this.requestSender);
+    }
+
+    public SendMessage sendMessage(Object chatId, String text) {
+        return new SendMessage(chatId, text, this.requestSender).parseMode(parseMode);
+    }
+
+    public SendMessage sendMessage(String text) {
+        return new SendMessage(getChatId(), text, this.requestSender).parseMode(parseMode);
+    }
+
+    public byte[] downloadFile(String filePath) {
+        return requestSender.downloadFile(filePath);
+    }
+
+    public SendMessage reply(String text) {
+        return new SendMessage(getChatId(), text, this.requestSender).replyToMessageId(getMessageId()).parseMode(parseMode);
+    }
+
+    public ForwardMessage forwardMessage(Object chatId, Object fromChatId, int messageId) {
+        return new ForwardMessage(chatId, fromChatId, messageId, this.requestSender);
+    }
+
+    public ForwardMessage forwardMessage(Object toChatId, int messageId) {
+        return new ForwardMessage(toChatId, getChatId(), messageId, this.requestSender);
+    }
+
+    public CopyMessage copyMessage(Object chatId, Object fromChatId, int messageId) {
+        return new CopyMessage(chatId, fromChatId, messageId, this.requestSender).parseMode(parseMode);
+    }
+
+    public SendPhoto sendPhoto(Object chatId, String photo) {
+        return new SendPhoto(chatId, photo, this.requestSender).parseMode(parseMode);
+    }
+
+    public SendPhoto sendPhoto(String photo) {
+        return new SendPhoto(getChatId(), photo, this.requestSender).parseMode(parseMode);
+    }
+
+    public SendPhoto sendPhoto(File photo) {
+        return new SendPhoto(getChatId(), photo, this.requestSender).parseMode(parseMode);
+    }
+
+    public SendPhoto replyPhoto(String photo) {
+        return new SendPhoto(getChatId(), photo, this.requestSender).replyToMessageId(getMessageId()).parseMode(parseMode);
+    }
+
+    public SendPhoto sendPhoto(Object chatId, File photo) {
+        return new SendPhoto(chatId, photo, this.requestSender).parseMode(parseMode);
+    }
+
+    public SendPhoto replyPhoto(File photo) {
+        return new SendPhoto(getChatId(), photo, this.requestSender).replyToMessageId(getMessageId()).parseMode(parseMode);
+    }
+
+    public SendPhoto replyPhoto(Message message, String photo) {
+        return new SendPhoto(message.getChat().getId(), photo, this.requestSender).replyToMessageId(message.getMessageId()).parseMode(parseMode);
+    }
+
+    public SendPhoto replyPhoto(Message message, File photo) {
+        return new SendPhoto(message.getChat().getId(), photo, this.requestSender).replyToMessageId(message.getMessageId()).parseMode(parseMode);
+    }
+
+    public SendAudio sendAudio(Object chatId, String audio) {
+        return new SendAudio(chatId, audio, this.requestSender).parseMode(parseMode);
+    }
+
+    public SendAudio sendAudio(String audio) {
+        return new SendAudio(getChatId(), audio, this.requestSender).parseMode(parseMode);
+    }
+
+    public SendAudio sendAudio(Object chatId, File audio) {
+        return new SendAudio(chatId, audio, this.requestSender).parseMode(parseMode);
+    }
+    
+    public SendAudio sendAudio(File audio) {
+        return new SendAudio(getChatId(), audio, this.requestSender).parseMode(parseMode);
+    }
+
+    public SendAudio replyAudio(Message message, String audio) {
+        return new SendAudio(message, audio, this.requestSender).replyToMessageId(message.getMessageId()).parseMode(parseMode);
+    }
+
+    public SendAudio replyAudio(Message message, File audio) {
+        return new SendAudio(message, audio, this.requestSender).messageThreadId(message.getMessageId()).parseMode(parseMode);
+    }
+
+    public SendDocument sendDocument(Object chatId, String document) {
+        return new SendDocument(chatId, document, this.requestSender).parseMode(parseMode);
+    }
+
+    public SendDocument sendDocument(String document) {
+        return new SendDocument(getChatId(), document, this.requestSender).parseMode(parseMode);
+    }
+
+    public SendDocument sendDocument(Object chatId, File document) {
+        return new SendDocument(chatId, document, this.requestSender).parseMode(parseMode);
+    }
+
+    public SendDocument sendDocument(File document) {
+        return new SendDocument(getChatId(), document, this.requestSender).parseMode(parseMode);
+    }
+
+    public SendDocument replyDocument(String document) {
+        return new SendDocument(getChatId(), document, this.requestSender).replyToMessageId(getMessageId()).parseMode(parseMode);
+    }
+
+    public SendDocument replyDocument(File document) {
+        return new SendDocument(getChatId(), document, this.requestSender).parseMode(parseMode);
+    }
+
+    public SendVideo sendVideo(Object chatId, String video) {
+        return new SendVideo(chatId, video, this.requestSender).parseMode(parseMode);
+    }
+
+    public SendVideo sendVideo(String video) {
+        return new SendVideo(getChatId(), video, this.requestSender).parseMode(parseMode);
+    }
+
+    public SendVideo sendVideo(Object chatId, File video) {
+        return new SendVideo(chatId, video, this.requestSender).parseMode(parseMode);
+    }
+
+    public SendVideo sendVideo(File video) {
+        return new SendVideo(getChatId(), video, this.requestSender).parseMode(parseMode);
+    }
+
+    public SendVideo replyVideo(String video) {
+        return new SendVideo(getChatId(), video, this.requestSender).replyToMessageId(getMessageId()).parseMode(parseMode);
+    }
+
+    public SendVideo replyVideo(File video) {
+        return new SendVideo(getChatId(), video, this.requestSender).replyToMessageId(getMessageId()).parseMode(parseMode);
+    }
+
+    public SendAnimation sendAnimation(Object chatId, String animation) {
+        return new SendAnimation(chatId, animation, this.requestSender).parseMode(parseMode);
+    }
+    
+    public SendAnimation sendAnimation(String animation) {
+        return new SendAnimation(getChatId(), animation, this.requestSender).parseMode(parseMode);
+    }
+
+    public SendAnimation sendAnimation(Object chatId, File animation) {
+        return new SendAnimation(chatId, animation, this.requestSender).parseMode(parseMode);
+    }
+
+    public SendAnimation sendAnimation(File animation) {
+        return new SendAnimation(getChatId(), animation, this.requestSender).parseMode(parseMode);
+    }
+
+    public SendAnimation replyAnimation(String animation) {
+        return new SendAnimation(getChatId(), animation, this.requestSender).replyToMessageId(getMessageId()).parseMode(parseMode);
+    }
+
+    public SendAnimation replyAnimation(File animation) {
+        return new SendAnimation(getChatId(), animation, this.requestSender).replyToMessageId(getMessageId()).parseMode(parseMode);
+    }
+
+    public SendVoice sendVoice(Object chatId, String voice) {
+        return new SendVoice(chatId, voice, this.requestSender).parseMode(parseMode);
+    }
+
+    public SendVoice sendVoice(String voice) {
+        return new SendVoice(getChatId(), voice, this.requestSender).parseMode(parseMode);
+    }
+
+    public SendVoice sendVoice(Object chatId, File voice) {
+        return new SendVoice(chatId, voice, this.requestSender).parseMode(parseMode);
+    }
+
+    public SendVoice sendVoice(File voice) {
+        return new SendVoice(getChatId(), voice, this.requestSender).parseMode(parseMode);
+    }
+
+    public SendVoice replyVoice(String voice) {
+        return new SendVoice(getChatId(), voice, this.requestSender).replyToMessageId(getMessageId()).parseMode(parseMode);
+    }
+
+    public SendVoice replyVoice(File voice) {
+        return new SendVoice(getChatId(), voice, this.requestSender).replyToMessageId(getMessageId()).parseMode(parseMode);
+    }
+
+    public SendVideoNote sendVideoNote(Object chatId, String video_note) {
+        return new SendVideoNote(chatId, video_note, this.requestSender).parseMode(parseMode);
+    }
+
+    public SendVideoNote sendVideoNote(Object chatId, File video_note) {
+        return new SendVideoNote(chatId, video_note, this.requestSender).parseMode(parseMode);
+    }
+
+    public SendVideoNote replyVideoNote(String videoNote) {
+        return new SendVideoNote(getChatId(), videoNote, this.requestSender).replyToMessageId(getMessageId()).parseMode(parseMode);
+    }
+
+    public SendVideoNote replyVideoNote(File videoNote) {
+        return new SendVideoNote(getChatId(), videoNote, this.requestSender).replyToMessageId(getMessageId()).parseMode(parseMode);
+    }
+
+    public <T extends InputMedia> SendMediaGroup sendMediaGroup(Object chatId, T[] medias) {
+        return new SendMediaGroup(chatId, medias, this.requestSender).parseMode(parseMode);
+    }
+
+    public <T extends InputMedia> SendMediaGroup sendMediaGroup(T[] medias) {
+        return new SendMediaGroup(getChatId(), medias, this.requestSender).parseMode(parseMode);
+    }
+
+    public <T extends InputMedia> SendMediaGroup replyMediaGroup(T[] medias) {
+        return new SendMediaGroup(getChatId(), medias, this.requestSender).replyToMessageId(getMessageId()).parseMode(parseMode);
+    }
+
+    public SendLocation sendLocation(Object chatId, float latitude, float longitude) {
+        return new SendLocation(chatId, latitude, longitude, this.requestSender);
+    }
+
+    public SendLocation sendLocation(float latitude, float longitude) {
+        return new SendLocation(getChatId(), latitude, longitude, this.requestSender);
+    }
+
+    public SendLocation replyLocation(float latitude, float longitude) {
+        return new SendLocation(getChatId(), latitude, longitude, this.requestSender).replyToMessageId(getMessageId());
+    }
+
+    public EditMessageLiveLocation editMessageLiveLocation(Object chatId, float latitude, float longitude, int messageId) {
+        return new EditMessageLiveLocation(chatId, latitude, longitude, messageId, this.requestSender);
+    }
+
+    public EditMessageLiveLocation editMessageLiveLocation(float latitude, float longitude, int messageId) {
+        return new EditMessageLiveLocation(getChatId(), latitude, longitude, messageId, this.requestSender);
+    }
+
+    public EditMessageLiveLocation editMessageLiveLocation(String inlineMessageId, float latitude, float longitude) {
+        return new EditMessageLiveLocation(inlineMessageId, latitude, longitude, this.requestSender);
+    }
+
+    public StopMessageLiveLocation stopMessageLiveLocation(Object chatId, int messageId) {
+        return new StopMessageLiveLocation(chatId, messageId, this.requestSender);
+    }
+
+    public StopMessageLiveLocation stopMessageLiveLocation(int messageId) {
+        return new StopMessageLiveLocation(getChatId(), messageId, this.requestSender);
+    }
+
+    public StopMessageLiveLocation stopMessageLiveLocation() {
+        return new StopMessageLiveLocation(getChatId(), getMessageId(), this.requestSender);
+    }
+
+    public StopMessageLiveLocation stopMessageLiveLocation(String inlineMessageId) {
+        return new StopMessageLiveLocation(inlineMessageId, this.requestSender);
+    }
+
+    public SendVenue sendVenue(Object chatId, float latitude, float longitude, String title, String address) {
+        return new SendVenue(chatId, latitude, longitude, title, address, this.requestSender);
+    }
+
+    public SendVenue sendVenue(float latitude, float longitude, String title, String address) {
+        return new SendVenue(getChatId(), latitude, longitude, title, address, this.requestSender);
+    }
+
+    public SendVenue replyVenue(float latitude, float longitude, String title, String address) {
+        return new SendVenue(getChatId(), latitude, longitude, title, address, this.requestSender).replyToMessageId(getMessageId());
+    }
+
+    public SendContact sendContact(Object chatId, String phoneNumber, String firstName) {
+        return new SendContact(chatId, phoneNumber, firstName, this.requestSender);
+    }
+
+    public SendContact sendContact(String phoneNumber, String firstName) {
+        return new SendContact(getChatId(), phoneNumber, firstName, this.requestSender);
+    }
+
+    public SendContact replyContact(String phoneNumber, String firstName) {
+        return new SendContact(getChatId(), phoneNumber, firstName, this.requestSender).replyToMessageId(getMessageId());
+    }
+
+    public SendPoll sendPoll(Object chatId, String question, String[] options) {
+        return new SendPoll(chatId, question, options, this.requestSender);
+    }
+
+    public SendPoll sendPoll(String question, String[] options) {
+        return new SendPoll(getChatId(), question, options, this.requestSender);
+    }
+
+    public SendPoll sendPoll(String question, List<String> options) {
+        return new SendPoll(getChatId(), question, options.toArray(new String[0]), this.requestSender);
+    }
+    public SendPoll replyPoll(String question, String[] options) {
+        return new SendPoll(getChatId(), question, options, this.requestSender).replyToMessageId(getMessageId());
+    }
+
+    public SendDice sendDice(Object chatId) {
+        return new SendDice(chatId, this.requestSender);
+    }
+
+    public SendDice sendDice() {
+        return new SendDice(getChatId(), this.requestSender);
+    }
+
+    public SendDice replyDice() {
+        return new SendDice(getChatId(), this.requestSender).replyToMessageId(getMessageId());
+    }
+
+    public SendChatAction sendChatAction(Object chatId, ChatAction chatAction) {
+        return new SendChatAction(chatId, chatAction, this.requestSender);
+    }
+
+    public SendChatAction sendChatAction(ChatAction chatAction) {
+        return new SendChatAction(getChatId(), chatAction, this.requestSender);
+    }
+
+    public GetUserProfilePhotos getUserProfilePhotos(long userId) {
+        return new GetUserProfilePhotos(userId, this.requestSender);
+    }
+
+    public GetFile getFile(String fileId) {
+        return new GetFile(fileId, this.requestSender);
+    }
+
+    public BanChatMember banChatMember(Object chatId, long userId) {
+        return new BanChatMember(chatId, userId, this.requestSender);
+    }
+
+    public BanChatMember banChatMember(long userId) {
+        return new BanChatMember(getChatId(), userId, this.requestSender);
+    }
+
+    public UnbanChatMember unbanChatMember(Object chatId, long userId) {
+        return new UnbanChatMember(chatId, userId, this.requestSender);
+    }
+
+    public UnbanChatMember unbanChatMember(long userId) {
+        return new UnbanChatMember(getChatId(), userId, this.requestSender);
+    }
+
+    public RestrictChatMember restrictChatMember(Object chatId, ChatPermission permissions, long userId) {
+        return new RestrictChatMember(chatId, userId, permissions, this.requestSender);
+    }
+
+    public RestrictChatMember restrictChatMember(ChatPermission permissions, long userId) {
+        return new RestrictChatMember(getChatId(), userId, permissions, this.requestSender);
+    }
+
+    public PromoteChatMember promoteChatMember(Object chatId, long userId) {
+        return new PromoteChatMember(chatId, userId, this.requestSender);
+    }
+
+    public PromoteChatMember promoteChatMember(long userId) {
+        return new PromoteChatMember(getChatId(), userId, this.requestSender);
+    }
+
+    public SetChatAdministratorCustomTitle setChatAdministratorCustomTitle(Object chatId, long userId, String customTitle) {
+        return new SetChatAdministratorCustomTitle(chatId, userId, customTitle, this.requestSender);
+    }
+
+    public SetChatAdministratorCustomTitle setChatAdministratorCustomTitle(long userId, String customTitle) {
+        return new SetChatAdministratorCustomTitle(getChatId(), userId, customTitle, this.requestSender);
+    }
+
+    public BanChatSenderChat banChatSenderChat(Object chatId, long senderChatId) {
+        return new BanChatSenderChat(chatId, senderChatId, this.requestSender);
+    }
+
+    public BanChatSenderChat banChatSenderChat(long senderChatId) {
+        return new BanChatSenderChat(getChatId(), senderChatId, this.requestSender);
+    }
+
+    public SetChatPermissions setChatPermissions(Object chatId, ChatPermission permissions) {
+        return new SetChatPermissions(chatId, permissions, this.requestSender);
+    }
+
+    public SetChatPermissions setChatPermissions(ChatPermission permissions) {
+        return new SetChatPermissions(getChatId(), permissions, this.requestSender);
+    }
+
+    public ExportChatInviteLink exportChatInviteLink(Object chatId) {
+        return new ExportChatInviteLink(chatId, this.requestSender);
+    }
+
+    public ExportChatInviteLink exportChatInviteLink() {
+        return new ExportChatInviteLink(getChatId(), this.requestSender);
+    }
+
+    public CreateChatInviteLink createChatInviteLink(Object chatId) {
+        return new CreateChatInviteLink(chatId, this.requestSender);
+    }
+
+    public CreateChatInviteLink createChatInviteLink() {
+        return new CreateChatInviteLink(getChatId(), this.requestSender);
+    }
+
+    public EditChatInviteLink editChatInviteLink(Object chatId, String inviteLink) {
+        return new EditChatInviteLink(chatId, inviteLink, this.requestSender);
+    }
+
+    public EditChatInviteLink editChatInviteLink(String inviteLink) {
+        return new EditChatInviteLink(getChatId(), inviteLink, this.requestSender);
+    }
+
+    public RevokeChatInviteLink revokeChatInviteLink(Object chatId, String inviteLink) {
+        return new RevokeChatInviteLink(chatId, inviteLink, this.requestSender);
+    }
+
+    public RevokeChatInviteLink revokeChatInviteLink(String inviteLink) {
+        return new RevokeChatInviteLink(getChatId(), inviteLink, this.requestSender);
+    }
+
+    public ApproveChatJoinRequest approveChatJoinRequest(Object chatId, long userId) {
+        return new ApproveChatJoinRequest(chatId, userId, this.requestSender);
+    }
+
+    public ApproveChatJoinRequest approveChatJoinRequest(long userId) {
+        return new ApproveChatJoinRequest(getChatId(), userId, this.requestSender);
+    }
+
+    public DeclineChatJoinRequest declineChatJoinRequest(Object chatId, long userId) {
+        return new DeclineChatJoinRequest(chatId, userId, this.requestSender);
+    }
+
+    public DeclineChatJoinRequest declineChatJoinRequest(long userId) {
+        return new DeclineChatJoinRequest(getChatId(), userId, this.requestSender);
+    }
+
+    public SetChatPhoto setChatPhoto(Object chatId, File photo) {
+        return new SetChatPhoto(chatId, photo, this.requestSender);
+    }
+
+    public SetChatPhoto setChatPhoto(File photo) {
+        return new SetChatPhoto(getChatId(), photo, this.requestSender);
+    }
+
+    public DeleteChatPhoto deleteChatPhoto(Object chatId) {
+        return new DeleteChatPhoto(chatId, this.requestSender);
+    }
+
+    public DeleteChatPhoto deleteChatPhoto() {
+        return new DeleteChatPhoto(getChatId(), this.requestSender);
+    }
+
+    public SetChatTitle setChatTitle(Object chatId, String title) {
+        return new SetChatTitle(chatId, title, this.requestSender);
+    }
+
+    public SetChatTitle setChatTitle(String title) {
+        return new SetChatTitle(getChatId(), title, this.requestSender);
+    }
+
+    public SetChatDescription setChatDescription(Object chatId, String description) {
+        return new SetChatDescription(chatId, description, this.requestSender);
+    }
+
+    public SetChatDescription setChatDescription(String description) {
+        return new SetChatDescription(getChatId(), description, this.requestSender);
+    }
+
+    public PinChatMessage pinChatMessage(Object chatId, int messageId) {
+        return new PinChatMessage(chatId, messageId, this.requestSender);
+    }
+
+    public PinChatMessage pinChatMessage(int messageId) {
+        return new PinChatMessage(getChatId(), messageId, this.requestSender);
+    }
+
+    public UnpinChatMessage unpinChatMessage(Object chatId) {
+        return new UnpinChatMessage(chatId, this.requestSender);
+    }
+
+    public UnpinChatMessage unpinChatMessage() {
+        return new UnpinChatMessage(getChatId(), this.requestSender);
+    }
+
+    public UnpinAllChatMessages unpinAllChatMessages(Object chatId) {
+        return new UnpinAllChatMessages(chatId, this.requestSender);
+    }
+
+    public UnpinAllChatMessages unpinAllChatMessages() {
+        return new UnpinAllChatMessages(getChatId(), this.requestSender);
+    }
+
+    public LeaveChat leaveChat(Object chatId) {
+        return new LeaveChat(chatId, this.requestSender);
+    }
+
+    public LeaveChat leaveChat() {
+        return new LeaveChat(getChatId(), this.requestSender);
+    }
+
+    public GetChat getChat(Object chatId) {
+        return new GetChat(chatId, this.requestSender);
+    }
+
+    public GetChatAdministrators getChatAdministrators(Object chatId) {
+        return new GetChatAdministrators(chatId, this.requestSender);
+    }
+
+    public GetChatAdministrators getChatAdministrators() {
+        return new GetChatAdministrators(getChatId(), this.requestSender);
+    }
+
+    public GetChatMemberCount getChatMemberCount(Object chatId) {
+        return new GetChatMemberCount(chatId, this.requestSender);
+    }
+
+    public GetChatMemberCount getChatMemberCount() {
+        return new GetChatMemberCount(getChatId(), this.requestSender);
+    }
+
+    public GetChatMember getChatMember(Object chatId, long userId) {
+        return new GetChatMember(chatId, userId, this.requestSender);
+    }
+
+    public SetChatStickerSet setChatStickerSet(Object chatId, String stickerSetName) {
+        return new SetChatStickerSet(chatId, stickerSetName, this.requestSender);
+    }
+
+    public SetChatStickerSet setChatStickerSet(String stickerSetName) {
+        return new SetChatStickerSet(getChatId(), stickerSetName, this.requestSender);
+    }
+
+    public DeleteChatStickerSet deleteChatStickerSet(Object chatId) {
+        return new DeleteChatStickerSet(chatId, this.requestSender);
+    }
+
+    public DeleteChatStickerSet deleteChatStickerSet() {
+        return new DeleteChatStickerSet(getChatId(), this.requestSender);
+    }
+
+    public GetForumTopicIconStickers getForumTopicIconStickers() {
+        return new GetForumTopicIconStickers(this.requestSender);
+    }
+
+    public CreateForumTopic createForumTopic(Object chatId, String name) {
+        return new CreateForumTopic(chatId, name, this.requestSender);
+    }
+
+    public CreateForumTopic createForumTopic(String name) {
+        return new CreateForumTopic(getChatId(), name, this.requestSender);
+    }
+
+    public EditForumTopic editForumTopic(Object chatId, int messageThreadId) {
+        return new EditForumTopic(chatId, messageThreadId, this.requestSender);
+    }
+
+    public EditForumTopic editForumTopic(int messageThreadId) {
+        return new EditForumTopic(getChatId(), messageThreadId, this.requestSender);
+    }
+
+    public ReopenForumTopic reopenForumTopic(Object chatId, int messageThreadId) {
+        return new ReopenForumTopic(chatId, messageThreadId, this.requestSender);
+    }
+
+    public ReopenForumTopic reopenForumTopic(int messageThreadId) {
+        return new ReopenForumTopic(getChatId(), messageThreadId, this.requestSender);
+    }
+
+    public DeleteForumTopic deleteForumTopic(Object chatId, int messageThreadId) {
+        return new DeleteForumTopic(chatId, messageThreadId, this.requestSender);
+    }
+
+    public DeleteForumTopic deleteForumTopic(int messageThreadId) {
+        return new DeleteForumTopic(getChatId(), messageThreadId, this.requestSender);
+    }
+
+    public UnpinAllForumTopicMessages unpinAllForumTopicMessages(Object chatId, int messageThreadId) {
+        return new UnpinAllForumTopicMessages(chatId, messageThreadId, this.requestSender);
+    }
+
+    public UnpinAllForumTopicMessages unpinAllForumTopicMessages(int messageThreadId) {
+        return new UnpinAllForumTopicMessages(getChatId(), messageThreadId, this.requestSender);
+    }
+
+    public EditGeneralForumTopic editGeneralForumTopic(Object chatId, String name) {
+        return new EditGeneralForumTopic(chatId, name, this.requestSender);
+    }
+
+    public EditGeneralForumTopic editGeneralForumTopic(String name) {
+        return new EditGeneralForumTopic(getChatId(), name, this.requestSender);
+    }
+
+    public CloseGeneralForumTopic closeGeneralForumTopic(Object chatId) {
+        return new CloseGeneralForumTopic(chatId, this.requestSender);
+    }
+
+    public CloseGeneralForumTopic closeGeneralForumTopic() {
+        return new CloseGeneralForumTopic(getChatId(), this.requestSender);
+    }
+
+    public ReopenGeneralForumTopic reopenForumTopic(Object chatId) {
+        return new ReopenGeneralForumTopic(chatId, this.requestSender);
+    }
+
+    public ReopenGeneralForumTopic reopenForumTopic() {
+        return new ReopenGeneralForumTopic(getChatId(), this.requestSender);
+    }
+
+    public HideGeneralForumTopic hideGeneralForumTopic(Object chatId) {
+        return new HideGeneralForumTopic(chatId, this.requestSender);
+    }
+
+    public HideGeneralForumTopic hideGeneralForumTopic() {
+        return new HideGeneralForumTopic(getChatId(), this.requestSender);
+    }
+
+    public UnHideGeneralForumTopic unHideGeneralForumTopic(Object chatId) {
+        return new UnHideGeneralForumTopic(chatId, this.requestSender);
+    }
+
+    public UnHideGeneralForumTopic unHideGeneralForumTopic() {
+        return new UnHideGeneralForumTopic(getChatId(), this.requestSender);
+    }
+
+    public AnswerCallbackQuery answer() {
+        return new AnswerCallbackQuery(update.getCallbackQuery().getId(), this.requestSender);
+    }
+
+    public AnswerCallbackQuery answer(String text) {
+        return new AnswerCallbackQuery(update.getCallbackQuery().getId(), this.requestSender).text(text);
+    }
+
+    public AnswerCallbackQuery answerCallbackQuery(String callbackQueryId) {
+        return new AnswerCallbackQuery(callbackQueryId, this.requestSender);
+    }
+
+    public SetMyCommands setMyCommands(BotCommand[] commands) {
+        return new SetMyCommands(commands, this.requestSender);
+    }
+
+    public DeleteMyCommands deleteMyCommands() {
+        return new DeleteMyCommands(this.requestSender);
+    }
+
+    public GetMyCommands getMyCommands() {
+        return new GetMyCommands(this.requestSender);
+    }
+
+    public SetChatMenuButton setChatMenuButton() {
+        return new SetChatMenuButton(this.requestSender);
+    }
+
+    public GetChatMenuButton getChatMenuButton() {
+        return new GetChatMenuButton(this.requestSender);
+    }
+
+    public SetMyDefaultAdministratorRights setMyDefaultAdministratorRights() {
+        return new SetMyDefaultAdministratorRights(this.requestSender);
+    }
+
+    public GetMyDefaultAdministratorRights getMyDefaultAdministratorRights() {
+        return new GetMyDefaultAdministratorRights(this.requestSender);
+    }
+
+    public EditMessageText editMessageText(String text, Object chatId, int messageId) {
+        return new EditMessageText(text, chatId, messageId, this.requestSender).parseMode(parseMode);
+    }
+
+    public EditMessageText editMessageText(String text) {
+        return new EditMessageText(text, getChatId(), getMessageId(), this.requestSender).parseMode(parseMode);
+    }
+
+    public EditMessageText editMessageText(String text, String inlineMessageId) {
+        return new EditMessageText(text, inlineMessageId, this.requestSender).parseMode(parseMode);
+    }
+
+    public EditMessageCaption editMessageCaption(Object chatId, int messageId) {
+        return new EditMessageCaption(chatId, messageId, this.requestSender).parseMode(parseMode);
+    }
+
+    public EditMessageCaption editMessageCaption() {
+        return new EditMessageCaption(getChatId(), getMessageId(), this.requestSender).parseMode(parseMode);
+    }
+
+    public EditMessageCaption editMessageCaption(String inlineMessageId) {
+        return new EditMessageCaption(inlineMessageId, this.requestSender).parseMode(parseMode);
+    }
+
+    public EditMessageMedia editMessageMedia(File media, Object chatId, int messageId) {
+        return new EditMessageMedia(media, chatId, messageId, this.requestSender);
+    }
+
+    public EditMessageMedia editMessageMedia(File media) {
+        return new EditMessageMedia(media, getChatId(), getMessageId(), this.requestSender);
+    }
+
+    public EditMessageMedia editMessageMedia(File media, String inlineMessageId) {
+        return new EditMessageMedia(media, inlineMessageId, this.requestSender);
+    }
+
+    public EditMessageReplyMarkup editMessageReplyMarkup(Object chatId, int messageId) {
+        return new EditMessageReplyMarkup(chatId, messageId, this.requestSender);
+    }
+
+    public EditMessageReplyMarkup editMessageReplyMarkup() {
+        return new EditMessageReplyMarkup(getChatId(), getMessageId(), this.requestSender);
+    }
+
+    public EditMessageReplyMarkup editMessageReplyMarkup(String inlineMessageId) {
+        return new EditMessageReplyMarkup(inlineMessageId, this.requestSender);
+    }
+
+    public StopPoll stopPoll(Object chatId, int messageId) {
+        return new StopPoll(chatId, messageId, this.requestSender);
+    }
+
+    public StopPoll stopPoll() {
+        return new StopPoll(getChatId(), getMessageId(), this.requestSender);
+    }
+
+    public DeleteMessage deleteMessage(Object chatId, int messageId) {
+        return new DeleteMessage(chatId, messageId, this.requestSender);
+    }
+
+    public DeleteMessage deleteMessage() {
+        return new DeleteMessage(getChatId(), getMessageId(), this.requestSender);
+    }
+
+    public SendSticker sendSticker(Object chatId, File sticker) {
+        return new SendSticker(chatId, sticker, this.requestSender);
+    }
+
+    public SendSticker sendSticker(File sticker) {
+        return new SendSticker(getChatId(), sticker, this.requestSender);
+    }
+
+    public SendSticker sendSticker(Object chatId, String sticker) {
+        return new SendSticker(chatId, sticker, this.requestSender);
+    }
+
+    public SendSticker sendSticker(String sticker) {
+        return new SendSticker(getChatId(), sticker, this.requestSender);
+    }
+
+    public GetStickerSet getStickerSet(String name) {
+        return new GetStickerSet(name, this.requestSender);
+    }
+
+    public GetCustomEmojiStickers getCustomEmojiStickers(String[] customEmojiIds) {
+        return new GetCustomEmojiStickers(customEmojiIds, this.requestSender);
+    }
+
+    public UploadStickerFile uploadStickerFile(long userId, File sticker, String stickerFormat) {
+        return new UploadStickerFile(userId, sticker, stickerFormat, this.requestSender);
+    }
+
+    public CreateNewStickerSet createNewStickerSet(long userId, String name, String title, InputSticker[] stickers,
+                                                   String stickerFormat) {
+        return new CreateNewStickerSet(userId, name, title, stickers, stickerFormat, this.requestSender);
+    }
+
+    public AddStickerToSet addStickerToSet(long userId, String name, File sticker) {
+        return new AddStickerToSet(userId, name, sticker, this.requestSender);
+    }
+
+    public SetStickerPositionInSet setStickerPositionInSet(String sticker, int position) {
+        return new SetStickerPositionInSet(sticker, position, this.requestSender);
+    }
+
+    public DeleteStickerFromSet deleteStickerFromSet(String sticker) {
+        return new DeleteStickerFromSet(sticker, this.requestSender);
+    }
+
+    public SetStickerEmojiList setStickerEmojiList(String sticker, String[] emojiList) {
+        return new SetStickerEmojiList(sticker, emojiList, this.requestSender);
+    }
+
+    public SetStickerKeywords setStickerKeywords(String sticker, String[] keywords) {
+        return new SetStickerKeywords(sticker, keywords, this.requestSender);
+    }
+
+    public SetStickerMaskPosition setStickerMaskPosition(String sticker, MaskPosition maskPosition) {
+        return new SetStickerMaskPosition(sticker, maskPosition, this.requestSender);
+    }
+
+    public SetStickerSetTitle setStickerSetTitle(String sticker, String title) {
+        return new SetStickerSetTitle(sticker, title, this.requestSender);
+    }
+
+    public SetStickerSetThumbnail setStickerSetThumbnail(String name, long userId, File thumbnail) {
+        return new SetStickerSetThumbnail(name, userId, thumbnail, this.requestSender);
+    }
+
+    public SetStickerSetThumbnail setStickerSetThumbnail(String name, long userId, String thumbnail) {
+        return new SetStickerSetThumbnail(name, userId, thumbnail, this.requestSender);
+    }
+
+    public SetCustomEmojiStickerSetThumbnail setCustomEmojiStickerSetThumbnail(String name, String customEmojiId) {
+        return new SetCustomEmojiStickerSetThumbnail(name, customEmojiId, this.requestSender);
+    }
+
+    public DeleteStickerSet deleteStickerSet(String name) {
+        return new DeleteStickerSet(name, this.requestSender);
+    }
+
+    public AnswerInlineQuery answerInlineQuery(String inlineQueryId, InlineQueryResult[] results) {
+        return new AnswerInlineQuery(inlineQueryId, results, this.requestSender);
+    }
+
+    public AnswerWebAppQuery answerWebAppQuery(String webAppQueryId, InlineQueryResult result) {
+        return new AnswerWebAppQuery(webAppQueryId, result, this.requestSender);
+    }
+
+    public SendInvoice sendInvoice(Object chatId, String title, String description, String payload, String providerToken,
+                                   String currency, LabeledPrice[] prices) {
+        return new SendInvoice(chatId, title, description, payload, providerToken, currency, prices, this.requestSender)
+                .parseMode(parseMode);
+    }
+
+    public SendInvoice sendInvoice(String title, String description, String payload, String providerToken,
+                                   String currency, LabeledPrice[] prices) {
+        return new SendInvoice(getChatId(), title, description, payload, providerToken, currency, prices, this.requestSender)
+                .parseMode(parseMode);
+    }
+
+    public SendInvoice replyInvoice(String title, String description, String payload, String providerToken,
+                                   String currency, LabeledPrice[] prices) {
+        return new SendInvoice(getChatId(), title, description, payload, providerToken, currency, prices, this.requestSender)
+                .parseMode(parseMode).replyToMessageId(getMessageId());
+    }
+
+    public CreateInvoiceLink createInvoiceLink(Object chatId, String title, String description, String payload, String providerToken,
+                                               String currency, LabeledPrice[] prices) {
+        return new CreateInvoiceLink(chatId, title, description, payload, providerToken, currency, prices, this.requestSender);
+    }
+
+    public CreateInvoiceLink createInvoiceLink(String title, String description, String payload, String providerToken,
+                                               String currency, LabeledPrice[] prices) {
+        return new CreateInvoiceLink(getChatId(), title, description, payload, providerToken, currency, prices, this.requestSender);
+    }
+
+    public AnswerShippingQuery answerShippingQuery(String shippingQueryId, boolean ok) {
+        return new AnswerShippingQuery(shippingQueryId, ok, this.requestSender);
+    }
+
+    public AnswerShippingQuery answerShipping(boolean ok) {
+        return new AnswerShippingQuery(update.getShippingQuery().getId(), ok, this.requestSender);
+    }
+
+    public AnswerPreCheckoutQuery answerPreCheckoutQuery(String preCheckoutQueryId, Boolean ok) {
+        return new AnswerPreCheckoutQuery(preCheckoutQueryId, ok, this.requestSender);
+    }
+
+    public AnswerPreCheckoutQuery answerPreCheckout(boolean ok) {
+        return new AnswerPreCheckoutQuery(update.getPreCheckoutQuery().getId(), ok, this.requestSender);
+    }
+
+    public SetPassportDataErrors setPassportDataErrors(long userId, PassportElementError[] errors) {
+        return new SetPassportDataErrors(userId, errors, this.requestSender);
+    }
+
+    public SendGame sendGame(long chatId, String gameShortName) {
+        return new SendGame(chatId, gameShortName, this.requestSender).parseMode(parseMode);
+    }
+
+    public SetGameScore setGameScore(long chatId, long userId, int score, int messageId) {
+        return new SetGameScore(chatId, userId, score, messageId, this.requestSender);
+    }
+
+    public SetGameScore setGameScore(String inlineMessageId, long userId, int score) {
+        return new SetGameScore(inlineMessageId, userId, score, this.requestSender);
+    }
+
+    public GetGameHighScores getGameHighScores(long chatId, long userId, int messageId) {
+        return new GetGameHighScores(chatId, userId, messageId, this.requestSender);
+    }
+
+    public GetGameHighScores getGameHighScores(long userId, int messageId) {
+        return new GetGameHighScores(getChatId(), userId, messageId, this.requestSender);
+    }
+
+    public GetGameHighScores getGameHighScores(String inlineMessageId, long userId) {
+        return new GetGameHighScores(inlineMessageId, userId, this.requestSender);
+    }
+
+    public void setState(long chatId, long userId, String name){
+        memoryStorage.save(chatId, userId, name);
+    }
+
+    public void setState(long userId, String name){
+        memoryStorage.save(userId, name);
+    }
+
+    public void clearState(long chatId, long userId){
+        memoryStorage.clear(chatId, userId);
+    }
+
+    public void clearState(long userId){
+        memoryStorage.clear(userId);
+    }
+
+    public Map<String, Object> getStateData(long chatId, long userId){
+        return memoryStorage.getData(chatId, userId);
+    }
+
+    public Map<String, Object> getStateData(long userId){
+        return memoryStorage.getData(userId);
+    }
+
+    public GetUpdates getUpdates(){
+        return new GetUpdates(requestSender);
+    }
+
+    private Long getChatId(){
+        if (update.getMessage() != null) return update.getMessage().getChat().getId();
+        if (update.getCallbackQuery() != null) return update.getCallbackQuery().getMessage().getChat().getId();
+        if (update.getEditedMessage() != null) return update.getEditedMessage().getChat().getId();
+        if (update.getChannelPost() != null) return update.getChannelPost().getChat().getId();
+        if (update.getEditedChannelPost() != null) return update.getEditedMessage().getChat().getId();
+        if (update.getChatMember() != null) return update.getChatMember().getChat().getId();
+        if (update.getChatJoinRequest() != null) return update.getChatJoinRequest().getChat().getId();
+        if (update.getMyChatMember() != null) return update.getMyChatMember().getChat().getId();
+        return 0L;
+    }
+
+    private int getMessageId(){
+        if (update.getMessage() != null) return update.getMessage().getMessageId();
+        if (update.getCallbackQuery() != null) return update.getCallbackQuery().getMessage().getMessageId();
+        if (update.getEditedMessage() != null) return update.getEditedMessage().getMessageId();
+        if (update.getChannelPost() != null) return update.getChannelPost().getMessageId();
+        if (update.getEditedChannelPost() != null) return update.getEditedChannelPost().getMessageId();
+        return 0;
+    }
+
+}
