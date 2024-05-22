@@ -1,5 +1,8 @@
 # <p align="center">Telebo<i>f</i></p>
+<p align="center">Level up your telegram bot development with java 🔥</p>
+
 ## <p align="center">Supported Bot API version: <a href="https://core.telegram.org/bots/api#march-9-2023">6.6</a>
+<hr>
 
 ## Contents
 * [Setup Environment](#installation)
@@ -16,12 +19,12 @@
   * [Local Bot API Server](#local-bot-api-server)
   * [Logging](#logging)
   * [Proxy](#proxy)
-* [Handlers](#handlers)
+* [Types of Handlers](#types-of-handlers)
   
 
 ## Installation
 
-* Installation using maven :
+* Installation using maven 
 
 ```xml
 <dependecy>
@@ -104,7 +107,7 @@ class MyBot {
     client.onMessage(filter -> filter.commands("start"), new MessageHandler() {
       @Override
       public void handle(TelegramContext ctx, Message message) {
-        ctx.sendMessage("Welcome!").bind();
+        ctx.sendMessage("Hello, welcome to your first bot!").bind();
       }
     });
 
@@ -121,7 +124,7 @@ class MyBot {
 ```
 We have two handlers: `/start` command handler and `text` handler.
 
-The first handler handles `/start` command and send back a text `Welcome`.
+The first handler handles `/start` command and send back a text `Hello, welcome to your first bot!`.
 The second handler handles any incoming text and echoes this text.
 
 Our callback classes take two arguments: `et.telebof.TelegramContext` class and a class of an update which is being handled respectively.
@@ -204,8 +207,6 @@ public class MyBot {
   }
 }
 ```
-More [Handlers example](#handlers).
-
 
 ## Filtering Updates
 
@@ -456,11 +457,10 @@ Example for using reply markup
 ```java
 ReplyKeyboardMarkup markup = new ReplyKeyboardMarkup()
         .resizeKeyboard(true) // resize keyboard
-        .selective(false); // selective
-
-markup.add("A", "B", "C"); // 3 rows
-markup.add("D", "E"); // 2 rows
-markup.add(new KeyboardButton("F")); // at 1 row
+        
+markup.add("A", "B", "C"); // You can add String or 
+markup.add("D", "E"); 
+markup.add(new KeyboardButton("F")); // KeybaordButton class
 
 client.sendMssage("Hello, World!").replyMarkup(markup).bind();
 ```
@@ -484,7 +484,7 @@ inlineMarkup.addKeybaord(
 InlineKeybaordMarkup inlineMarkup = new InlineKeybaordMarkup(new InlineKeybaordButton[]{
   new InlineKeybaordButton("A").callbackData("a"), 
   new InlineKeybaordButton("B").callbackData("b")
-}, /* here you can specify its rowWidth or just leave it.*/);
+}, 1); // 1 rowWidth
 
 // also possible
 InlineKeybaordMarkup inlineMarkup = new InlineKeybaordMarkup(new InlineKeybaordButton[][]{
@@ -537,7 +537,7 @@ class MyWebhookBot{
 ```java
 import et.telebof.BotClient;
 
-String url = "https://example.com/bot{}/{}";
+String url = "https://example.com/";
 BotClient client = new BotClient.Builder("<TOKEN>")
         .localBotApiUrl(url)
         .build();
@@ -590,9 +590,10 @@ BotClient client = new BotClient.Builder("<TOKEN>")
         .build(); // build our client
 ```
 
-## Handlers
+## Types of Handlers
+There are 14 types of handlers
 
-### Message Handler
+#### Message Handler
 
 ```java
 import et.telebof.handlers.MessageHandler;
@@ -604,7 +605,7 @@ client.onMessage(filter -> true, new MessageHandler() {
 }); 
 ```
 
-### CallbackQuery handler
+#### CallbackQuery handler
 ```java
 import et.telebof.handlers.CallbackHandler;
 
@@ -616,7 +617,7 @@ client.onCallback(filter -> true, new CallbackHandler() {
 });
 ```
 
-### Inline Handler
+#### Inline Handler
 ```java
 import et.telebof.handlers.InlineHandler;
 
@@ -628,7 +629,7 @@ client.onInline(filter -> true, new InlineHandler() {
 });
 ```
 
-### Poll Handler
+#### Poll Handler
 
 ```java
 import et.telebof.handlers.InlineHandler;
@@ -641,7 +642,7 @@ client.onPoll(filter -> true, new PollHandler() {
 });
 ```
 
-### PollAnswer Handler
+#### PollAnswer Handler
 ```java
 import et.telebof.handlers.PollAnswerHandler;
 
@@ -653,7 +654,7 @@ client.onPollAnswer(filter -> true, new PollAnswerHandler() {
 });
 ```
 
-### Shipping Handler
+#### Shipping Handler
 ```java
 import et.telebof.handlers.ShippingHandler;
 
@@ -665,7 +666,7 @@ client.onShipping(filter -> true, new ShippingHandler() {
 });
 ```
 
-### ChannelPost Handler
+#### ChannelPost Handler
 ```java
 import et.telebof.handlers.ChannelPostHandler;
 
@@ -677,7 +678,7 @@ client.onChannelPost(filter -> true, new ChannelPostHandler() {
 });
 ```
 
-### PreCheckoutQuery Handler
+#### PreCheckoutQuery Handler
 ```java
 import et.telebof.handlers.PreCheckoutHandler;
 
@@ -690,7 +691,7 @@ client.onPreCheckout(filter -> true, new PreCheckoutHandler() {
 
 ```
 
-### EditedMessage Handler
+#### EditedMessage Handler
 ```java
 import et.telebof.handlers.EditedMessageHandler;
 
@@ -702,7 +703,7 @@ client.onEditedMessage(filter -> true, new EditedMessageHandler() {
 });
 ```
 
-### EditedChannelPost Handler
+#### EditedChannelPost Handler
 ```java
 import et.telebof.handlers.EditedChannelPostHandler;
 
@@ -714,7 +715,7 @@ client.onEditedChannelPost(filter -> true, new EditedChannelPostHandler() {
 });
 ```
 
-### MyChatMember Handler
+#### MyChatMember Handler
 ```java
 import et.telebof.handlers.MyChatMemberHandler;
 
@@ -726,7 +727,7 @@ client.onMyChatMember(filter -> true, new MyChatMemberHandler() {
 });
 ```
 
-### ChatMember Handler
+#### ChatMember Handler
 ```java
 import et.telebof.handlers.ChatMemberHandler;
 
@@ -738,7 +739,7 @@ client.onChatMember(filter -> true, new ChatMemberHandler() {
 });
 ```
 
-### ChosenInlineResult Handler
+#### ChosenInlineResult Handler
 ```java
 import et.telebof.handlers.ChosenInlineResultHandler;
 
