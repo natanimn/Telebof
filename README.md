@@ -140,21 +140,21 @@ of telegram `Message` update.
 - `chat_id` is an optional parameter, which means that you can pass its value or its value will be passed from `Message`
 object which was received from telegram.
 ```java
-client.sendMessage(message.getChat().getId(), "Hello, World!").bind();
+ctx.sendMessage(message.getChat().getId(), "Hello, World!").bind();
 
 // You can also specify yours
-client.sendMessage(123456789L, "Hello, World!").bind();
-client.sendMessage("@chatUsername", "Hello, World!").bind();
+ctx.sendMessage(123456789L, "Hello, World!").bind();
+ctx.sendMessage("@chatUsername", "Hello, World!").bind();
 
 // Or it's chat_id is passed from the message update received from telegram
-client.sendMessage("Hello, World!").bind();
+ctx.sendMessage("Hello, World!").bind();
 ```
 - `bind()` is an enclosing and request sender method. This means that before ending and sending request, you can pass 
 optional parameters and then send a request to telegram. For example `sendMessage` method has optional parameters like: 
 `parseMode`, `replyMarkup`. So you can pass their value for these parameters and send request to telegram.
 
 ```java
-client.sendMessage("*Hello, World*").parseMode(ParseMode.MARKDOWN).bind();
+ctx.sendMessage("*Hello, World*").parseMode(ParseMode.MARKDOWN).bind();
 ```
 
 Finally we start our bot by using `start()` which does not take any parameter and run our bot via **long polling.** 
@@ -498,17 +498,17 @@ InlineKeybaordMarkup inlineMarkup = new InlineKeybaordMarkup(new InlineKeybaordB
   } 
 )
 
-client.sendMessage("Press one button").replyMarkup(inlineMarkup).bind();
+ctx.sendMessage("Press one button").replyMarkup(inlineMarkup).bind();
 ```
 
 ### ForceReply
 ```java
-client.sendMessage("Can you tell me your name please?").replyMarkup(new ForceReply()).bind(); // ForceReply markup
+ctx.sendMessage("Can you tell me your name please?").replyMarkup(new ForceReply()).bind(); // ForceReply markup
 ```
 
 ### RemoveReplyKeyboard
 ```java
-client.sendMessage("There is no reply keyboard now").replyMarkup(new RemoveReplyKeybaord()).bind(); 
+ctx.sendMessage("There is no reply keyboard now").replyMarkup(new RemoveReplyKeybaord()).bind(); 
 ```
 
 
