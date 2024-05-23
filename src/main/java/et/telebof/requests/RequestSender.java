@@ -50,7 +50,7 @@ public class RequestSender {
         this.FILE_URL = "https://api.telegram.org/file/bot%s/%s";
 
         if (localBotAPiUrl != null && !localBotAPiUrl.isEmpty())
-            this.URL = localBotAPiUrl + "/%s/%s";
+            this.URL = localBotAPiUrl;
         else
             this.URL = "https://api.telegram.org/bot%s" + (useTestServer?"/test/%s":"/%s");
     }
