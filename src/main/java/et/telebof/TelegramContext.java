@@ -13,7 +13,7 @@ import java.util.Map;
  * This class contains all telegram methods.
  *
  * @author Natanim Negash
- * @version 1.0.0
+ * @version 1.1.0
  */
 
 @SuppressWarnings("unused")
@@ -841,6 +841,10 @@ public class TelegramContext {
         return new AnswerInlineQuery(inlineQueryId, results, this.requestSender);
     }
 
+    public AnswerInlineQuery answerInlineQuery(InlineQueryResult[] results) {
+        return new AnswerInlineQuery(update.getInlineQuery().getId(), results, this.requestSender);
+    }
+
     public AnswerWebAppQuery answerWebAppQuery(String webAppQueryId, InlineQueryResult result) {
         return new AnswerWebAppQuery(webAppQueryId, result, this.requestSender);
     }
@@ -899,6 +903,14 @@ public class TelegramContext {
 
     public SetGameScore setGameScore(long chatId, long userId, int score, int messageId) {
         return new SetGameScore(chatId, userId, score, messageId, this.requestSender);
+    }
+
+    public GetMyName getMyName(){
+        return new GetMyName(this.requestSender);
+    }
+
+    public SetMyName setMyName(){
+        return new SetMyName(this.requestSender);
     }
 
     public SetGameScore setGameScore(String inlineMessageId, long userId, int score) {
