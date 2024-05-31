@@ -6,6 +6,7 @@ public class ChatMemberUpdated {
     private Integer date;
     private ChatMember old_chat_member, new_chat_member;
     private ChatInviteLink invite_link;
+    private Boolean via_chat_folder_invite_link;
 
     public Chat getChat() {
         return chat;
@@ -29,5 +30,9 @@ public class ChatMemberUpdated {
 
     public ChatInviteLink getInviteLink() {
         return invite_link;
+    }
+
+    public Boolean getViaChatFolderInviteLink() {
+        return via_chat_folder_invite_link;
     }
 }
