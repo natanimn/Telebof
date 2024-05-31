@@ -1,6 +1,6 @@
 package et.telebof.requests;
 
-import et.telebof.Parser;
+import et.telebof.Util;
 import et.telebof.types.Chat;
 
 public class GetChat extends AbstractBaseRequest<GetChat, Chat> {
@@ -10,6 +10,6 @@ public class GetChat extends AbstractBaseRequest<GetChat, Chat> {
 
     @Override
     public Chat bind() {
-        return Parser.parse(requestSender.makeRequest(this), Chat.class);
+        return Util.parse(requestSender.makeRequest(this), Chat.class);
     }
 }

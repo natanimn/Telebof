@@ -6,8 +6,8 @@
 
     <groupId>et.telebof</groupId>
     <artifactId>telegrambot</artifactId>
-    <version>1.0.2</version>
-    <description>Level up your Telegram bot development with java</description>
+    <version>1.1.0</version>
+    <description>Easy and modern Telegram bot API for java</description>
     <name>Telebof</name>
     <packaging>jar</packaging>
     <licenses>
@@ -47,6 +47,16 @@
             <artifactId>junit</artifactId>
             <version>4.13.1</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>2.6.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>2.6.1</version>
         </dependency>
         <dependency>
             <groupId>com.google.auto.service</groupId>

@@ -1,6 +1,6 @@
 package et.telebof.requests;
 
-import et.telebof.Parser;
+import et.telebof.Util;
 import et.telebof.types.Update;
 import et.telebof.enums.Updates;
 import java.util.ArrayList;
@@ -41,8 +41,8 @@ public class GetUpdates extends AbstractBaseRequest<GetUpdates, List<Update>>{
     @SuppressWarnings("unchecked")
     public List<Update> bind() {
         Object response = requestSender.makeRequest(this);
-        List<Object> updateList = Parser.parse(response, List.class);
-        return Parser.parseList(updateList, Update.class);
+        List<Object> updateList = Util.parse(response, List.class);
+        return Util.parseList(updateList, Update.class);
     }
 }
 

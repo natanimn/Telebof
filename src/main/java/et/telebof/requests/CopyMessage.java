@@ -1,6 +1,6 @@
 package et.telebof.requests;
 
-import et.telebof.Parser;
+import et.telebof.Util;
 import et.telebof.types.MessageEntity;
 import et.telebof.types.MessageId;
 
@@ -23,6 +23,6 @@ public class CopyMessage extends DefaultParameters<CopyMessage, MessageId> {
     }
     @Override
     public MessageId bind() {
-        return Parser.parse(requestSender.makeRequest(this), MessageId.class);
+        return Util.parse(requestSender.makeRequest(this), MessageId.class);
     }
 }

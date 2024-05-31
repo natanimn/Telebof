@@ -4,7 +4,7 @@ import et.telebof.types.Markup;
 
 /**
  * @author Natanim Negash
- * @version 1.0.0
+ * @version 1.1.0
 
  */
 abstract public class DefaultParameters<T, R> extends AbstractBaseRequest<T, R> {

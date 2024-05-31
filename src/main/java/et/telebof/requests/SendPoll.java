@@ -1,7 +1,7 @@
 package et.telebof.requests;
 
 import et.telebof.enums.ParseMode;
-import et.telebof.Parser;
+import et.telebof.Util;
 import et.telebof.enums.PollType;
 import et.telebof.types.Markup;
 import et.telebof.types.Message;
@@ -85,6 +85,6 @@ public class SendPoll extends AbstractBaseRequest<SendPoll, Message> {
     @Override
     public Message bind() {
         Object r = requestSender.makeRequest(this);
-        return Parser.parse(r, Message.class);
+        return Util.parse(r, Message.class);
     }
 }

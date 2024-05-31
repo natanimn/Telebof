@@ -1,6 +1,6 @@
 package et.telebof.requests;
 
-import et.telebof.Parser;
+import et.telebof.Util;
 import et.telebof.types.ForumTopic;
 
 public class CreateForumTopic extends AbstractBaseRequest<CreateForumTopic, ForumTopic> {
@@ -19,6 +19,6 @@ public class CreateForumTopic extends AbstractBaseRequest<CreateForumTopic, Foru
 
     @Override
     public ForumTopic bind() {
-        return Parser.parse(requestSender.makeRequest(this), ForumTopic.class);
+        return Util.parse(requestSender.makeRequest(this), ForumTopic.class);
     }
 }

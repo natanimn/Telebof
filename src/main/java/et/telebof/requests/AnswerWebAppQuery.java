@@ -1,6 +1,6 @@
 package et.telebof.requests;
 
-import et.telebof.Parser;
+import et.telebof.Util;
 import et.telebof.types.InlineQueryResult;
 import et.telebof.types.SentWebAppMessage;
 
@@ -13,6 +13,6 @@ public class AnswerWebAppQuery extends AbstractBaseRequest<AnswerWebAppQuery, Se
 
     @Override
     public SentWebAppMessage bind() {
-        return Parser.parse(requestSender.makeRequest(this), SentWebAppMessage.class);
+        return Util.parse(requestSender.makeRequest(this), SentWebAppMessage.class);
     }
 }

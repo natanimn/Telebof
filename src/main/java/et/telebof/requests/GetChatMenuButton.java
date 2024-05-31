@@ -1,6 +1,6 @@
 package et.telebof.requests;
 
-import et.telebof.Parser;
+import et.telebof.Util;
 import et.telebof.types.MenuButton;
 
 public class GetChatMenuButton extends AbstractBaseRequest<GetChatMenuButton, MenuButton> {
@@ -14,6 +14,6 @@ public class GetChatMenuButton extends AbstractBaseRequest<GetChatMenuButton, Me
 
     @Override
     public MenuButton bind() {
-        return Parser.parse(requestSender.makeRequest(this), MenuButton.class);
+        return Util.parse(requestSender.makeRequest(this), MenuButton.class);
     }
 }

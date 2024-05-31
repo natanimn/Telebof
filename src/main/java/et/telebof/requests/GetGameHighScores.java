@@ -1,6 +1,6 @@
 package et.telebof.requests;
 
-import et.telebof.Parser;
+import et.telebof.Util;
 import et.telebof.types.GameHighScore;
 
 import java.util.List;
@@ -22,6 +22,6 @@ public class GetGameHighScores extends AbstractBaseRequest<GetGameHighScores, Li
     @Override
     @SuppressWarnings("unchecked")
     public List<GameHighScore> bind() {
-        return Parser.parseList(Parser.parse(requestSender.makeRequest(this), List.class), GameHighScore.class);
+        return Util.parseList(Util.parse(requestSender.makeRequest(this), List.class), GameHighScore.class);
     }
 }

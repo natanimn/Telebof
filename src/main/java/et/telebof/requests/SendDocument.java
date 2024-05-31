@@ -6,7 +6,7 @@ import java.io.File;import java.util.List;
 
 /**
  * @author Natanim Negash
- * @version 1.0.0
+ * @version 1.1.0
  */
 
 public class SendDocument extends DefaultParameters<SendDocument, Message> {

@@ -1,8 +1,9 @@
 # <p align="center">Telebo<i>f</i></p>
-<p align="center">Level up your telegram bot development with java 🔥</p>
+<p align="center">Easy and modern Telegram bot API for java.</p>
 
-## <p align="center">Supported Bot API version: <a href="https://core.telegram.org/bots/api#march-9-2023">6.6</a>
-<hr>
+
+## <p align="center">Supported Bot API version: 6.7</p>
+
 
 ## Contents
 * [Setup Environment](#installation)
@@ -10,19 +11,26 @@
 * [Available Types](#available-types) 
 * [Listening Updates](handling-updates)
 * [Filtering Updates](#filtering-updates)
+* [Types of Handlers](#types-of-handlers)
 * [Markup](#markup)
     * [Reply Keyboard Markup](#replymarkup)
     * [Inline Keyboard Markup](#inlinekeyboardmarkup)
     * [Remove Reply Keyboard](#removereplykeyboard)
     * [Force Reply](#forcereply)
+* [Inline Bot](#inline-bot)
 * [Advanced Usages](advanced-usages)
   * [Local Bot API Server](#local-bot-api-server)
   * [Logging](#logging)
   * [Proxy](#proxy)
-* [Types of Handlers](#types-of-handlers)
+* [Error Handling](#error-handling)
   
 
 ## Installation
+
+* Gradle
+```groovy
+implementation "et.telebof.1.1.0"
+```
 
 * Installation using maven 
 
@@ -30,10 +38,11 @@
 <dependecy>
     <groupId>et.telebof</groupId>
     <artifactId>telegrambot</artifactId>
-    <version>1.0.2</version>
+    <version>1.0.1</version>
 </dependecy>
 
 ```
+
 
 ### Your First Echo Bot
 
@@ -47,25 +56,19 @@ public class MyFirstBot {
   static final String TOKEN = "YOUR BOT TOKEN HERE";
 
   public static void main(String[] args) {
-    final BotClient client = new BotClient(TOKEN);
+    final BotClient bot = new BotClient(TOKEN);
 
     // Listening for /start command
-    client.onMessage(filter -> filter.commands("start"), new MessageHandler() {
-      @Override
-      public void handle(TelegramContext ctx, Message message) {
-        ctx.sendMessage("Hello, welcome to your first bot!").bind();
-      }
+    bot.onMessage(filter -> filter.commands("start"), (ctx, msg) -> {
+      ctx.reply("Hello, welcome to your first bot!").bind();
     });
 
     // Listening for any text
-    client.onMessage(filter -> filter.TEXT, new MessageHandler() {
-      @Override
-      public void handle(TelegramContext ctx, Message message) {
-        ctx.sendMessage(message.getText()).bind();
-      }
+    bot.onMessage(filter -> filter.TEXT, (ctx, msg) -> {
+      ctx.reply(message.getText()).bind();
     });
 
-    client.start(); // finally run the bot
+    bot.start(); // finally run the bot
   }
 
 }
@@ -73,7 +76,7 @@ public class MyFirstBot {
 **Do not worry if you do not understand what the above code mean, it will be explained in the next chapter.** 
 
 ## Available Types
-All Telegram types are defined in `et.telebof.types`. They are the same as Telegram types.
+All Telegram types are defined in `et.telebof.types`. And they are completely the same as Telegram types.
 
 ## Listening Updates
 ### Update
@@ -102,23 +105,17 @@ class MyBot {
 
     final String TOKEN = "Replace with your own bot token";
 
-    BotClient client = new BotClient(TOKEN);
+    BotClient bot = new BotClient(TOKEN);
 
-    client.onMessage(filter -> filter.commands("start"), new MessageHandler() {
-      @Override
-      public void handle(TelegramContext ctx, Message message) {
-        ctx.sendMessage("Hello, welcome to your first bot!").bind();
-      }
+    bot.onMessage(filter -> filter.commands("start"), (ctx, msg) -> {
+        ctx.reply("Hello, welcome to your first bot!").bind();
     });
 
-    client.onMessage(filter -> filter.TEXT, new MessageHandler() {
-      @Override
-      public void handle(TelegramContext ctx, Message message) {
-        ctx.sendMessage(message.getText()).bind();
-      }
+    bot.onMessage(filter -> filter.TEXT, (ctx, msg) -> {
+      ctx.reply(message.getText()).bind();
     });
 
-    client.start();
+    bot.start();
   }
 }
 ```
@@ -134,21 +131,10 @@ Now we are handling `Message` so our second parameter should be `et.telebof.type
 Through this class you can send messages, answer callback queries, answer inline queries and perform other telegram actions. And `et.telebof.types.Message` class is an object
 of telegram `Message` update.
 
-**Note**: All handlers are handled in the order in which they were registered.
+**IMPORTANT: All handlers are handled in the order in which they were registered.**
 
-- The method `sendMessage` sends message to specified `chat_id`.
-- `chat_id` is an optional parameter, which means that you can pass its value or its value will be passed from `Message`
-object which was received from telegram.
-```java
-ctx.sendMessage(message.getChat().getId(), "Hello, World!").bind();
+- The `reply` method is a shortage method of `sendMessage` and replies message to specified `chat_id` with `reply_to_message_id` argument.
 
-// You can also specify yours
-ctx.sendMessage(123456789L, "Hello, World!").bind();
-ctx.sendMessage("@chatUsername", "Hello, World!").bind();
-
-// Or it's chat_id is passed from the message update received from telegram
-ctx.sendMessage("Hello, World!").bind();
-```
 - `bind()` is an enclosing and request sender method. This means that before ending and sending request, you can pass 
 optional parameters and then send a request to telegram. For example `sendMessage` method has optional parameters like: 
 `parseMode`, `replyMarkup`. So you can pass their value for these parameters and send request to telegram.
@@ -158,55 +144,6 @@ ctx.sendMessage("*Hello, World*").parseMode(ParseMode.MARKDOWN).bind();
 ```
 
 Finally we start our bot by using `start()` which does not take any parameter and run our bot via **long polling.** 
-
-
-### Using Handlers
-
-Handlers are found in `et.telebof.Handlers`. They can be implemented through anonymous class:
-
-```java
-import et.telebof.BotClient;
-import et.telebof.TelegramContext;
-import et.telebof.handlers.MessageHandler;
-import et.telebof.handlers.MessageHandler;
-import et.telebof.types.Message;
-
-public class MyBot {
-  public static void main(String[] args) {
-    BotClient client = new BotClient.Builder("TOKEN").build();
-
-    client.onMessage(filter -> filter.commands("start"), new MessageHandler() {
-      @Override
-      public void handle(TelegramContext ctx, Message message) {
-      }
-    });
-  }
-}
-```
-
-Or using class:
-
-```java
-import et.telebof.BotClient;
-import et.telebof.TelegramContext;
-import et.telebof.handlers.MessageHandler;
-import et.telebof.types.Message;
-
-class StartCommand implements MessageHandler {
-  @Override
-  public void handle(TelegramContext ctx, Message message) {
-    // ...
-  }
-}
-
-public class MyBot {
-  public static void main(String[] args) {
-    BotClient client = new BotClient.Builder("TOKEN").build();
-
-    client.onMessage(filter -> filter.commands("start"), new StartCommand());
-  }
-}
-```
 
 ## Filtering Updates
 
@@ -271,71 +208,34 @@ These filter classes are used for filtering content of updates and separate the 
 - `filter.state(String ... names)` - filter current state.
 
 ```java
+// handles incoming texts
+bot.onMessage(filter -> filter.TEXT, (ctx, msg) -> {});
 
-// handling incoming texts
-client.onMessage(filter -> filter.TEXT, new MessageHandler() {
-    @Override
-    public void handle(TelegramContext ctx, Message message){
-
-    }
-});
-
-// handling incoming photos
-client.onMessage(filter -> filter.PHOTO, new MessageHandler() {
-    @Override
-    public void handle(TelegramContext ctx, Message message){
-
-    }
-});
+// handles incoming photos
+bot.onMessage(filter -> filter.PHOTO, (ctx, msg) -> {});
 
 
-// handling incoming videos
-client.onMessage(filter -> filter.VIDEO, new MessageHandler() {
-  @Override
-  public void handle(TelegramContext ctx, Message message){
-
-  }
-});
+// handles incoming videos
+bot.onMessage(filter -> filter.VIDEO, (ctx, msg) -> {});
 ```
-### Two or more filters at once
+### Combining filters
 You may want to handle `text` and `photo` in one handler or a `text` in different chats. To do so use logical operators 
 (&&, ||, !) and combine them together. 
 
 Here are some examples
 
 ```java
+// handles incoming text in private chat
+bot.onMessage(filter -> filter.TEXT && filter.PRIVATE, (ctx, msg) -> {});
 
 // handles an incoming text or photo
-client.onMessage(filter -> filter.TEXT || filter.PHOTO, new MessageHandler(){
-    @Override
-    public void handle(TelegramContext ctx, Message message){
-        
-    }
-});
-
-// handles incoming text in private chat
-client.onMessage(filter -> filter.TEXT && filter.PRIVATE, new MessageHandler() {
-    @Override
-    public void handle(TelegramContext ctx, Message message){
-
-    }
-});
+bot.onMessage(filter -> filter.TEXT || filter.PHOTO, (ctx, msg) -> {});
 
 // handles incoming text in supergroup chat 
-client.onMessage(filter -> filter.TEXT && filter.SUPERGROUP, new MessageHandler() {
-    @Override
-    public void handle(TelegramContext ctx, Message message){
-
-    }
-});
+bot.onMessage(filter -> filter.TEXT && filter.SUPERGROUP, (ctx, msg) -> {});
 
 // handles incoming audio or video in private chat
-client.onMessage(filter -> filter.PRIVATE && (filter.AUDIO || filter.VIDEO), new MessageHandler() {
-    @Override
-    public void handle(TelegramContext ctx, Message message){
-
-    }
-});
+bot.onMessage(filter -> filter.PRIVATE && (filter.AUDIO || filter.VIDEO), (ctx, msg) -> {});
 
 ```
 ### Writing your own filter
@@ -358,7 +258,7 @@ class IsNumberFilter implements CustomFilter {
   public boolean check(Update update) {
     Message message = update.message;
     try {
-      int number = Integer.parseInt(message.text);
+      int number = Integer.parseInt(message.getText());
       return true; // If it is parsed without any error, then it is number
     } catch (NumberFormatException e) {
       // If the text is not number
@@ -370,17 +270,14 @@ class IsNumberFilter implements CustomFilter {
 class NumberFilterBot {
   public static void main(String[] args) {
     // ...
-    client.onMessage(filter -> filter.TEXT && filter.customFilter(new IsNumberFilter()), new MessageHandler() {
-      @Override
-      public void handle(TelegramContext ctx, Message message) {
+    bot.onMessage(filter -> filter.TEXT && filter.customFilter(new IsNumberFilter()), (ctx, msg) -> {
         ctx.sendMessage("It is number").bind();
-      }
     });
   }
 }
 ```
 
-### Other Filters
+### Advanced Filters
 
 There are some advanced filters for handling incoming `command` from user, `pressing button`(callback data), `inline query`. These are 
 `filter.commands`, `filter.callbackData` and `filter.inlineQuery` respectively.
@@ -390,64 +287,105 @@ Example for handling commands using `filter.commands`
 ```java
 
 // handles /start command
-client.onMessage(filter -> filter.commands("start"), new MessageHandler() {
-    @Override
-    public void handle(TelegramContext ctx, Message message) {
-        // ...
-    }
-});
+bot.onMessage(filter -> filter.commands("start"), (ctx, msg) -> {});
 
 // handles /help command
-client.onMessage(filter -> filter.commands("help"), new MessageHandler() {
-    @Override
-    public void handle(TelegramContext ctx, Message message) {
-        //...
-    }
-})
+bot.onMessage(filter -> filter.commands("help"), (ctx, msg) -> {});
 ```
 
 Example for handling inline button through its callback data using `filter.callbackData`
 
 ```java
 // handles inline button which its callback data equals with "A"
-client.onCallback(filter -> filter.callbackData("A"), new CallbackHandler() {
-    @Override
-    public void handle(TelegramContext ctx, CallbackQuery callbackQuery) {
+bot.onCallback(filter -> filter.callbackData("A"), (ctx, cq) -> {
         ctx.answerCallbackQuery("You pressed A button!").bind();
-    }
 });
 ```
 
 Example for handling inline query using `filter.inlineQuery`
 ```java
 // handles an inline query which its query equals with a word "hello"
-client.onInline(filter -> filter.inlineQuery("hello"), new InlineHandler() {
-    @Override
-    public void handle(TelegramContext ctx, InlineQuery inlineQuery) {
-        // ...
-    }
-});
+bot.onInline(filter -> filter.inlineQuery("hello"), (ctx, query) -> {});
 ```
 
-### Conversational Filter
-There is another special filter to make conversations with a bot called `filter.state`.
-
+### State Filter
+There is another special filter to make conversations with a bot called `state filter`.
 ```java
-client.onMessage(filter -> filter.commands("start"), new MessageHandler() {
-  @Override
-  public void handle(TelegramContext ctx, Message message) {
+bot.onMessage(filter -> filter.commands("start"), (ctx, msg) -> {
     ctx.sendMessage("What is your name?").bind();
     ctx.setState(message.getFrom().getId(), "name"); // set our state to `name`. You can set whatever
-  }
 });
 
-client.onMessage(filter -> filter.state("name") && filter.TEXT, new MessageHandler() {
-  @Override
-  public void handle(TelegramContext ctx, Message message) {
-    ctx.sendMessage(String.format("Your name is %s", message.getText()));
+bot.onMessage(filter -> filter.state("name") && filter.TEXT, (ctx, msg) -> {
+    ctx.sendMessage(String.format("Your name is %s", msg.getText()));
     ctx.clearState(message.getFrom().getId());
   }
 });
+```
+
+## Types of Handlers
+There are 14 types of handlers to be handled
+
+#### Message Handler
+
+```java
+bot.onMessage(filter -> true, (ctx, msg) -> {}); 
+```
+#### CallbackQuery handler
+```java
+bot.onCallback(filter -> true, (ctx, cq) -> {});
+```
+#### Inline Handler
+```java
+bot.onInline(fileter -> true, (ctx, query) -> {} );
+```
+#### Poll Handler
+```java
+bot.onPoll(filter -> true, (ctx, poll) -> {});
+```
+
+#### PollAnswer Handler
+```java
+bot.onPoll(filter -> true, (ctx, pa) -> {});
+```
+#### Shipping Handler
+```java
+bot.onShipping(filter -> true, (ctx, shipping) -> {});
+```
+
+#### ChannelPost Handler
+```java
+bot.onChannelPost(filter -> true, (ctx, cp) -> {});
+```
+
+#### PreCheckoutQuery Handler
+```java
+bot.onPreCheckout(filter -> true, (ctx, pcq) -> {});
+```
+
+#### EditedMessage Handler
+```java
+bot.onEditedMessage(filter -> true, (ctx, em) -> {});
+```
+
+#### EditedChannelPost Handler
+```java
+bot.onEditedChannelPost(filter -> true, (ctx, ecp) -> {});
+```
+
+#### MyChatMember Handler
+```java
+bot.onMychatMember(filter -> true, (ctx, mcm) -> {});
+```
+
+#### ChatMember Handler
+```java
+bot.onChatMember(filter -> true, (ctx, cm) -> {});
+```
+
+#### ChosenInlineResult Handler
+```java
+bot.onChosenInlineResult(filter -> true, (ctx, cir) -> {});
 ```
 
 ## Markups
@@ -471,14 +409,11 @@ example for using InlineKeyboardMarkup
 ```java
 InlineKeybaordMarkup inlineMarkup = new InlineKeybaordMarkup();
 
-// You can specify rowWidth, default is 3
-markup.rowWidth(2); // row width set to 2
-
 inlineMarkup.addKeybaord(
   new InlineKeybaordButton("A").callbackData("a"), 
   new InlineKeybaordButton("C").callbackData("b"), 
   new InlineKeybaordButton("Url").url("www.example.com")
-); // at 3 rowWidth 
+); // 3 keyboards on a row 
 
 // also  possible
 InlineKeybaordMarkup inlineMarkup = new InlineKeybaordMarkup(new InlineKeybaordButton[]{
@@ -511,6 +446,27 @@ ctx.sendMessage("Can you tell me your name please?").replyMarkup(new ForceReply(
 ctx.sendMessage("There is no reply keyboard now").replyMarkup(new RemoveReplyKeybaord()).bind(); 
 ```
 
+## Inline Bot
+
+```java
+import et.telebof.BotClient;
+
+public class InlineBot {
+  public static void main(String[] args) {
+    //...
+    
+    bot.onInline(filter -> filter.ZERO_INLINE_QUERY, (ctx, query) -> {
+      InlineQueryResult result = new InlineQueryResultArticle("123")
+              .title("Write something")
+              .description("click here")
+              .inputMessageContent(new InputMessageContent().messageText("Please write something"));
+
+      ctx.answerInlineQuery(query.getId(), new InlineQueryResult[]{result}).bind();
+    });
+    
+  }
+}
+```
 
 ## Using Webhook
 ```java
@@ -521,10 +477,10 @@ class MyWebhookBot{
         Webhook webhook = new Webhook("www.example.com", "/bot"); // URL and path respectively
         webhook.certificate(new File(""));
         //...
-        client.setWebhook(webhook); // set webhook
+        bot.setWebhook(webhook); // set webhook
 
         //... 
-        client.start(); // start our bot using webhook
+        bot.start(); // start our bot using webhook
 
     }
 }
@@ -538,7 +494,7 @@ class MyWebhookBot{
 import et.telebof.BotClient;
 
 String url = "https://example.com/bot%s/%s";
-BotClient client = new BotClient.Builder("<TOKEN>")
+BotClient bot = new BotClient.Builder("<TOKEN>")
         .localBotApiUrl(url)
         .build();
 ```
@@ -549,7 +505,7 @@ log current status of the bot.
 ```java
 import et.telebof.BotClient;
 
-BotClient client = new BotClient.Builder("<TOKEN>")
+BotClient bot = new BotClient.Builder("<TOKEN>")
         .log(true)
         .build();
 ```
@@ -566,7 +522,7 @@ InetSocketAddress address = new InetSocketAddress(80, "127.97.91"); /* This is j
 own port and hostname respectively*/ 
 
 Proxy proxy = new Proxy(Proxy.Type.SOCKS, address);
-BotClient client = new BotClient
+BotClient bot = new BotClient
         .Builder("<TOKEN>")
         .proxy(proxy)
         .build();
@@ -577,176 +533,26 @@ import et.telebof.BotClient;
 import et.telebof.enums.ParseMode;
 import et.telebof.enums.Updates;
 
-BotClient client = new BotClient.Builder("<TOKEN>")
+BotClient bot = new BotClient.Builder("<TOKEN>")
         .log(true) // Log current status
         .skipOldUpdates(false) // Receive updates sent last 24 hours 
         .defaultParseMode(ParseMode.HTML) // Default parse mode applied to all sendXyz methods
         .limit(10) // Limiting how many updates should be received at maximum per request 
         .useTestServer(false) // Using test server
         .timeout(30) // timeout
-        .offset(0) // offset
+        .offset(-1) // offset
         .allowedUpdates(new Updates[]{Updates.MESSAGE, Updates.CALLBACK_QUERY}) // Specifying which update should be received 
         .proxy(null) // proxy
         .build(); // build our client
 ```
 
-## Types of Handlers
-There are 14 types of handlers
-
-#### Message Handler
+## Error Handling
 
 ```java
-import et.telebof.handlers.MessageHandler;
-client.onMessage(filter -> true, new MessageHandler() {
-  @Override
-  public void handle(TelegramContext ctx, Message message) {
-    // ...
-  }
-}); 
-```
 
-#### CallbackQuery handler
-```java
-import et.telebof.handlers.CallbackHandler;
-
-client.onCallback(filter -> true, new CallbackHandler() {
-  @Override
-  public void handle(TelegramContext ctx, CallbackQuery callbackQuery) {
-
-  }
-});
-```
-
-#### Inline Handler
-```java
-import et.telebof.handlers.InlineHandler;
-
-client.onInline(filter -> true, new InlineHandler() {
-  @Override
-  public void handle(TelegramContext ctx, InlineQuery inlineQuery) {
-  
-    }
-});
-```
-
-#### Poll Handler
-
-```java
-import et.telebof.handlers.InlineHandler;
-
-client.onPoll(filter -> true, new PollHandler() {
-  @Override
-  public void handle(TelegramContext ctx, Poll poll) {
-
-  }
-});
-```
-
-#### PollAnswer Handler
-```java
-import et.telebof.handlers.PollAnswerHandler;
-
-client.onPollAnswer(filter -> true, new PollAnswerHandler() {
-  @Override
-  public void handle(TelegramContext ctx, PollAnswer pollAnswer) {
-
-  }
-});
-```
-
-#### Shipping Handler
-```java
-import et.telebof.handlers.ShippingHandler;
-
-client.onShipping(filter -> true, new ShippingHandler() {
-  @Override
-  public boolean handle(TelegramContext ctx, ShippingQuery shippingQuery) {
-
-  }
-});
-```
-
-#### ChannelPost Handler
-```java
-import et.telebof.handlers.ChannelPostHandler;
-
-client.onChannelPost(filter -> true, new ChannelPostHandler() {
-  @Override
-  public void handle(TelegramContext ctx, Message message) {
-
-  }
-});
-```
-
-#### PreCheckoutQuery Handler
-```java
-import et.telebof.handlers.PreCheckoutHandler;
-
-client.onPreCheckout(filter -> true, new PreCheckoutHandler() {
-    @Override
-    public void handle(TelegramContext ctx, PreCheckoutQuery preCheckoutQuery) {
-
-    }
-  });
-
-```
-
-#### EditedMessage Handler
-```java
-import et.telebof.handlers.EditedMessageHandler;
-
-client.onEditedMessage(filter -> true, new EditedMessageHandler() {
-  @Override
-  public void handle(TelegramContext ctx, Message editedMessage) {
-
-  }
-});
-```
-
-#### EditedChannelPost Handler
-```java
-import et.telebof.handlers.EditedChannelPostHandler;
-
-client.onEditedChannelPost(filter -> true, new EditedChannelPostHandler() {
-  @Override
-  public void handle(TelegramContext ctx, Message editedChannelPost) {
-    
-  }
-});
-```
-
-#### MyChatMember Handler
-```java
-import et.telebof.handlers.MyChatMemberHandler;
-
-client.onMyChatMember(filter -> true, new MyChatMemberHandler() {
-  @Override
-  public void handle(TelegramContext ctx, ChatMemberUpdated chatMemberUpdated) {
-
-  }
-});
-```
-
-#### ChatMember Handler
-```java
-import et.telebof.handlers.ChatMemberHandler;
-
-client.onChatMember(filter -> true, new ChatMemberHandler() {
-  @Override
-  public void handle(TelegramContext ctx, ChatMemberUpdated chatMemberUpdated) {
-
-  }
-});
-```
-
-#### ChosenInlineResult Handler
-```java
-import et.telebof.handlers.ChosenInlineResultHandler;
-
-client.onChosenInlineResult(filter -> true, new ChosenInlineResultHandler() {
-  @Override
-  public void handle(TelegramContext ctx, ChosenInlineResult chosenInlineResult) {
-
-  }
-});
+try{     
+    ctx.sendMessage("Hello, World").bind();    
+} catch(TelegramApiException apiException){
+    System.out.println(apiException.getDescription());
+}
 ```

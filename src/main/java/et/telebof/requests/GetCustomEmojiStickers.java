@@ -1,6 +1,6 @@
 package et.telebof.requests;
 
-import et.telebof.Parser;
+import et.telebof.Util;
 import et.telebof.types.Sticker;
 import java.util.List;
 
@@ -12,6 +12,6 @@ public class GetCustomEmojiStickers extends AbstractBaseRequest<GetCustomEmojiSt
     @Override
     @SuppressWarnings("unchecked")
     public List<Sticker> bind() {
-        return Parser.parseList(Parser.parse(requestSender.makeRequest(this), List.class), Sticker.class);
+        return Util.parseList(Util.parse(requestSender.makeRequest(this), List.class), Sticker.class);
     }
 }

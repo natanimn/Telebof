@@ -1,6 +1,6 @@
 package et.telebof.requests;
 
-import et.telebof.Parser;
+import et.telebof.Util;
 import et.telebof.types.ChatMember;
 
 import java.util.List;
@@ -13,6 +13,6 @@ public class GetChatAdministrators extends AbstractBaseRequest<GetChatAdministra
     @Override
     @SuppressWarnings("unchecked")
     public List<ChatMember> bind() {
-        return Parser.parseList(Parser.parse(requestSender.makeRequest(this), List.class), ChatMember.class);
+        return Util.parseList(Util.parse(requestSender.makeRequest(this), List.class), ChatMember.class);
     }
 }

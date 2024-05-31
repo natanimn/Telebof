@@ -1,6 +1,6 @@
 package et.telebof.requests;
 
-import et.telebof.Parser;
+import et.telebof.Util;
 import et.telebof.types.User;
 
 public class GetMe extends AbstractBaseRequest<GetMe, User> {
@@ -10,6 +10,6 @@ public class GetMe extends AbstractBaseRequest<GetMe, User> {
 
     @Override
     public User bind() {
-        return Parser.parse(requestSender.makeRequest(this), User.class);
+        return Util.parse(requestSender.makeRequest(this), User.class);
     }
 }

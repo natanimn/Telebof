@@ -1,6 +1,6 @@
 package et.telebof.requests;
 
-import et.telebof.Parser;
+import et.telebof.Util;
 import et.telebof.types.ChatInviteLink;
 
 public class CreateChatInviteLink extends AbstractBaseRequest<CreateChatInviteLink, ChatInviteLink> {
@@ -29,6 +29,6 @@ public class CreateChatInviteLink extends AbstractBaseRequest<CreateChatInviteLi
 
     @Override
     public ChatInviteLink bind() {
-        return Parser.parse(requestSender.makeRequest(this), ChatInviteLink.class);
+        return Util.parse(requestSender.makeRequest(this), ChatInviteLink.class);
     }
 }

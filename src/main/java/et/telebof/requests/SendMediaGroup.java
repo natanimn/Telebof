@@ -1,7 +1,7 @@
 package et.telebof.requests;
 
 import et.telebof.BotLog;
-import et.telebof.Parser;
+import et.telebof.Util;
 import et.telebof.types.InputMedia;
 import et.telebof.types.Markup;
 import et.telebof.types.Message;
@@ -35,7 +35,7 @@ public class SendMediaGroup extends DefaultParameters<SendMediaGroup, List<Messa
     @SuppressWarnings("unchecked")
     public List<Message> bind() {
         Object result = requestSender.makeRequest(this);
-        List<Object> objects = Parser.parse(result, List.class);
-        return Parser.parseList(objects, Message.class);
+        List<Object> objects = Util.parse(result, List.class);
+        return Util.parseList(objects, Message.class);
     }
 }

@@ -1,6 +1,6 @@
 package et.telebof.filters;
 
-import et.telebof.helpers.Util;
+import et.telebof.Util;
 import et.telebof.TelegramContext;
 import et.telebof.types.Update;
 import et.telebof.states.StateMemoryStorage;

@@ -1,6 +1,6 @@
 package et.telebof.requests;
 
-import et.telebof.Parser;
+import et.telebof.Util;
 import et.telebof.types.BotCommand;
 import et.telebof.types.BotCommandScope;
 
@@ -22,6 +22,6 @@ public class GetMyCommands extends AbstractBaseRequest<GetMyCommands, List<BotCo
     @Override
     @SuppressWarnings("unchecked")
     public List<BotCommand> bind() {
-        return Parser.parseList(Parser.parse(requestSender.makeRequest(this), List.class), BotCommand.class);
+        return Util.parseList(Util.parse(requestSender.makeRequest(this), List.class), BotCommand.class);
     }
 }

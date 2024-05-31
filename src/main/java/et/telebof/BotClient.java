@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Proxy;
 import java.nio.charset.StandardCharsets;
+import java.security.KeyException;
 import java.util.List;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -28,6 +29,7 @@ import et.telebof.requests.RequestSender;
 import et.telebof.requests.GetWebhookInfo;
 import et.telebof.requests.DeleteWebhook;
 
+import javax.print.attribute.standard.Finishings;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.logging.Level;
@@ -37,7 +39,7 @@ import java.util.logging.Level;
  *
  * <p>Using this class you can do: create Handlers, delete webhook and set webhook.
  @author Natanim Negash
- @version 1.0.0
+ @version 1.1.0
  */
 
 
@@ -90,10 +92,10 @@ final public class BotClient {
                     .limit(limit)
                     .timeout(timeout);
         this.storage = new StateMemoryStorage();
-        if (log) BotLog.logger.setLevel(Level.CONFIG);
+        if (log) BotLog.logger.setLevel(Level.ALL);
         else BotLog.logger.setLevel(Level.OFF);
-        
-        BotLog.debug("BotClient has been initialized");
+
+        BotLog.info("BotClient initialized");
     }
 
     public BotClient(String botToken){
@@ -291,9 +293,9 @@ final public class BotClient {
             server.createContext(path, httpExchange -> {
                 if (httpExchange.getRequestMethod().equals("POST")){
                     String response = getString(httpExchange);
-                    ApiResponse apiResponse = Parser.parseApiResponse(response);
-                    List<Object> objects = Parser.parse(apiResponse.getResult(), List.class);
-                    List<Update> updates = Parser.parseList(objects, Update.class);
+                    ApiResponse apiResponse = Util.parseApiResponse(response);
+                    List<Object> objects = Util.parse(apiResponse.getResult(), List.class);
+                    List<Update> updates = Util.parseList(objects, Update.class);
                     httpExchange.sendResponseHeaders(200, response.length());
                     OutputStream outputStream = httpExchange.getResponseBody();
                     outputStream.write("!".getBytes());
@@ -324,6 +326,7 @@ final public class BotClient {
     private void retrieveUpdates(){
         if (skipOldUpdates) {
             getUpdates.offset(-1).bind();
+            BotLog.info("Old updates are skipped");
             skipOldUpdates = false;
         }
 
@@ -367,12 +370,7 @@ final public class BotClient {
         for (Map.Entry<FilterExecutor, MessageHandler> entry: messageHandlers.entrySet()){
             FilterExecutor filterExecutor = entry.getKey();
             MessageHandler messageHandler = entry.getValue();
-            boolean executed;
-            try {
-                executed = filterExecutor.execute(filter);
-            } catch (Exception e){
-                continue;
-            }
+            boolean executed = filterExecutor.execute(filter);
             if (executed){
                 messageHandler.handle(context, update.getMessage());
                 break;
@@ -385,13 +383,8 @@ final public class BotClient {
         for (Map.Entry<FilterExecutor, EditedMessageHandler> entry: editedMessages.entrySet()){
             FilterExecutor filterExecutor = entry.getKey();
             EditedMessageHandler editedMessageHandler = entry.getValue();
-            boolean executed;
-            try {
-                executed = filterExecutor.execute(filter);
-            } catch (Exception e){
-                continue;
-            }
 
+            boolean executed = filterExecutor.execute(filter);
             if (executed){
                 editedMessageHandler.handle(context, update.getEditedMessage());
                 break;
@@ -403,13 +396,7 @@ final public class BotClient {
         for (Map.Entry<FilterExecutor, ChannelPostHandler> entry: channelPostHandlers.entrySet()){
             FilterExecutor filterExecutor = entry.getKey();
             ChannelPostHandler channelPostHandler = entry.getValue();
-            boolean executed;
-            try {
-                executed = filterExecutor.execute(filter);
-            } catch (Exception e){
-                continue;
-            }
-
+            boolean executed = filterExecutor.execute(filter);
             if (executed){
                 channelPostHandler.handle(context, update.getChannelPost());
                 break;
@@ -421,12 +408,7 @@ final public class BotClient {
         for (Map.Entry<FilterExecutor, EditedChannelPostHandler> entry: editedChannelPostHandlers.entrySet()){
             FilterExecutor filterExecutor = entry.getKey();
             EditedChannelPostHandler editedChannelPostHandler = entry.getValue();
-            boolean executed;
-            try {
-                executed = filterExecutor.execute(filter);
-            } catch (Exception e){
-                continue;
-            }
+            boolean executed = filterExecutor.execute(filter);
             if (executed){
                 editedChannelPostHandler.handle(context, update.getEditedChannelPost());
                 break;
@@ -438,13 +420,7 @@ final public class BotClient {
         for (Map.Entry<FilterExecutor, InlineHandler> entry: inlineQueryHandlers.entrySet()){
             FilterExecutor filterExecutor = entry.getKey();
             InlineHandler inlineHandler = entry.getValue();
-            boolean executed;
-            try {
-                executed = filterExecutor.execute(filter);
-            } catch (Exception e){
-                continue;
-            }
-
+            boolean executed = filterExecutor.execute(filter);
             if (executed){
                 inlineHandler.handle(context, update.getInlineQuery());
                 break;
@@ -456,13 +432,7 @@ final public class BotClient {
         for (Map.Entry<FilterExecutor, CallbackHandler> entry: callbackQueryHandlers.entrySet()){
             FilterExecutor filterExecutor = entry.getKey();
             CallbackHandler callbackHandler = entry.getValue();
-            boolean executed;
-            try {
-                executed = filterExecutor.execute(filter);
-            } catch (Exception e){
-                continue;
-            }
-
+            boolean executed = filterExecutor.execute(filter);
             if (executed){
                 callbackHandler.handle(context, update.getCallbackQuery());
                 break;
@@ -474,13 +444,7 @@ final public class BotClient {
         for (Map.Entry<FilterExecutor, ChosenInlineResultHandler> entry: chosenInlineResultHandlers.entrySet()){
             FilterExecutor filterExecutor = entry.getKey();
             ChosenInlineResultHandler chosenInlineResultHandler = entry.getValue();
-            boolean executed;
-            try {
-                executed = filterExecutor.execute(filter);
-            } catch (Exception e){
-                continue;
-            }
-
+            boolean executed = filterExecutor.execute(filter);
             if (executed){
                 chosenInlineResultHandler.handle(context, update.getChosenInlineResult());
                 break;
@@ -492,13 +456,7 @@ final public class BotClient {
         for (Map.Entry<FilterExecutor, ShippingHandler> entry: shippingHandlers.entrySet()){
             FilterExecutor filterExecutor = entry.getKey();
             ShippingHandler shippingHandler = entry.getValue();
-            boolean executed;
-            try {
-                executed = filterExecutor.execute(filter);
-            } catch (Exception e){
-                continue;
-            }
-
+            boolean executed = filterExecutor.execute(filter);
             if (executed){
                 shippingHandler.handle(context, update.getShippingQuery());
                 break;
@@ -510,13 +468,7 @@ final public class BotClient {
         for (Map.Entry<FilterExecutor, PreCheckoutHandler> entry: preCheckoutHandlers.entrySet()){
             FilterExecutor filterExecutor = entry.getKey();
             PreCheckoutHandler preCheckoutHandler = entry.getValue();
-            boolean executed;
-            try {
-                executed = filterExecutor.execute(filter);
-            } catch (Exception e){
-                continue;
-            }
-
+            boolean executed = filterExecutor.execute(filter);
             if (executed){
                 preCheckoutHandler.handle(context, update.getPreCheckoutQuery());
                 break;
@@ -528,13 +480,7 @@ final public class BotClient {
         for (Map.Entry<FilterExecutor, PollHandler> entry: pollHandlers.entrySet()){
             FilterExecutor filterExecutor = entry.getKey();
             PollHandler pollHandler = entry.getValue();
-            boolean executed;
-            try {
-                executed = filterExecutor.execute(filter);
-            } catch (Exception e){
-                continue;
-            }
-
+            boolean executed = filterExecutor.execute(filter);
             if (executed){
                 pollHandler.handle(context, update.getPoll());
                 break;
@@ -546,13 +492,7 @@ final public class BotClient {
         for (Map.Entry<FilterExecutor, PollAnswerHandler> entry: pollAnswerHandlers.entrySet()){
             FilterExecutor filterExecutor = entry.getKey();
             PollAnswerHandler pollAnswerHandler = entry.getValue();
-            boolean executed;
-            try {
-                executed = filterExecutor.execute(filter);
-            } catch (Exception e){
-                continue;
-            }
-
+            boolean executed = filterExecutor.execute(filter);
             if (executed){
                 pollAnswerHandler.handle(context, update.getPollAnswer());
                 break;
@@ -564,12 +504,7 @@ final public class BotClient {
         for (Map.Entry<FilterExecutor, MyChatMemberHandler> entry: myChatMemberHandlers.entrySet()){
             FilterExecutor filterExecutor = entry.getKey();
             MyChatMemberHandler myChatMemberHandler = entry.getValue();
-            boolean executed;
-            try {
-                executed = filterExecutor.execute(filter);
-            } catch (Exception e){
-                continue;
-            }
+            boolean executed = filterExecutor.execute(filter);
             if (executed){
                 myChatMemberHandler.handle(context, update.getMyChatMember());
                 break;
@@ -581,13 +516,7 @@ final public class BotClient {
         for (Map.Entry<FilterExecutor, ChatMemberHandler> entry: chatMemberHandlers.entrySet()){
             FilterExecutor filterExecutor = entry.getKey();
             ChatMemberHandler chatMemberHandler = entry.getValue();
-            boolean executed;
-            try {
-                executed = filterExecutor.execute(filter);
-            } catch (Exception e){
-                continue;
-            }
-
+            boolean executed = filterExecutor.execute(filter);
             if (executed){
                 chatMemberHandler.handle(context, update.getChatMember());
                 break;
@@ -599,13 +528,7 @@ final public class BotClient {
         for (Map.Entry<FilterExecutor, ChatJoinRequestHandler> entry: chatJoinRequestHandlers.entrySet()){
             FilterExecutor filterExecutor = entry.getKey();
             ChatJoinRequestHandler chatJoinRequestHandler = entry.getValue();
-            boolean executed;
-            try {
-                executed = filterExecutor.execute(filter);
-            } catch (Exception e){
-                continue;
-            }
-
+            boolean executed = filterExecutor.execute(filter);
             if (executed){
                 chatJoinRequestHandler.handle(context, update.getChatJoinRequest());
                 break;
@@ -621,28 +544,28 @@ final public class BotClient {
                 if (!updatesQueue.isEmpty()) updatesQueue.forEach(this::notifyUpdate);
             } catch (TelegramError var1) {
                 throw var1;
-            } catch (TelegramApiException var2){
-                if (var2.getParameters()!=null){
-                    int delay = ((Double) (var2.getParameters().get("retry_after"))).intValue();
+            } catch (TelegramApiException apiException){
+                if (apiException.getParameters()!=null){
+                    int delay = ((Double) (apiException.getParameters().get("retry_after"))).intValue();
                     BotLog.info(String.format("Waiting for %d seconds", delay));
                     if (BotLog.logger.getLevel() == Level.OFF)
-                        var2.printStackTrace();
-                    else BotLog.error(var2.getDescription());
+                        apiException.printStackTrace();
+                    else BotLog.error(apiException.getDescription());
                     BotClient.this.sleep(delay);
                 } else {
                     if (BotLog.logger.getLevel() == Level.OFF)
-                        var2.printStackTrace();
-                    else BotLog.error(var2.getDescription());
+                        apiException.printStackTrace();
+                    else BotLog.error(apiException.getDescription());
                 }
-            } catch (ConnectionError var3){
+            } catch (ConnectionError connectionError){
                 if (BotLog.logger.getLevel() == Level.OFF)
-                    var3.printStackTrace();
-                else BotLog.error(var3.getMessage());
+                    connectionError.printStackTrace();
+                else BotLog.error(connectionError.getMessage());
                 BotClient.this.sleep(3);
-            } catch (RuntimeException var4) {
+            } catch (RuntimeException exception) {
                 if (BotLog.logger.getLevel() == Level.OFF)
-                    var4.printStackTrace();
-                else BotLog.error(var4.getMessage());
+                    exception.printStackTrace();
+                else BotLog.error(exception.getMessage());
 
             } finally {
                 updatesQueue.clear();
@@ -655,8 +578,9 @@ final public class BotClient {
     private void sleep(int seconds){
         try{
             Thread.sleep(1000L * seconds);
-        } catch (Exception ignored){}
-
+        } catch (Exception exception){
+            throw new RuntimeException(exception);
+        }
     }
 
     public void start(){
@@ -667,7 +591,7 @@ final public class BotClient {
             processWebhook();
         } else {
             BotLog.info("Bot started running via longPolling");
-            deleteWebhook();
+            // deleteWebhook();
             startPolling();
         }
     }

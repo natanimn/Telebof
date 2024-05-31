@@ -1,6 +1,6 @@
 package et.telebof.requests;
 
-import et.telebof.Parser;
+import et.telebof.Util;
 import java.io.File;
 import java.util.Map;
 import java.util.TreeMap;
@@ -59,7 +59,7 @@ abstract public class AbstractBaseRequest<T, R>{
 
     public R bind(){
         Object obj = requestSender.makeRequest(this);
-        return Parser.parse(obj, rClass);
+        return Util.parse(obj, rClass);
     }
 
 }

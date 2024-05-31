@@ -1,6 +1,6 @@
 package et.telebof.requests;
 
-import et.telebof.Parser;
+import et.telebof.Util;
 import et.telebof.types.InlineKeyboardMarkup;
 import et.telebof.types.Message;
 
@@ -50,6 +50,6 @@ public class EditMessageLiveLocation extends AbstractBaseRequest<EditMessageLive
 
     @Override
     public Message bind() {
-        return Parser.parse(requestSender.makeRequest(this), Message.class);
+        return Util.parse(requestSender.makeRequest(this), Message.class);
     }
 }

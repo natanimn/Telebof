@@ -1,6 +1,6 @@
 package et.telebof.requests;
 
-import et.telebof.Parser;
+import et.telebof.Util;
 import et.telebof.types.File;
 
 public class GetFile extends AbstractBaseRequest<GetFile, File> {
@@ -11,7 +11,7 @@ public class GetFile extends AbstractBaseRequest<GetFile, File> {
     }
 
     public File bind() {
-        return Parser.parse(requestSender.makeRequest(this), File.class);
+        return Util.parse(requestSender.makeRequest(this), File.class);
 
     }
 }

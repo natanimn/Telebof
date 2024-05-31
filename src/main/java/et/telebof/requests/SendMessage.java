@@ -1,6 +1,6 @@
 package et.telebof.requests;
 
-import et.telebof.Parser;
+import et.telebof.Util;
 import et.telebof.types.Message;
 import et.telebof.types.MessageEntity;
 
@@ -19,6 +19,6 @@ public class SendMessage extends DefaultParameters<SendMessage, Message> {
 
     @Override
     public Message bind() {
-        return Parser.parse(requestSender.makeRequest(this), Message.class);
+        return Util.parse(requestSender.makeRequest(this), Message.class);
     }
 }
