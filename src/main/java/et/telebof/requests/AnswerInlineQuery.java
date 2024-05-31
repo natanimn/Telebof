@@ -1,11 +1,9 @@
 package et.telebof.requests;
 
 import et.telebof.types.InlineQueryResult;
+import et.telebof.types.InlineQueryResultsButton;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 public class AnswerInlineQuery extends AbstractBaseRequest<AnswerInlineQuery, Boolean> {
 
@@ -27,14 +25,9 @@ public class AnswerInlineQuery extends AbstractBaseRequest<AnswerInlineQuery, Bo
         return add("next_offset", nextOffset);
     }
 
-    public AnswerInlineQuery switchPmText(String switchPmText) {
-        return add("switch_pm_text", switchPmText);
+    public AnswerInlineQuery button(InlineQueryResultsButton button){
+        return add("button", button);
     }
-
-    public AnswerInlineQuery switchPmParameter(String switchPmParameter) {
-        return add("switch_pm_parameter", switchPmParameter);
-    }
-
     @Override
     public Boolean bind() {
         return (Boolean) requestSender.makeRequest(this);
