@@ -1,16 +1,14 @@
 package et.telebof.types;
 
 import java.io.Serializable;
-import java.util.Map;
-import java.util.TreeMap;
 
 public class InlineKeyboardButton implements Serializable {
-    private final Map<String, Object> json = new TreeMap<>();
     private String text, url, callback_data, switch_inline_query_current_chat;
     private WebAppInfo wep_app;
     private LoginUrl login_url;
     private Boolean pay;
     private CallbackGame callback_game;
+    private SwitchInlineQueryChosenChat switch_inline_query_chosen_chat;
 
     public InlineKeyboardButton(String text) {
         this.text = text;
@@ -51,7 +49,8 @@ public class InlineKeyboardButton implements Serializable {
         return this;
     }
 
-    public Map<String, Object> getJson() {
-        return json;
+    public InlineKeyboardButton switchInlineQueryChosenChat(SwitchInlineQueryChosenChat chosenChat){
+        this.switch_inline_query_chosen_chat = chosenChat;
+        return this;
     }
 }
