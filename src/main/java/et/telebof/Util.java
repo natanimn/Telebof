@@ -47,9 +47,10 @@ abstract public class Util {
         if (text == null)
             return null;
         else return text
+                .replace("&", "&amp;")
                 .replace(">", "&gt;")
-                .replace("<", "&lt;")
-                .replace("&", "&amp;");
+                .replace("<", "&lt;");
+
     }
     
     public static ApiResponse parseApiResponse(String o){
