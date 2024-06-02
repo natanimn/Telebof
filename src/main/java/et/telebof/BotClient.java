@@ -92,7 +92,7 @@ final public class BotClient {
                     .limit(limit)
                     .timeout(timeout);
         this.storage = new StateMemoryStorage();
-        if (log) BotLog.logger.setLevel(Level.ALL);
+        if (log) BotLog.logger.setLevel(Level.FINE);
         else BotLog.logger.setLevel(Level.OFF);
 
         BotLog.info("BotClient initialized");

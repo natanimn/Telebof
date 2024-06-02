@@ -20,7 +20,6 @@ class LogFormatter extends Formatter {
     @Override
     public String format(LogRecord record) {
         StringBuilder builder = new StringBuilder();
-        // builder.append(ANSI_YELLOW);
         builder.append(ANSI_CYAN);
         builder.append(calcDate(record.getMillis()));
         builder.append(" ");
@@ -37,20 +36,27 @@ class LogFormatter extends Formatter {
 
         else if (record.getLevel().getName().equals("CONFIG")) {
             levelName = "DEBUG";
-            color = ANSI_WHITE;
+            color = ANSI_GREEN;
+            textColor = ANSI_WHITE;
+        }
+
+        else  if (record.getLevel().getName().equals("WARNING")){
+            levelName = record.getLevel().getName();
+            color = ANSI_YELLOW;
             textColor = ANSI_YELLOW;
         }
 
         else {
             levelName = record.getLevel().getName();
             color = ANSI_GREEN;
-            textColor = ANSI_PURPLE;
+            textColor = ANSI_GREEN;
         }
         builder.append(color);
         builder.append("[");
         builder.append(levelName);
         builder.append("]");
         builder.append(" - ");
+        builder.append(textColor);
         builder.append(record.getMessage());
 
         Object[] params = record.getParameters();
@@ -64,7 +70,6 @@ class LogFormatter extends Formatter {
             }
         }
 
-        builder.append(textColor);
         builder.append("\n");
         return builder.toString();
     }
@@ -75,15 +80,16 @@ class LogFormatter extends Formatter {
         return date_format.format(resultdate);
     }
 
-
 }
 
 public class BotLog {
     static Logger logger;
+
     static {
         logger = Logger.getLogger("Telebof");
         logger.setUseParentHandlers(false);
         ConsoleHandler handler = new ConsoleHandler();
+        handler.setLevel(Level.ALL);
         Formatter formatter = new LogFormatter();
         handler.setFormatter(formatter);
         logger.addHandler(handler);

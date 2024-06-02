@@ -119,7 +119,9 @@ public class Filter{
     }
 
     public boolean commands(String... commands){
-       return List.of(commands).contains(Util.extractCommand(update.getMessage().getText()));
+        String command = Util.extractCommand(update.getMessage().getText());
+        if (command == null) return false;
+        return List.of(commands).contains(command);
     }
 
     private boolean chatType(String chat){
@@ -131,11 +133,15 @@ public class Filter{
     }
 
     public boolean callbackData(String... callbacks){
-        return List.of(callbacks).contains(update.getCallbackQuery().getData());
+        String data = update.getCallbackQuery().getData();
+        if (data == null) return false;
+        return List.of(callbacks).contains(data);
     }
 
     public boolean inlineQuery(String... queries){
-        return List.of(queries).contains(update.getInlineQuery().getQuery());
+        String query = update.getInlineQuery().getQuery();
+        if (query == null) return false;
+        return List.of(queries).contains(query);
     }
 
     public boolean customFilter(CustomFilter customFilter){
