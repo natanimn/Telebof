@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Proxy;
 import java.nio.charset.StandardCharsets;
-import java.security.KeyException;
 import java.util.List;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -28,8 +27,6 @@ import et.telebof.requests.GetUpdates;
 import et.telebof.requests.RequestSender;
 import et.telebof.requests.GetWebhookInfo;
 import et.telebof.requests.DeleteWebhook;
-
-import javax.print.attribute.standard.Finishings;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.logging.Level;

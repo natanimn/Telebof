@@ -36,18 +36,4 @@ public class UtilTest {
         assertEquals("&lt;b&gt;Hello, World&lt;/b&gt;", Util.escapeHtml(txt));
     }
 
-    @Test
-    public void parseApiResponse() {
-
-    }
-
-    @Test
-    public void parse() {
-
-    }
-
-    @Test
-    public void parseList() {
-
-    }
 }
