@@ -27,11 +27,6 @@
 
 ## Installation
 
-* Gradle
-```groovy
-implementation "et.telebof.1.1.0"
-```
-
 * Installation using maven 
 
 ```xml
