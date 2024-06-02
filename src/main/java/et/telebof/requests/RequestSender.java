@@ -18,6 +18,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
 import java.net.Proxy;
+import java.net.UnknownHostException;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -98,8 +99,10 @@ public class RequestSender {
             return Util.parse(stringResponse, ApiResponse.class);
         } catch (AssertionError e){
             throw new RuntimeException("Server send back empty response");
+        } catch (UnknownHostException e){
+            throw new ConnectionError(String.format("Unable to send request to %s", request.url().url().getHost()));
         } catch (IOException e){
-            throw new ConnectionError("Unable to send request to api.telegram.org");
+            throw new RuntimeException(e);
         }
     }
 
@@ -125,10 +128,10 @@ public class RequestSender {
             return response.body().bytes();
         } catch (AssertionError e){
             throw new RuntimeException("Server send back empty response");
+        } catch (UnknownHostException e){
+            throw new ConnectionError(String.format("Unable to send request to %s", request.url().url().getHost()));
         } catch (IOException e) {
-            if (e.getMessage().contains("Unable to download file."))
-                throw new RuntimeException(e);
-            else throw new ConnectionError("Unable to send request to api.telegram.org");
+            throw new RuntimeException(e);
         }
     }
 }
