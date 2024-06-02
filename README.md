@@ -38,7 +38,7 @@ implementation "et.telebof.1.1.0"
 <dependecy>
     <groupId>et.telebof</groupId>
     <artifactId>telegrambot</artifactId>
-    <version>1.0.1</version>
+    <version>1.1.0</version>
 </dependecy>
 
 ```
@@ -48,9 +48,6 @@ implementation "et.telebof.1.1.0"
 
 ```java
 import et.telebof.BotClient;
-import et.telebof.TelegramContext;
-import et.telebof.handlers.MessageHandler;
-import et.telebof.types.Message;
 
 public class MyFirstBot {
   static final String TOKEN = "YOUR BOT TOKEN HERE";
@@ -65,7 +62,7 @@ public class MyFirstBot {
 
     // Listening for any text
     bot.onMessage(filter -> filter.TEXT, (ctx, msg) -> {
-      ctx.reply(message.getText()).bind();
+      ctx.reply(msg.getText()).bind();
     });
 
     bot.start(); // finally run the bot
@@ -94,11 +91,7 @@ matches with the update sent from telegram, the callback class will be called an
 As an example let's try to handle `Message` update using `onMessage` method.
 
 ```java
-
 import et.telebof.BotClient;
-import et.telebof.TelegramContext;
-import et.telebof.handlers.MessageHandler;
-import et.telebof.types.Message;
 
 class MyBot {
   public static void main(String[] args) {
@@ -112,7 +105,7 @@ class MyBot {
     });
 
     bot.onMessage(filter -> filter.TEXT, (ctx, msg) -> {
-      ctx.reply(message.getText()).bind();
+      ctx.reply(msg.getText()).bind();
     });
 
     bot.start();
@@ -313,12 +306,12 @@ There is another special filter to make conversations with a bot called `state f
 ```java
 bot.onMessage(filter -> filter.commands("start"), (ctx, msg) -> {
     ctx.sendMessage("What is your name?").bind();
-    ctx.setState(message.getFrom().getId(), "name"); // set our state to `name`. You can set whatever
+    ctx.setState(msg.getFrom().getId(), "name"); // set our state to `name`. You can set whatever
 });
 
 bot.onMessage(filter -> filter.state("name") && filter.TEXT, (ctx, msg) -> {
     ctx.sendMessage(String.format("Your name is %s", msg.getText()));
-    ctx.clearState(message.getFrom().getId());
+    ctx.clearState(msg.getFrom().getId());
   }
 });
 ```
