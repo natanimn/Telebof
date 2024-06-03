@@ -6,7 +6,7 @@ public class User extends JsonSerializable implements Serializable {
     private Long id;
     private Boolean is_bot, is_premium, added_to_attachment_menu, can_join_groups,
             can_read_all_group_messages, supports_inline_queries;
-    private String first_name, last_name, language_code;
+    private String first_name, last_name, language_code, username;
 
     public Long getId() {
         return id;
@@ -48,6 +48,9 @@ public class User extends JsonSerializable implements Serializable {
         return language_code;
     }
 
+    public String getUsername(){
+        return username;
+    }
 
 }
 
