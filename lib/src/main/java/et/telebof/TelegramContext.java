@@ -13,7 +13,7 @@ import java.util.Map;
  * This class contains all telegram methods.
  *
  * @author Natanim Negash
- * @version 1.1.0
+ * @version 1.1.2 1.1.0
  */
 
 @SuppressWarnings("unused")

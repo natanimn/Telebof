@@ -25,7 +25,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * <p>Class for sending request</p>
  * @author Natanim
- * @version 1.1.0
+ * @version 1.1.2 1.1.0
  */
 
 public class RequestSender {

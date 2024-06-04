@@ -36,7 +36,7 @@ import java.util.logging.Level;
  *
  * <p>Using this class you can do: create Handlers, delete webhook and set webhook.
  @author Natanim Negash
- @version 1.1.0
+ @version 1.1.2 1.1.0
  */
 
 
