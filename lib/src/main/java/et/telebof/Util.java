@@ -11,6 +11,8 @@ abstract public class Util {
     static Gson gson = new Gson();
 
     public static boolean isCommand(String text){
+        if (text == null)
+            return false;
         return text.startsWith("/");
     }
 
