@@ -244,7 +244,7 @@ import et.telebof.types.Update;
 class IsNumberFilter implements CustomFilter {
   @Override
   public boolean check(Update update) {
-    Message message = update.message;
+    Message message = update.getMessage();
     try {
       int number = Integer.parseInt(message.getText());
       return true; // If it is parsed without any error, then it is number
@@ -284,8 +284,8 @@ bot.onMessage(filter -> filter.commands("help"), (ctx, msg) -> {});
 Example for handling inline button through its callback data using `filter.callbackData`
 
 ```java
-// handles inline button which its callback data equals with "A"
-bot.onCallback(filter -> filter.callbackData("A"), (ctx, cq) -> {
+// handles inline button which its callback data equals with "a"
+bot.onCallback(filter -> filter.callbackData("a"), (ctx, cq) -> {
         ctx.answerCallbackQuery("You pressed A button!").bind();
 });
 ```
@@ -305,7 +305,7 @@ bot.onMessage(filter -> filter.commands("start"), (ctx, msg) -> {
 });
 
 bot.onMessage(filter -> filter.state("name") && filter.TEXT, (ctx, msg) -> {
-    ctx.sendMessage(String.format("Your name is %s", msg.getText()));
+    ctx.sendMessage(String.format("Your name is %s", msg.getText())).bind();
     ctx.clearState(msg.getFrom().getId());
   }
 });
