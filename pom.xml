@@ -6,14 +6,10 @@
 
     <groupId>et.telebof</groupId>
     <artifactId>telegrambot</artifactId>
-    <version>1.1.2</version>
+    <version>1.1.2a</version>
     <description>Easy and modern Telegram bot API for java</description>
-    <modules>
-        <module>lib</module>
-        <module>examples</module>
-    </modules>
     <name>Telebof</name>
-    <packaging>pom</packaging>
+    <packaging>jar</packaging>
     <licenses>
         <license>
             <name>GNU Public License 3 (GPL3)</name>
