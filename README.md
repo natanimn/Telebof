@@ -9,6 +9,8 @@
 * [Setup Environment](#installation)
 * [Your First Echo Bot](#your-first-echo-bot)
 * [Available Types](#available-types) 
+* [Available Methods](#available-methods)
+  * [TelegramContext Class](#telegramcontext)
 * [Listening Updates](handling-updates)
 * [Filtering Updates](#filtering-updates)
 * [Types of Handlers](#types-of-handlers)
@@ -33,7 +35,7 @@
 <dependecy>
     <groupId>et.telebof</groupId>
     <artifactId>telegrambot</artifactId>
-    <version>1.1.2a</version>
+    <version>1.2.0</version>
 </dependecy>
 
 ```
@@ -57,7 +59,7 @@ public class MyFirstBot {
 
     // Listening for any text
     bot.onMessage(filter -> filter.TEXT, (ctx, message) -> {
-      ctx.reply(message.getText()).exec();
+      ctx.reply(message.text).exec();
     });
 
     bot.start(); // finally run the bot
@@ -69,6 +71,45 @@ public class MyFirstBot {
 
 ## Available Types
 All Telegram types are defined in `et.telebof.types`. And they are completely the same as Telegram types.
+
+## Available Methods
+All Telegram methods are defined in `et.telebof.request` and implemented in `et.telebof.TelegramContext` class.
+```java
+// send message
+ctx.sendMessage("Hello, World").exec();
+
+// send Photo
+ctx.sendPhoto(new File("photo.png")).exec();
+ctx.sendPhoto("<Photo FILE_ID or URL>").exec();
+
+// send media photo
+InputMedia media_1 = new InputMediaMediaPhoto(new File("photo_1.png"));
+InputMedia media_2 = new InputMediaMediaPhoto(new File("photo_2.png"));
+InputMedia media_3 = new InputMediaMediaPhoto(new File("photo_3.png"));
+ctx.sendMediaGroup(new InputMedia[]{media_1, media_2, media_3}).exec();
+```
+
+### TelegramContext
+This class holds all telegram methods. It can be used inside handler using `ctx` parameter or outside handler using `bot.context`.
+The difference is that inside handler you don't need to pass `chat_id` or `user_id` or both of them to some methods that need these 
+parameters because the handler is executed when updates is received and this update is holt by this class. So these value are
+passed from the update received by default. On other hand `bot.context` can be used everywhere inside handler by passing or not 
+`chat_id`, `user_id` or outside handler passing `chat_id`, `user_id`.
+
+```java
+/* Using bot.context */
+// Inside handler 
+bot.context.sendMessage("Hello, World").exec(); // Or
+bot.context.sendMessage(message.chat.id, "Hello, World").exec();
+
+// Outside handler
+bot.context.sendMessage(message.chat.id, "Hello, World").exec(); // chat_id or user_id must be passed!
+
+/* Using ctx argument */
+ctx.sendMessge("Hello, World").exec();
+ctx.sendMessage(message.chat.id, "Hello, World").exec();
+```
+**Assume that when we use `ctx` it is inside handler**
 
 ## Listening Updates
 ### Update
@@ -119,11 +160,9 @@ Now we are handling `Message` so our second parameter should be `et.telebof.type
 Through this class you can send messages, answer callback queries, answer inline queries and perform other telegram actions. And `et.telebof.types.Message` class is an object
 of telegram `Message` update.
 
-**IMPORTANT: All handlers are handled in the order in which they were registered.**
-
 - The `reply` method is a shortage method of `sendMessage` and replies message to specified `chat_id` with `reply_to_message_id` argument.
 
-- `exec()` is an enclosing and request sender method meaning `execute`. This means that before ending and sending request, you can pass 
+- `exec()` meaning `execute` is an enclosing and request sender method. This means before ending and sending request, you can pass 
 optional parameters and then send a request to telegram. For example `sendMessage` method has optional parameters like: 
 `parseMode`, `replyMarkup`. So you can pass their value for these parameters and send request to telegram.
 
@@ -132,6 +171,8 @@ ctx.sendMessage("*Hello, World*").parseMode(ParseMode.MARKDOWN).exec();
 ```
 
 Finally we start our bot by using `start()` which does not take any parameter and run our bot via **long polling.** 
+
+**IMPORTANT: All handlers are handled in the order in which they were registered.**
 
 ## Filtering Updates
 
@@ -149,7 +190,7 @@ These filter classes are used for filtering content of updates and separate the 
 - `filter.AUDIO` - filter field `message.audio` is not null
 - `filter.ANIMATION` - filter field `message.animaion` is not null
 - `filter.DOCUMENT` - filter field `message.document` is not null
-- `filter.VIDEO_NOTE` - filter field `message.videoNote` is not null
+- `filter.VIDEO_NOTE` - filter field `message.video_note` is not null
 - `filter.CONTACT` - filter field `message.contact` is not null
 - `filter.LOCATION` - filter field `message.loaction` is not null
 - `filter.GAME` - filter field `message.game` is not null
