@@ -1,5 +1,6 @@
 package et.telebof.requests;
 
+import et.telebof.Util;
 import et.telebof.types.Message;
 import et.telebof.types.MessageEntity;
 import java.io.File;import java.util.List;
@@ -40,5 +41,10 @@ public class SendDocument extends DefaultParameters<SendDocument, Message> {
 
     public SendDocument disableContentTypeDetection(boolean disableContentTypeDetection) {
         return add("disable_content_type_detection", disableContentTypeDetection);
+    }
+
+    @Override
+    public Message exec() {
+        return Util.parse(requestSender.makeRequest(this), Message.class);
     }
 }

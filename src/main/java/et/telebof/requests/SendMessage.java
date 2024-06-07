@@ -18,7 +18,7 @@ public class SendMessage extends DefaultParameters<SendMessage, Message> {
     }
 
     @Override
-    public Message bind() {
+    public Message exec() {
         return Util.parse(requestSender.makeRequest(this), Message.class);
     }
 }

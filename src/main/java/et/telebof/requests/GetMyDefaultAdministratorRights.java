@@ -1,5 +1,6 @@
 package et.telebof.requests;
 
+import et.telebof.Util;
 import et.telebof.types.ChatAdministratorRights;
 
 public class GetMyDefaultAdministratorRights extends AbstractBaseRequest<GetMyDefaultAdministratorRights, ChatAdministratorRights> {
@@ -11,4 +12,8 @@ public class GetMyDefaultAdministratorRights extends AbstractBaseRequest<GetMyDe
         return add("for_channel", forChannel);
     }
 
+    @Override
+    public ChatAdministratorRights exec() {
+        return Util.parse(requestSender.makeRequest(this), ChatAdministratorRights.class);
+    }
 }

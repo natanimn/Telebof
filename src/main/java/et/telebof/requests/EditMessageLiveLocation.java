@@ -48,8 +48,9 @@ public class EditMessageLiveLocation extends AbstractBaseRequest<EditMessageLive
         return add("reply_markup", markup);
     }
 
+
     @Override
-    public Message bind() {
+    public Message exec() {
         return Util.parse(requestSender.makeRequest(this), Message.class);
     }
 }

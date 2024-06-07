@@ -6,7 +6,7 @@ public class GetChatMemberCount extends AbstractBaseRequest<GetChatMemberCount, 
     }
 
     @Override
-    public Integer bind() {
+    public Integer exec() {
         return (Integer) requestSender.makeRequest(this);
     }
 }

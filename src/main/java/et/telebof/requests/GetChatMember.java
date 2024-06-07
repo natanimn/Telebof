@@ -10,7 +10,7 @@ public class GetChatMember extends AbstractBaseRequest<GetChatMember, ChatMember
     }
 
     @Override
-    public ChatMember bind() {
+    public ChatMember exec() {
         return Util.parse(requestSender.makeRequest(this), ChatMember.class);
     }
 }

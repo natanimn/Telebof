@@ -10,7 +10,7 @@ public class GetFile extends AbstractBaseRequest<GetFile, File> {
         add("file_id", fileId);
     }
 
-    public File bind() {
+    public File exec() {
         return Util.parse(requestSender.makeRequest(this), File.class);
 
     }

@@ -83,8 +83,7 @@ public class SendPoll extends AbstractBaseRequest<SendPoll, Message> {
     }
 
     @Override
-    public Message bind() {
-        Object r = requestSender.makeRequest(this);
-        return Util.parse(r, Message.class);
+    public Message exec() {
+        return Util.parse(requestSender.makeRequest(this), Message.class);
     }
 }

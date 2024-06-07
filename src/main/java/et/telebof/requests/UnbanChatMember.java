@@ -11,7 +11,8 @@ public class UnbanChatMember extends AbstractBaseRequest<UnbanChatMember, Boolea
     }
 
     @Override
-    public Boolean bind() {
-        return (Boolean) requestSender.makeRequest(this);
+    public Boolean exec() {
+        Object response = requestSender.makeRequest(this);
+        return (Boolean) response;
     }
 }

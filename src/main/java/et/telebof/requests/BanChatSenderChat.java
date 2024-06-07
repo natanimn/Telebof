@@ -6,8 +6,10 @@ public class BanChatSenderChat extends AbstractBaseRequest<BanChatSenderChat, Bo
         add("sender_chat_id", senderChatId);
     }
 
+
     @Override
-    public Boolean bind() {
-        return (Boolean) requestSender.makeRequest(this);
+    public Boolean exec() {
+        Object response = requestSender.makeRequest(this);
+        return (Boolean) response;
     }
 }

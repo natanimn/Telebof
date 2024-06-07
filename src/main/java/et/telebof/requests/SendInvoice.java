@@ -1,5 +1,6 @@
 package et.telebof.requests;
 
+import et.telebof.Util;
 import et.telebof.types.LabeledPrice;
 import et.telebof.types.Message;
 
@@ -78,6 +79,11 @@ public class SendInvoice extends DefaultParameters<SendInvoice, Message> {
 
     public SendInvoice isFlexible(boolean isFlexible) {
         return add("is_flexible", isFlexible);
+    }
+
+    @Override
+    public Message exec() {
+        return Util.parse(requestSender.makeRequest(this), Message.class);
     }
 
 }

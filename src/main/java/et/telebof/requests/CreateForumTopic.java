@@ -18,7 +18,7 @@ public class CreateForumTopic extends AbstractBaseRequest<CreateForumTopic, Foru
     }
 
     @Override
-    public ForumTopic bind() {
+    public ForumTopic exec() {
         return Util.parse(requestSender.makeRequest(this), ForumTopic.class);
     }
 }

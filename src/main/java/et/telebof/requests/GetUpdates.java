@@ -39,7 +39,7 @@ public class GetUpdates extends AbstractBaseRequest<GetUpdates, List<Update>>{
 
     @Override
     @SuppressWarnings("unchecked")
-    public List<Update> bind() {
+    public List<Update> exec() {
         Object response = requestSender.makeRequest(this);
         List<Object> updateList = Util.parse(response, List.class);
         return Util.parseList(updateList, Update.class);

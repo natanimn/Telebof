@@ -16,8 +16,8 @@ public class SendMediaGroup extends DefaultParameters<SendMediaGroup, List<Messa
         add("media", medias);
         for (InputMedia im: medias){
             if (im.isFile()){
-                add(im.getInputFile().getFile().getName(), im.getInputFile().getFile());
-                setContentType(im.getInputFile().getContentType());
+                add(im.getInputFile().file.getName(), im.getInputFile().file);
+                setContentType(im.getInputFile().contentType);
                 setHasMultipart(true);
             }
         }
@@ -33,7 +33,7 @@ public class SendMediaGroup extends DefaultParameters<SendMediaGroup, List<Messa
 
     @Override
     @SuppressWarnings("unchecked")
-    public List<Message> bind() {
+    public List<Message> exec() {
         Object result = requestSender.makeRequest(this);
         List<Object> objects = Util.parse(result, List.class);
         return Util.parseList(objects, Message.class);

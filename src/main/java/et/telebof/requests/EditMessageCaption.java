@@ -44,7 +44,7 @@ public class EditMessageCaption extends AbstractBaseRequest<EditMessageCaption, 
     }
 
     @Override
-    public Message bind() {
+    public Message exec() {
         return Util.parse(requestSender.makeRequest(this), Message.class);
     }
 }

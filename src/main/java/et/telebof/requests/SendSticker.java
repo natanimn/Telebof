@@ -1,6 +1,7 @@
 package et.telebof.requests;
 
 import et.telebof.BotLog;
+import et.telebof.Util;
 import et.telebof.enums.ParseMode;
 import et.telebof.types.Message;
 
@@ -27,6 +28,11 @@ public class SendSticker extends DefaultParameters<SendSticker, Message> {
     public SendSticker parseMode(ParseMode parseM) {
         BotLog.warn("`sendSticker` method does not support parseMode option.");
         return this;
+    }
+
+    @Override
+    public Message exec() {
+        return Util.parse(requestSender.makeRequest(this), Message.class);
     }
 
 }

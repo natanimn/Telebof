@@ -75,8 +75,9 @@ public class CreateInvoiceLink extends AbstractBaseRequest<CreateInvoiceLink, St
         return add("is_flexible", isFlexible);
     }
 
+
     @Override
-    public String bind() {
+    public String exec() {
         return (String) requestSender.makeRequest(this);
     }
 }

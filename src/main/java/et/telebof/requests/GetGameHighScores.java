@@ -21,7 +21,7 @@ public class GetGameHighScores extends AbstractBaseRequest<GetGameHighScores, Li
 
     @Override
     @SuppressWarnings("unchecked")
-    public List<GameHighScore> bind() {
+    public List<GameHighScore> exec() {
         return Util.parseList(Util.parse(requestSender.makeRequest(this), List.class), GameHighScore.class);
     }
 }

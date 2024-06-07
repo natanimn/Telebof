@@ -1,5 +1,6 @@
 package et.telebof.requests;
 
+import et.telebof.Util;
 import et.telebof.types.Message;
 import et.telebof.types.MessageEntity;
 
@@ -39,6 +40,11 @@ public class SendVideoNote extends DefaultParameters<SendVideoNote, Message> {
 
     public SendVideoNote duration(int duration) {
         return add("duration", duration);
+    }
+
+    @Override
+    public Message exec() {
+        return Util.parse(requestSender.makeRequest(this), Message.class);
     }
 
 }

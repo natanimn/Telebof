@@ -21,7 +21,7 @@ public class GetMyCommands extends AbstractBaseRequest<GetMyCommands, List<BotCo
 
     @Override
     @SuppressWarnings("unchecked")
-    public List<BotCommand> bind() {
+    public List<BotCommand> exec() {
         return Util.parseList(Util.parse(requestSender.makeRequest(this), List.class), BotCommand.class);
     }
 }

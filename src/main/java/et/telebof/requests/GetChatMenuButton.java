@@ -13,7 +13,7 @@ public class GetChatMenuButton extends AbstractBaseRequest<GetChatMenuButton, Me
     }
 
     @Override
-    public MenuButton bind() {
+    public MenuButton exec() {
         return Util.parse(requestSender.makeRequest(this), MenuButton.class);
     }
 }

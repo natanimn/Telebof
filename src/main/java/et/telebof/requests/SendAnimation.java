@@ -1,5 +1,6 @@
 package et.telebof.requests;
 
+import et.telebof.Util;
 import et.telebof.types.Message;
 import et.telebof.types.MessageEntity;
 
@@ -56,4 +57,8 @@ public class SendAnimation extends DefaultParameters<SendAnimation, Message> {
         return add("duration", duration);
     }
 
+    @Override
+    public Message exec() {
+        return Util.parse(requestSender.makeRequest(this), Message.class);
+    }
 }

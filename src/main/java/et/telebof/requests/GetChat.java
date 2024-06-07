@@ -9,7 +9,7 @@ public class GetChat extends AbstractBaseRequest<GetChat, Chat> {
     }
 
     @Override
-    public Chat bind() {
+    public Chat exec() {
         return Util.parse(requestSender.makeRequest(this), Chat.class);
     }
 }

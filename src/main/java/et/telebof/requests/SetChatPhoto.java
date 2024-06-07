@@ -10,7 +10,8 @@ public class SetChatPhoto extends AbstractBaseRequest<SetChatPhoto, Boolean> {
     }
 
     @Override
-    public Boolean bind() {
-        return (Boolean) requestSender.makeRequest(this);
+    public Boolean exec() {
+        Object response = requestSender.makeRequest(this);
+        return (Boolean) response;
     }
 }

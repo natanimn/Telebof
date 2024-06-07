@@ -6,7 +6,7 @@ public class LogOut extends AbstractBaseRequest<LogOut, Boolean> {
     }
 
     @Override
-    public Boolean bind() {
+    public Boolean exec() {
         return (Boolean) requestSender.makeRequest(this);
     }
 }

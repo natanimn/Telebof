@@ -12,7 +12,7 @@ public class GetChatAdministrators extends AbstractBaseRequest<GetChatAdministra
 
     @Override
     @SuppressWarnings("unchecked")
-    public List<ChatMember> bind() {
+    public List<ChatMember> exec() {
         return Util.parseList(Util.parse(requestSender.makeRequest(this), List.class), ChatMember.class);
     }
 }

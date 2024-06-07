@@ -17,9 +17,9 @@ public class SetMyName extends AbstractBaseRequest<SetMyName, Boolean> {
         return this;
     }
 
-
     @Override
-    public Boolean bind() {
-        return (Boolean) requestSender.makeRequest(this);
+    public Boolean exec() {
+        Object response = requestSender.makeRequest(this);
+        return (Boolean) response;
     }
 }

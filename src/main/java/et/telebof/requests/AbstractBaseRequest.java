@@ -45,7 +45,7 @@ abstract public class AbstractBaseRequest<T, R>{
         return methodName;
     }
 
-    protected boolean isHasMultipart() {
+    protected boolean hasMultipart() {
         return hasMultipart;
     }
 
@@ -57,9 +57,11 @@ abstract public class AbstractBaseRequest<T, R>{
         return contentType;
     }
 
+    @Deprecated(since = "v1.2.0")
     public R bind(){
-        Object obj = requestSender.makeRequest(this);
-        return Util.parse(obj, rClass);
+        return exec();
     }
+
+    public abstract R exec();
 
 }

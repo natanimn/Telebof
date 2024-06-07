@@ -14,7 +14,9 @@ public class SendChatAction extends AbstractBaseRequest<SendChatAction, Boolean>
     }
 
     @Override
-    public Boolean bind() {
+    public Boolean exec() {
         return (Boolean) requestSender.makeRequest(this);
     }
+
+
 }

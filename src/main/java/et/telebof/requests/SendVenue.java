@@ -1,4 +1,5 @@
 package et.telebof.requests;
+import et.telebof.Util;
 import et.telebof.types.Message;
 
 public class SendVenue extends AbstractBaseRequest<SendVenue, Message> {
@@ -41,5 +42,10 @@ public class SendVenue extends AbstractBaseRequest<SendVenue, Message> {
 
     public SendVenue  allowSendingWithoutReply(boolean allowSendingWithoutReply) {
         return add("allow_sending_without_reply", allowSendingWithoutReply);
+    }
+
+    @Override
+    public Message exec() {
+        return Util.parse(requestSender.makeRequest(this), Message.class);
     }
 }

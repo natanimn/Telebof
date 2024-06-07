@@ -6,7 +6,7 @@ public class ExportChatInviteLink extends AbstractBaseRequest<ExportChatInviteLi
     }
 
     @Override
-    public String bind() {
+    public String exec() {
         return (String) requestSender.makeRequest(this);
     }
 }

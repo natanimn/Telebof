@@ -7,7 +7,7 @@ public class ReopenForumTopic extends AbstractBaseRequest<ReopenForumTopic, Bool
     }
 
     @Override
-    public Boolean bind() {
+    public Boolean exec() {
         return (Boolean) requestSender.makeRequest(this);
     }
 }

@@ -9,7 +9,7 @@ public class GetMe extends AbstractBaseRequest<GetMe, User> {
     }
 
     @Override
-    public User bind() {
+    public User exec() {
         return Util.parse(requestSender.makeRequest(this), User.class);
     }
 }

@@ -12,7 +12,7 @@ public class AnswerWebAppQuery extends AbstractBaseRequest<AnswerWebAppQuery, Se
     }
 
     @Override
-    public SentWebAppMessage bind() {
+    public SentWebAppMessage exec() {
         return Util.parse(requestSender.makeRequest(this), SentWebAppMessage.class);
     }
 }

@@ -34,7 +34,7 @@ public class SendPhoto extends DefaultParameters<SendPhoto, Message>{
     }
 
     @Override
-    public Message bind() {
+    public Message exec() {
         return Util.parse(requestSender.makeRequest(this), Message.class);
     }
 }

@@ -12,7 +12,7 @@ public class AddStickerToSet extends AbstractBaseRequest<AddStickerToSet, Boolea
     }
 
     @Override
-    public Boolean bind() {
+    public Boolean exec() {
         Object response = requestSender.makeRequest(this);
         return (Boolean) response;
     }

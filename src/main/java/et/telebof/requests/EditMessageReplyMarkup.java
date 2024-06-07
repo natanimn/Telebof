@@ -20,7 +20,7 @@ public class EditMessageReplyMarkup extends AbstractBaseRequest<EditMessageReply
     }
 
     @Override
-    public Message bind() {
+    public Message exec() {
         return Util.parse(requestSender.makeRequest(this), Message.class);
     }
 }

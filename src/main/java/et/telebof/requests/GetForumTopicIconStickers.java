@@ -13,7 +13,7 @@ public class GetForumTopicIconStickers extends AbstractBaseRequest<GetForumTopic
 
     @Override
     @SuppressWarnings("unchecked")
-    public List<Sticker> bind() {
+    public List<Sticker> exec() {
         return Util.parseList(Util.parse(requestSender.makeRequest(this), List.class), Sticker.class);
     }
 }

@@ -1,5 +1,6 @@
 package et.telebof.requests;
 
+import et.telebof.Util;
 import et.telebof.types.File;
 
 public class UploadStickerFile extends AbstractBaseRequest<UploadStickerFile, File> {
@@ -11,4 +12,8 @@ public class UploadStickerFile extends AbstractBaseRequest<UploadStickerFile, Fi
         setContentType(MediaContentType.PHOTO);
     }
 
+    @Override
+    public File exec() {
+        return Util.parse(requestSender.makeRequest(this), File.class);
+    }
 }

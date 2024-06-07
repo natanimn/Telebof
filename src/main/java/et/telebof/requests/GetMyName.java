@@ -9,7 +9,7 @@ public class GetMyName extends AbstractBaseRequest<GetMyName, BotName> {
     }
 
     @Override
-    public BotName bind() {
+    public BotName exec() {
         return Util.parse(requestSender.makeRequest(this), BotName.class);
     }
 }

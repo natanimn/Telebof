@@ -25,7 +25,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * <p>Class for sending request</p>
  * @author Natanim
- * @version 1.1.2 1.1.0
+ * @version 1.2.0
  */
 
 public class RequestSender {
@@ -57,7 +57,7 @@ public class RequestSender {
     }
 
     private RequestBody prepareRequest(AbstractBaseRequest<?, ?> baseRequest){
-        if (baseRequest.isHasMultipart()){
+        if (baseRequest.hasMultipart()){
             MultipartBody.Builder builder = new MultipartBody.Builder().setType(MultipartBody.FORM);
             for (Map.Entry<String, Object> param: baseRequest.getParameters().entrySet()){
                 String name = param.getKey();
@@ -110,9 +110,9 @@ public class RequestSender {
         if (botToken == null || botToken.isEmpty()) throw new TelegramError("Undefined botToken");
         BotLog.debug(String.format("Request: method=%s, url=%s", abstractBase.methodName, getUrl(abstractBase)));
         ApiResponse response = postRequest(abstractBase);
-        BotLog.debug(String.format("The server returned: %s", response.getResult()));
-        if (!response.isOk()) throw new TelegramApiException(response);
-        else return response.getResult();
+        BotLog.debug(String.format("The server returned: %s", response.result));
+        if (!response.ok) throw new TelegramApiException(response);
+        else return response.result;
     }
 
     public byte[] downloadFile(String filePath) {

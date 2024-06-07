@@ -9,7 +9,8 @@ public class SetChatPermissions extends AbstractBaseRequest<SetChatPermissions, 
     }
 
     @Override
-    public Boolean bind() {
-        return (Boolean) requestSender.makeRequest(this);
+    public Boolean exec() {
+        Object response = requestSender.makeRequest(this);
+        return (Boolean) response;
     }
 }

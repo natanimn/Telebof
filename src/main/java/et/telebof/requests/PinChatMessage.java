@@ -11,7 +11,7 @@ public class PinChatMessage extends AbstractBaseRequest<PinChatMessage, Boolean>
     }
 
     @Override
-    public Boolean bind() {
+    public Boolean exec() {
         return (Boolean) requestSender.makeRequest(this);
     }
 

@@ -56,7 +56,7 @@ public class PromoteChatMember extends AbstractBaseRequest<PromoteChatMember, Bo
     }
 
     @Override
-    public Boolean bind() {
+    public Boolean exec() {
         return (Boolean) requestSender.makeRequest(this);
     }
 }

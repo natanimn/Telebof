@@ -6,7 +6,7 @@ public class LeaveChat extends AbstractBaseRequest<LeaveChat, Boolean> {
     }
 
     @Override
-    public Boolean bind() {
+    public Boolean exec() {
         return (Boolean) requestSender.makeRequest(this);
     }
 }

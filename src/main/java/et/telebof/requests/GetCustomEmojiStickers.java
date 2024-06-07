@@ -9,9 +9,10 @@ public class GetCustomEmojiStickers extends AbstractBaseRequest<GetCustomEmojiSt
         super(requestSender, "getCustomEmojiStickers");
         add("custom_emoji_ids", List.of(customEmojiIds));
     }
+
     @Override
     @SuppressWarnings("unchecked")
-    public List<Sticker> bind() {
+    public List<Sticker> exec() {
         return Util.parseList(Util.parse(requestSender.makeRequest(this), List.class), Sticker.class);
     }
 }

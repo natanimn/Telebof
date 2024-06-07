@@ -21,8 +21,9 @@ public class CopyMessage extends DefaultParameters<CopyMessage, MessageId> {
     public CopyMessage captionEntities(MessageEntity[] captionEntities) {
         return add("caption_entities", List.of(captionEntities));
     }
+
     @Override
-    public MessageId bind() {
+    public MessageId exec() {
         return Util.parse(requestSender.makeRequest(this), MessageId.class);
     }
 }

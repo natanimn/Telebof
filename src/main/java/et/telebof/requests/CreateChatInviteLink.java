@@ -28,7 +28,7 @@ public class CreateChatInviteLink extends AbstractBaseRequest<CreateChatInviteLi
     }
 
     @Override
-    public ChatInviteLink bind() {
+    public ChatInviteLink exec() {
         return Util.parse(requestSender.makeRequest(this), ChatInviteLink.class);
     }
 }

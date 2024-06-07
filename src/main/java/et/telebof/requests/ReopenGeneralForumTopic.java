@@ -6,7 +6,7 @@ public class ReopenGeneralForumTopic extends AbstractBaseRequest<ReopenGeneralFo
     }
 
     @Override
-    public Boolean bind() {
+    public Boolean exec() {
         return (Boolean) requestSender.makeRequest(this);
     }
 }

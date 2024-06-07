@@ -12,7 +12,8 @@ public class AnswerPreCheckoutQuery extends AbstractBaseRequest<AnswerPreCheckou
     }
 
     @Override
-    public Boolean bind() {
-        return (Boolean) requestSender.makeRequest(this);
+    public Boolean exec() {
+        Object response = requestSender.makeRequest(this);
+        return (Boolean) response;
     }
 }
