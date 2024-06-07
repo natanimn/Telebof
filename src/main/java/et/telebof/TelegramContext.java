@@ -13,7 +13,7 @@ import java.util.Map;
  * This class contains all telegram methods.
  *
  * @author Natanim Negash
- * @version 1.1.2 1.1.0
+ * @version 1.2.0
  */
 
 @SuppressWarnings("unused")
@@ -102,11 +102,11 @@ public class TelegramContext {
     }
 
     public SendPhoto replyPhoto(Message message, String photo) {
-        return new SendPhoto(message.getChat().getId(), photo, this.requestSender).replyToMessageId(message.getMessageId()).parseMode(parseMode);
+        return new SendPhoto(message.chat.id, photo, this.requestSender).replyToMessageId(message.message_id).parseMode(parseMode);
     }
 
     public SendPhoto replyPhoto(Message message, File photo) {
-        return new SendPhoto(message.getChat().getId(), photo, this.requestSender).replyToMessageId(message.getMessageId()).parseMode(parseMode);
+        return new SendPhoto(message.chat.id, photo, this.requestSender).replyToMessageId(message.message_id).parseMode(parseMode);
     }
 
     public SendAudio sendAudio(Object chatId, String audio) {
@@ -126,11 +126,11 @@ public class TelegramContext {
     }
 
     public SendAudio replyAudio(Message message, String audio) {
-        return new SendAudio(message, audio, this.requestSender).replyToMessageId(message.getMessageId()).parseMode(parseMode);
+        return new SendAudio(message, audio, this.requestSender).replyToMessageId(message.message_id).parseMode(parseMode);
     }
 
     public SendAudio replyAudio(Message message, File audio) {
-        return new SendAudio(message, audio, this.requestSender).messageThreadId(message.getMessageId()).parseMode(parseMode);
+        return new SendAudio(message, audio, this.requestSender).messageThreadId(message.message_id).parseMode(parseMode);
     }
 
     public SendDocument sendDocument(Object chatId, String document) {
@@ -657,11 +657,11 @@ public class TelegramContext {
     }
 
     public AnswerCallbackQuery answer() {
-        return new AnswerCallbackQuery(update.getCallbackQuery().getId(), this.requestSender);
+        return new AnswerCallbackQuery(update.callback_query.id, this.requestSender);
     }
 
     public AnswerCallbackQuery answer(String text) {
-        return new AnswerCallbackQuery(update.getCallbackQuery().getId(), this.requestSender).text(text);
+        return new AnswerCallbackQuery(update.callback_query.id, this.requestSender).text(text);
     }
 
     public AnswerCallbackQuery answerCallbackQuery(String callbackQueryId) {
@@ -842,7 +842,7 @@ public class TelegramContext {
     }
 
     public AnswerInlineQuery answerInlineQuery(InlineQueryResult[] results) {
-        return new AnswerInlineQuery(update.getInlineQuery().getId(), results, this.requestSender);
+        return new AnswerInlineQuery(update.inline_query.id, results, this.requestSender);
     }
 
     public AnswerWebAppQuery answerWebAppQuery(String webAppQueryId, InlineQueryResult result) {
@@ -882,7 +882,7 @@ public class TelegramContext {
     }
 
     public AnswerShippingQuery answerShipping(boolean ok) {
-        return new AnswerShippingQuery(update.getShippingQuery().getId(), ok, this.requestSender);
+        return new AnswerShippingQuery(update.shipping_query.id, ok, this.requestSender);
     }
 
     public AnswerPreCheckoutQuery answerPreCheckoutQuery(String preCheckoutQueryId, Boolean ok) {
@@ -890,7 +890,7 @@ public class TelegramContext {
     }
 
     public AnswerPreCheckoutQuery answerPreCheckout(boolean ok) {
-        return new AnswerPreCheckoutQuery(update.getPreCheckoutQuery().getId(), ok, this.requestSender);
+        return new AnswerPreCheckoutQuery(update.pre_checkout_query.id, ok, this.requestSender);
     }
 
     public SetPassportDataErrors setPassportDataErrors(long userId, PassportElementError[] errors) {
@@ -958,23 +958,23 @@ public class TelegramContext {
     }
 
     private Long getChatId(){
-        if (update.getMessage() != null) return update.getMessage().getChat().getId();
-        if (update.getCallbackQuery() != null) return update.getCallbackQuery().getMessage().getChat().getId();
-        if (update.getEditedMessage() != null) return update.getEditedMessage().getChat().getId();
-        if (update.getChannelPost() != null) return update.getChannelPost().getChat().getId();
-        if (update.getEditedChannelPost() != null) return update.getEditedMessage().getChat().getId();
-        if (update.getChatMember() != null) return update.getChatMember().getChat().getId();
-        if (update.getChatJoinRequest() != null) return update.getChatJoinRequest().getChat().getId();
-        if (update.getMyChatMember() != null) return update.getMyChatMember().getChat().getId();
+        if (update.message != null) return update.message.chat.id;
+        if (update.callback_query != null) return update.callback_query.message.chat.id;
+        if (update.edited_message != null) return update.edited_message.chat.id;
+        if (update.channel_post != null) return update.channel_post.chat.id;
+        if (update.edited_channel_post != null) return update.edited_channel_post.chat.id;
+        if (update.chat_member != null) return update.chat_member.chat.id;
+        if (update.chat_join_request != null) return update.chat_join_request.chat.id;
+        if (update.my_chat_member != null) return update.my_chat_member.chat.id;
         return 0L;
     }
 
     private int getMessageId(){
-        if (update.getMessage() != null) return update.getMessage().getMessageId();
-        if (update.getCallbackQuery() != null) return update.getCallbackQuery().getMessage().getMessageId();
-        if (update.getEditedMessage() != null) return update.getEditedMessage().getMessageId();
-        if (update.getChannelPost() != null) return update.getChannelPost().getMessageId();
-        if (update.getEditedChannelPost() != null) return update.getEditedChannelPost().getMessageId();
+        if (update.message != null) return update.message.message_id;
+        if (update.callback_query != null) return update.callback_query.message.message_id;
+        if (update.edited_message != null) return update.edited_message.message_id;
+        if (update.channel_post != null) return update.channel_post.message_id;
+        if (update.edited_channel_post != null) return update.edited_channel_post.message_id;
         return 0;
     }
 

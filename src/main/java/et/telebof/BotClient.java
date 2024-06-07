@@ -36,7 +36,7 @@ import java.util.logging.Level;
  *
  * <p>Using this class you can do: create Handlers, delete webhook and set webhook.
  @author Natanim Negash
- @version 1.1.2 1.1.0
+ @version 1.2.0
  */
 
 
@@ -268,7 +268,7 @@ final public class BotClient {
     }
 
     public WebhookInfo getWebhookInfo(){
-        return new GetWebhookInfo(requestSender).bind();
+        return new GetWebhookInfo(requestSender).exec();
     }
 
     /**
@@ -278,7 +278,7 @@ final public class BotClient {
      */
 
     public void deleteWebhook(){
-        new DeleteWebhook(requestSender).bind();
+        new DeleteWebhook(requestSender).exec();
     }
 
 
@@ -291,7 +291,7 @@ final public class BotClient {
                 if (httpExchange.getRequestMethod().equals("POST")){
                     String response = getString(httpExchange);
                     ApiResponse apiResponse = Util.parseApiResponse(response);
-                    List<Object> objects = Util.parse(apiResponse.getResult(), List.class);
+                    List<Object> objects = Util.parse(apiResponse.result, List.class);
                     List<Update> updates = Util.parseList(objects, Update.class);
                     httpExchange.sendResponseHeaders(200, response.length());
                     OutputStream outputStream = httpExchange.getResponseBody();
@@ -322,17 +322,17 @@ final public class BotClient {
 
     private void retrieveUpdates(){
         if (skipOldUpdates) {
-            getUpdates.offset(-1).bind();
             BotLog.info("Old updates are skipped");
+            getUpdates.offset(-1).exec();
             skipOldUpdates = false;
         }
 
-        List<Update> updates = getUpdates.offset(offset).bind();
+        List<Update> updates = getUpdates.offset(offset).exec();
         int count = updates.size();
         BotLog.info(String.format("Received %d updates", count));
         if (!updates.isEmpty()) {
             updatesQueue.addAll(updates);
-            this.offset = updates.get(count - 1).getUpdateId() + 1;
+            this.offset = updates.get(count - 1).update_id + 1;
         }
     }
 
@@ -347,20 +347,20 @@ final public class BotClient {
     public void notifyUpdate(Update update){
         this.context = new TelegramContext(update, requestSender, parseMode, storage);
         this.filter = new Filter(update, context, storage);
-        if (update.getMessage() != null) processMessages(update);
-        else if (update.getCallbackQuery() != null) processCallbackQuery(update);
-        else if (update.getInlineQuery() != null) processInlineQuery(update);
-        else if (update.getChannelPost() != null) processChannelPost(update);
-        else if (update.getMyChatMember() != null) processMyChatMember(update);
-        else if (update.getEditedMessage() != null) processEditedMessages(update);
-        else if (update.getEditedChannelPost() != null) processEditedChannelPost(update);
-        else if (update.getPoll() != null) processPoll(update);
-        else if (update.getChatMember() != null) processChatMember(update);
-        else if (update.getPreCheckoutQuery() != null) processPreCheckoutQuery(update);
-        else if (update.getShippingQuery() != null) processShippingQuery(update);
-        else if (update.getChatJoinRequest() != null) processChatJoinRequest(update);
-        else if (update.getChosenInlineResult() != null) processChosenInlineResult(update);
-        else if (update.getPollAnswer() != null) processPollAnswer(update);
+        if (update.message != null) processMessages(update);
+        else if (update.callback_query != null) processCallbackQuery(update);
+        else if (update.inline_query != null) processInlineQuery(update);
+        else if (update.channel_post != null) processChannelPost(update);
+        else if (update.my_chat_member != null) processMyChatMember(update);
+        else if (update.edited_message != null) processEditedMessages(update);
+        else if (update.edited_channel_post != null) processEditedChannelPost(update);
+        else if (update.poll != null) processPoll(update);
+        else if (update.chat_member != null) processChatMember(update);
+        else if (update.pre_checkout_query != null) processPreCheckoutQuery(update);
+        else if (update.shipping_query != null) processShippingQuery(update);
+        else if (update.chat_join_request != null) processChatJoinRequest(update);
+        else if (update.chosen_inline_result != null) processChosenInlineResult(update);
+        else if (update.poll_answer != null) processPollAnswer(update);
     }
 
     private void processMessages(Update update) {
@@ -369,7 +369,7 @@ final public class BotClient {
             MessageHandler messageHandler = entry.getValue();
             boolean executed = filterExecutor.execute(filter);
             if (executed){
-                messageHandler.handle(context, update.getMessage());
+                messageHandler.handle(context, update.message);
                 break;
             }
         }
@@ -383,7 +383,7 @@ final public class BotClient {
 
             boolean executed = filterExecutor.execute(filter);
             if (executed){
-                editedMessageHandler.handle(context, update.getEditedMessage());
+                editedMessageHandler.handle(context, update.edited_message);
                 break;
             }
         }
@@ -395,7 +395,7 @@ final public class BotClient {
             ChannelPostHandler channelPostHandler = entry.getValue();
             boolean executed = filterExecutor.execute(filter);
             if (executed){
-                channelPostHandler.handle(context, update.getChannelPost());
+                channelPostHandler.handle(context, update.channel_post);
                 break;
             }
         }
@@ -407,7 +407,7 @@ final public class BotClient {
             EditedChannelPostHandler editedChannelPostHandler = entry.getValue();
             boolean executed = filterExecutor.execute(filter);
             if (executed){
-                editedChannelPostHandler.handle(context, update.getEditedChannelPost());
+                editedChannelPostHandler.handle(context, update.edited_channel_post);
                 break;
             }
         }
@@ -419,7 +419,7 @@ final public class BotClient {
             InlineHandler inlineHandler = entry.getValue();
             boolean executed = filterExecutor.execute(filter);
             if (executed){
-                inlineHandler.handle(context, update.getInlineQuery());
+                inlineHandler.handle(context, update.inline_query);
                 break;
             }
         }
@@ -431,7 +431,7 @@ final public class BotClient {
             CallbackHandler callbackHandler = entry.getValue();
             boolean executed = filterExecutor.execute(filter);
             if (executed){
-                callbackHandler.handle(context, update.getCallbackQuery());
+                callbackHandler.handle(context, update.callback_query);
                 break;
             }
         }
@@ -443,7 +443,7 @@ final public class BotClient {
             ChosenInlineResultHandler chosenInlineResultHandler = entry.getValue();
             boolean executed = filterExecutor.execute(filter);
             if (executed){
-                chosenInlineResultHandler.handle(context, update.getChosenInlineResult());
+                chosenInlineResultHandler.handle(context, update.chosen_inline_result);
                 break;
             }
         }
@@ -455,7 +455,7 @@ final public class BotClient {
             ShippingHandler shippingHandler = entry.getValue();
             boolean executed = filterExecutor.execute(filter);
             if (executed){
-                shippingHandler.handle(context, update.getShippingQuery());
+                shippingHandler.handle(context, update.shipping_query);
                 break;
             }
         }
@@ -467,7 +467,7 @@ final public class BotClient {
             PreCheckoutHandler preCheckoutHandler = entry.getValue();
             boolean executed = filterExecutor.execute(filter);
             if (executed){
-                preCheckoutHandler.handle(context, update.getPreCheckoutQuery());
+                preCheckoutHandler.handle(context, update.pre_checkout_query);
                 break;
             }
         }
@@ -479,7 +479,7 @@ final public class BotClient {
             PollHandler pollHandler = entry.getValue();
             boolean executed = filterExecutor.execute(filter);
             if (executed){
-                pollHandler.handle(context, update.getPoll());
+                pollHandler.handle(context, update.poll);
                 break;
             }
         }
@@ -491,7 +491,7 @@ final public class BotClient {
             PollAnswerHandler pollAnswerHandler = entry.getValue();
             boolean executed = filterExecutor.execute(filter);
             if (executed){
-                pollAnswerHandler.handle(context, update.getPollAnswer());
+                pollAnswerHandler.handle(context, update.poll_answer);
                 break;
             }
         }
@@ -503,7 +503,7 @@ final public class BotClient {
             MyChatMemberHandler myChatMemberHandler = entry.getValue();
             boolean executed = filterExecutor.execute(filter);
             if (executed){
-                myChatMemberHandler.handle(context, update.getMyChatMember());
+                myChatMemberHandler.handle(context, update.my_chat_member);
                 break;
             }
         }
@@ -515,7 +515,7 @@ final public class BotClient {
             ChatMemberHandler chatMemberHandler = entry.getValue();
             boolean executed = filterExecutor.execute(filter);
             if (executed){
-                chatMemberHandler.handle(context, update.getChatMember());
+                chatMemberHandler.handle(context, update.chat_member);
                 break;
             }
         }
@@ -527,7 +527,7 @@ final public class BotClient {
             ChatJoinRequestHandler chatJoinRequestHandler = entry.getValue();
             boolean executed = filterExecutor.execute(filter);
             if (executed){
-                chatJoinRequestHandler.handle(context, update.getChatJoinRequest());
+                chatJoinRequestHandler.handle(context, update.chat_join_request);
                 break;
             }
         }
@@ -542,17 +542,17 @@ final public class BotClient {
             } catch (TelegramError var1) {
                 throw var1;
             } catch (TelegramApiException apiException){
-                if (apiException.getParameters()!=null){
-                    int delay = ((Double) (apiException.getParameters().get("retry_after"))).intValue();
+                if (apiException.parameters !=null){
+                    int delay = ((Double) (apiException.parameters.get("retry_after"))).intValue();
                     BotLog.info(String.format("Waiting for %d seconds", delay));
                     if (BotLog.logger.getLevel() == Level.OFF)
                         apiException.printStackTrace();
-                    else BotLog.error(apiException.getDescription());
+                    else BotLog.error(apiException.description);
                     BotClient.this.sleep(delay);
                 } else {
                     if (BotLog.logger.getLevel() == Level.OFF)
                         apiException.printStackTrace();
-                    else BotLog.error(apiException.getDescription());
+                    else BotLog.error(apiException.description);
                 }
             } catch (ConnectionError connectionError){
                 if (BotLog.logger.getLevel() == Level.OFF)
@@ -588,7 +588,7 @@ final public class BotClient {
             processWebhook();
         } else {
             BotLog.info("Bot started running via longPolling");
-            // deleteWebhook();
+            deleteWebhook();
             startPolling();
         }
     }
