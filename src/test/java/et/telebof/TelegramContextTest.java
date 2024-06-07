@@ -34,27 +34,27 @@ public class TelegramContextTest {
 
     @Test
     public void sendMessageTest(){
-        Message message = bot.context.sendMessage(userId, "Hello, World").bind();
+        Message message = bot.context.sendMessage(userId, "Hello, World").exec();
         assertNotNull(message);
-        assertEquals(message.getText(), "Hello, World");
+        assertEquals(message.text, "Hello, World");
         sleep(1);
     }
 
     @Test
     public void sendPhotoTest(){
         File photo = new File("src/test/resources/telegram.png");
-        Message message = bot.context.sendPhoto(userId, photo).caption("Hello, World").bind();
+        Message message = bot.context.sendPhoto(userId, photo).caption("Hello, World").exec();
         assertNotNull(message);
-        assertEquals("Hello, World", message.getCaption());
+        assertEquals("Hello, World", message.caption);
         sleep(1);
     }
 
     @Test
     public void forwardMessageTest(){
-        Message message = bot.context.sendMessage(userId, "Trying to forward this message again").bind();
-        Message msg = bot.context.forwardMessage(userId, userId, message.getMessageId()).bind();
+        Message message = bot.context.sendMessage(userId, "Trying to forward this message again").exec();
+        Message msg = bot.context.forwardMessage(userId, userId, message.message_id).exec();
         assertNotNull(msg);
-        assertEquals(message.getText(), msg.getText());
+        assertEquals(message.text, msg.text);
     }
 
 }
