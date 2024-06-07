@@ -51,13 +51,13 @@ public class MyFirstBot {
     final BotClient bot = new BotClient(TOKEN);
 
     // Listening for /start command
-    bot.onMessage(filter -> filter.commands("start"), (ctx, msg) -> {
-      ctx.reply("Hello, welcome to your first bot!").bind();
+    bot.onMessage(filter -> filter.commands("start"), (ctx, message) -> {
+      ctx.reply("Hello, welcome to your first bot!").exec();
     });
 
     // Listening for any text
-    bot.onMessage(filter -> filter.TEXT, (ctx, msg) -> {
-      ctx.reply(msg.getText()).bind();
+    bot.onMessage(filter -> filter.TEXT, (ctx, message) -> {
+      ctx.reply(message.getText()).exec();
     });
 
     bot.start(); // finally run the bot
@@ -95,12 +95,12 @@ class MyBot {
 
     BotClient bot = new BotClient(TOKEN);
 
-    bot.onMessage(filter -> filter.commands("start"), (ctx, msg) -> {
-        ctx.reply("Hello, welcome to your first bot!").bind();
+    bot.onMessage(filter -> filter.commands("start"), (ctx, message) -> {
+        ctx.reply("Hello, welcome to your first bot!").exec();
     });
 
-    bot.onMessage(filter -> filter.TEXT, (ctx, msg) -> {
-      ctx.reply(msg.getText()).bind();
+    bot.onMessage(filter -> filter.TEXT, (ctx, message) -> {
+      ctx.reply(message.text).exec();
     });
 
     bot.start();
@@ -123,12 +123,12 @@ of telegram `Message` update.
 
 - The `reply` method is a shortage method of `sendMessage` and replies message to specified `chat_id` with `reply_to_message_id` argument.
 
-- `bind()` is an enclosing and request sender method. This means that before ending and sending request, you can pass 
+- `exec()` is an enclosing and request sender method meaning `execute`. This means that before ending and sending request, you can pass 
 optional parameters and then send a request to telegram. For example `sendMessage` method has optional parameters like: 
 `parseMode`, `replyMarkup`. So you can pass their value for these parameters and send request to telegram.
 
 ```java
-ctx.sendMessage("*Hello, World*").parseMode(ParseMode.MARKDOWN).bind();
+ctx.sendMessage("*Hello, World*").parseMode(ParseMode.MARKDOWN).exec();
 ```
 
 Finally we start our bot by using `start()` which does not take any parameter and run our bot via **long polling.** 
@@ -159,52 +159,52 @@ These filter classes are used for filtering content of updates and separate the 
 - `filter.MEDIA` - filter one of filed of media(photo, video, audio) is not null.
 - `filter.PASSPORT_DATA` - filter field `message.photo` is not null
 - `filter.INVOICE` - filter field `message.invoice` is not null
-- `filter.NEW_CHAT_MEMBER` - filter field `message.newChatMembers` is not null
-- `filter.LEFT_CHAT_MEMBER` - filter field `message.leftChatMember` is not null
-- `filter.NEW_CHAT_PHOTO` - filter field `message.newChatPhoto` is not null
-- `filter.NEW_CHAT_TITLE` - filter field `message.newChatTitle` is not null
-- `filter.GROUP_CHAT_CREATED` - filter field `message.groupChatCreated` is not null
-- `filter.SUPERGROUP_CHAT_CREATED` - filter field `message.supergroupChatCreated` is not null
-- `filter.CHANNEL_CHAT_CREATED` - filter field `message.channelChatCreated` is not null
-- `filter.MESSAGE_AUTO_DELETE_TIMER_CHANGED` - filter field `message.messageAutoTimerChanged` is not null
-- `filter.MIGRATED` - filter field `message.migrateFromChatId` or `message.migrateToChatId` is not null
-- `filter.PINNED_MESSAGE` - filter field `message.pinnedMessage` is not null
-- `filter.SUCCESFULL_PAYMENT` - filter field `message.successfullPayment` is not null
-- `filter.CONNNECTED_WEBSITE` - filter field `message.connectedWebsite` is not null
-- `filter.PROXIMITY_ALERT_TRIGGERED` - filter field `message.proximityAlertTrigged` is not null
-- `filter.FORUM_TOPIC_CREATED` - filter field `message.forumTopicCreated` is not null
-- `filter.FORUM_TOPIC_CLOSED` - filter field `message.forumTopicClosed` is not null
-- `filter.FORUM_TOPIC_EDITED` - filter field `message.forumTopicEdited` is not null
-- `filter.FORUM_TOPIC_REOPNED` - filter field `message.forumTopicReopened` is not null
-- `filter.WEB_APP_DATA` - filter field `message.webAppData` is not null
-- `filter.VIDEO_CHAT_STARTED` - filter field `message.videoChatStarted` is not null
-- `filter.VIDEO_CHAT_ENDED` - filter field `message.videoChatEnded` is not null
-- `filter.VIDEO_CHAT_PARTICIPANT_INVITED` - filter field `message.videoChatParticipantInvited` is not null
-- `filter.VIDEO_CHAT_SCHEDULED` - filter field `message.videoChatScheduled` is not null
-- `filter.FORWARDED` - filter field `message.forwardFrom` or `message.forwardFromChat` is not null
-- `filter.REPLIED` - filter field `message.replyToMessage` is not null
-- `filter.BOT` - filter user is bot or filed `message.from.isBot` is `true`
-- `filter.ZERO_INLINE_QUERY` - filter filed `inlineQuery.query` is empty or has no value
+- `filter.NEW_CHAT_MEMBER` - filter field `message.new_chat_members` is not null
+- `filter.LEFT_CHAT_MEMBER` - filter field `message.lef_chat_member` is not null
+- `filter.NEW_CHAT_PHOTO` - filter field `message.new_chat_photo` is not null
+- `filter.NEW_CHAT_TITLE` - filter field `message.new_chat_title` is not null
+- `filter.GROUP_CHAT_CREATED` - filter field `message.group_chat_created` is not null
+- `filter.SUPERGROUP_CHAT_CREATED` - filter field `message.supergroup_chat_created` is not null
+- `filter.CHANNEL_CHAT_CREATED` - filter field `message.channel_chat_created` is not null
+- `filter.MESSAGE_AUTO_DELETE_TIMER_CHANGED` - filter field `message.message_auto_timer_changed` is not null
+- `filter.MIGRATED` - filter field `message.migrate_from_chat_id` or `message.migrate_to_chat_id` is not null
+- `filter.PINNED_MESSAGE` - filter field `message.pinned_message` is not null
+- `filter.SUCCESFULL_PAYMENT` - filter field `message.successfull_payment` is not null
+- `filter.CONNNECTED_WEBSITE` - filter field `message.connected_website` is not null
+- `filter.PROXIMITY_ALERT_TRIGGERED` - filter field `message.proximity_alert_trigged` is not null
+- `filter.FORUM_TOPIC_CREATED` - filter field `message.forum_topic_created` is not null
+- `filter.FORUM_TOPIC_CLOSED` - filter field `message.forum_topic_closed` is not null
+- `filter.FORUM_TOPIC_EDITED` - filter field `message.forum_topic_edited` is not null
+- `filter.FORUM_TOPIC_REOPNED` - filter field `message.forum_topic_reopened` is not null
+- `filter.WEB_APP_DATA` - filter field `message.web_pp_data` is not null
+- `filter.VIDEO_CHAT_STARTED` - filter field `message.video_chat_started` is not null
+- `filter.VIDEO_CHAT_ENDED` - filter field `message.video_ehat_ended` is not null
+- `filter.VIDEO_CHAT_PARTICIPANT_INVITED` - filter field `message.video_chat_participant_invited` is not null
+- `filter.VIDEO_CHAT_SCHEDULED` - filter field `message.video_chat_scheduled` is not null
+- `filter.FORWARDED` - filter field `message.forwardFrom` or `message.forward_from_chat` is not null
+- `filter.REPLIED` - filter field `message.reply_to_message` is not null
+- `filter.BOT` - filter user is bot or filed `message.from.is_bot` is `true`
+- `filter.ZERO_INLINE_QUERY` - filter filed `inline_query.query` is empty or has no value
 - `filter.PRIVATE` - filter chat type is `private`
 - `filter.GROUP` - filter chat type is `group`
 - `filter.SUPERGROUP` - filter chat type is `supergroup`
 - `filter.CHANNEL` - filter chat type is `channel`
 - `filter.commands(String ... cmds)` - filter commands like `/start`, `/help`.
-- `filter.callbackData(String ... cds)` - filter of inline buttons or filed `callbackQuery.data`
-- `filter.inlineQuery(String... iqs)` - filter inline query or field `inlineQuery.query`
+- `filter.callbackData(String ... cds)` - filter of inline buttons or filed `callback_query.data`
+- `filter.inlineQuery(String... iqs)` - filter inline query or field `inline_query.query`
 - `filter.customFilter()` - filter given filter
 - `filter.state(String ... names)` - filter current state.
 
 ```java
 // handles incoming texts
-bot.onMessage(filter -> filter.TEXT, (ctx, msg) -> {});
+bot.onMessage(filter -> filter.TEXT, (ctx, message) -> {});
 
 // handles incoming photos
-bot.onMessage(filter -> filter.PHOTO, (ctx, msg) -> {});
+bot.onMessage(filter -> filter.PHOTO, (ctx, message) -> {});
 
 
 // handles incoming videos
-bot.onMessage(filter -> filter.VIDEO, (ctx, msg) -> {});
+bot.onMessage(filter -> filter.VIDEO, (ctx, message) -> {});
 ```
 ### Combining filters
 You may want to handle `text` and `photo` in one handler or a `text` in different chats. To do so use logical operators 
@@ -214,16 +214,16 @@ Here are some examples
 
 ```java
 // handles incoming text in private chat
-bot.onMessage(filter -> filter.TEXT && filter.PRIVATE, (ctx, msg) -> {});
+bot.onMessage(filter -> filter.TEXT && filter.PRIVATE, (ctx, message) -> {});
 
 // handles an incoming text or photo
-bot.onMessage(filter -> filter.TEXT || filter.PHOTO, (ctx, msg) -> {});
+bot.onMessage(filter -> filter.TEXT || filter.PHOTO, (ctx, message) -> {});
 
 // handles incoming text in supergroup chat 
-bot.onMessage(filter -> filter.TEXT && filter.SUPERGROUP, (ctx, msg) -> {});
+bot.onMessage(filter -> filter.TEXT && filter.SUPERGROUP, (ctx, message) -> {});
 
 // handles incoming audio or video in private chat
-bot.onMessage(filter -> filter.PRIVATE && (filter.AUDIO || filter.VIDEO), (ctx, msg) -> {});
+bot.onMessage(filter -> filter.PRIVATE && (filter.AUDIO || filter.VIDEO), (ctx, message) -> {});
 
 ```
 ### Writing your own filter
@@ -244,9 +244,9 @@ import et.telebof.types.Update;
 class IsNumberFilter implements CustomFilter {
   @Override
   public boolean check(Update update) {
-    Message message = update.getMessage();
+    Message message = update.message;
     try {
-      int number = Integer.parseInt(message.getText());
+      int number = Integer.parseInt(message.text);
       return true; // If it is parsed without any error, then it is number
     } catch (NumberFormatException e) {
       // If the text is not number
@@ -258,8 +258,8 @@ class IsNumberFilter implements CustomFilter {
 class NumberFilterBot {
   public static void main(String[] args) {
     // ...
-    bot.onMessage(filter -> filter.TEXT && filter.customFilter(new IsNumberFilter()), (ctx, msg) -> {
-        ctx.sendMessage("It is number").bind();
+    bot.onMessage(filter -> filter.TEXT && filter.customFilter(new IsNumberFilter()), (ctx, message) -> {
+        ctx.sendMessage("It is number").exec();
     });
   }
 }
@@ -275,18 +275,18 @@ Example for handling commands using `filter.commands`
 ```java
 
 // handles /start command
-bot.onMessage(filter -> filter.commands("start"), (ctx, msg) -> {});
+bot.onMessage(filter -> filter.commands("start"), (ctx, message) -> {});
 
 // handles /help command
-bot.onMessage(filter -> filter.commands("help"), (ctx, msg) -> {});
+bot.onMessage(filter -> filter.commands("help"), (ctx, message) -> {});
 ```
 
 Example for handling inline button through its callback data using `filter.callbackData`
 
 ```java
 // handles inline button which its callback data equals with "a"
-bot.onCallback(filter -> filter.callbackData("a"), (ctx, cq) -> {
-        ctx.answerCallbackQuery("You pressed A button!").bind();
+bot.onCallback(filter -> filter.callbackData("a"), (ctx, callback) -> {
+        ctx.answerCallbackQuery("You pressed A button!").exec();
 });
 ```
 
@@ -299,14 +299,14 @@ bot.onInline(filter -> filter.inlineQuery("hello"), (ctx, query) -> {});
 ### State Filter
 There is another special filter to make conversations with a bot called `state filter`.
 ```java
-bot.onMessage(filter -> filter.commands("start"), (ctx, msg) -> {
-    ctx.sendMessage("What is your name?").bind();
-    ctx.setState(msg.getFrom().getId(), "name"); // set our state to `name`. You can set whatever
+bot.onMessage(filter -> filter.commands("start"), (ctx, message) -> {
+    ctx.sendMessage("What is your name?").exec();
+    ctx.setState(message.from.id, "name"); // set our state to `name`. You can set whatever
 });
 
-bot.onMessage(filter -> filter.state("name") && filter.TEXT, (ctx, msg) -> {
-    ctx.sendMessage(String.format("Your name is %s", msg.getText())).bind();
-    ctx.clearState(msg.getFrom().getId());
+bot.onMessage(filter -> filter.state("name") && filter.TEXT, (ctx, message) -> {
+    ctx.sendMessage(String.format("Your name is %s", message.text)).exec();
+    ctx.clearState(message.from.id);
   }
 });
 ```
@@ -317,11 +317,11 @@ There are 14 types of handlers to be handled
 #### Message Handler
 
 ```java
-bot.onMessage(filter -> true, (ctx, msg) -> {}); 
+bot.onMessage(filter -> true, (ctx, message) -> {}); 
 ```
 #### CallbackQuery handler
 ```java
-bot.onCallback(filter -> true, (ctx, cq) -> {});
+bot.onCallback(filter -> true, (ctx, callback) -> {});
 ```
 #### Inline Handler
 ```java
@@ -334,7 +334,7 @@ bot.onPoll(filter -> true, (ctx, poll) -> {});
 
 #### PollAnswer Handler
 ```java
-bot.onPoll(filter -> true, (ctx, pa) -> {});
+bot.onPoll(filter -> true, (ctx, poll_answer) -> {});
 ```
 #### Shipping Handler
 ```java
@@ -343,37 +343,37 @@ bot.onShipping(filter -> true, (ctx, shipping) -> {});
 
 #### ChannelPost Handler
 ```java
-bot.onChannelPost(filter -> true, (ctx, cp) -> {});
+bot.onChannelPost(filter -> true, (ctx, channel_post) -> {});
 ```
 
 #### PreCheckoutQuery Handler
 ```java
-bot.onPreCheckout(filter -> true, (ctx, pcq) -> {});
+bot.onPreCheckout(filter -> true, (ctx, pre_checkout) -> {});
 ```
 
 #### EditedMessage Handler
 ```java
-bot.onEditedMessage(filter -> true, (ctx, em) -> {});
+bot.onEditedMessage(filter -> true, (ctx, edited_message) -> {});
 ```
 
 #### EditedChannelPost Handler
 ```java
-bot.onEditedChannelPost(filter -> true, (ctx, ecp) -> {});
+bot.onEditedChannelPost(filter -> true, (ctx, edited_c) -> {});
 ```
 
 #### MyChatMember Handler
 ```java
-bot.onMychatMember(filter -> true, (ctx, mcm) -> {});
+bot.onMychatMember(filter -> true, (ctx, my_chat) -> {});
 ```
 
 #### ChatMember Handler
 ```java
-bot.onChatMember(filter -> true, (ctx, cm) -> {});
+bot.onChatMember(filter -> true, (ctx, chat_member) -> {});
 ```
 
 #### ChosenInlineResult Handler
 ```java
-bot.onChosenInlineResult(filter -> true, (ctx, cir) -> {});
+bot.onChosenInlineResult(filter -> true, (ctx, chosen) -> {});
 ```
 
 ## Markups
@@ -388,7 +388,7 @@ markup.add("A", "B", "C"); // You can add String or
 markup.add("D", "E"); 
 markup.add(new KeyboardButton("F")); // KeybaordButton class
 
-ctx.sendMssage("Hello, World!").replyMarkup(markup).bind();
+ctx.sendMssage("Hello, World!").replyMarkup(markup).exec();
 ```
 
 ### InlineKeyboardMarkup
@@ -421,17 +421,17 @@ InlineKeybaordMarkup inlineMarkup = new InlineKeybaordMarkup(new InlineKeybaordB
   } 
 )
 
-ctx.sendMessage("Press one button").replyMarkup(inlineMarkup).bind();
+ctx.sendMessage("Press one button").replyMarkup(inlineMarkup).exec();
 ```
 
 ### ForceReply
 ```java
-ctx.sendMessage("Can you tell me your name please?").replyMarkup(new ForceReply()).bind(); // ForceReply markup
+ctx.sendMessage("Can you tell me your name please?").replyMarkup(new ForceReply()).exec(); // ForceReply markup
 ```
 
 ### RemoveReplyKeyboard
 ```java
-ctx.sendMessage("There is no reply keyboard now").replyMarkup(new RemoveReplyKeybaord()).bind(); 
+ctx.sendMessage("There is no reply keyboard now").replyMarkup(new RemoveReplyKeybaord()).exec(); 
 ```
 
 ## Inline Bot
@@ -449,7 +449,7 @@ public class InlineBot {
               .description("click here")
               .inputMessageContent(new InputMessageContent().messageText("Please write something"));
 
-      ctx.answerInlineQuery(query.getId(), new InlineQueryResult[]{result}).bind();
+      ctx.answerInlineQuery(query.getId(), new InlineQueryResult[]{result}).exec();
     });
     
   }
@@ -486,7 +486,7 @@ BotClient bot = new BotClient.Builder("<TOKEN>")
         .localBotApiUrl(url)
         .build();
 ```
-**You have to log out your bot from the Telegram server before switching to your local API server using `ctx.logOut().bind()`**
+**You have to log out your bot from the Telegram server before switching to your local API server using `ctx.logOut().exec()`**
 
 ### Logging
 log current status of the bot.
@@ -539,8 +539,8 @@ BotClient bot = new BotClient.Builder("<TOKEN>")
 ```java
 
 try{     
-    ctx.sendMessage("Hello, World").bind();    
+    ctx.sendMessage("Hello, World").exec();    
 } catch(TelegramApiException apiException){
-    System.out.println(apiException.getDescription());
+    System.out.println(apiException.description);
 }
 ```
