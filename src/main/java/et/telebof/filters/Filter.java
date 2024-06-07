@@ -66,80 +66,79 @@ public class Filter{
         this.update = update;
         this.context = context;
         this.storage = storage;
-        this.TEXT = update.getMessage() !=null && update.getMessage().getText() != null;
+        this.TEXT = update.message !=null && update.message.text != null;
         this.PRIVATE = chatType("private");
         this.CHANNEL = chatType("channel");
         this.GROUP = chatType("group");
         this.SUPERGROUP = chatType("supergroup");
         this.NON_PRIVATE = !PRIVATE;
-        this.PHOTO = update.getMessage() !=null && update.getMessage().getPhoto() != null;
-        this.AUDIO = update.getMessage() !=null && update.getMessage().getAudio() != null;
-        this.VIDEO = update.getMessage() !=null && update.getMessage().getVideo() != null;
-        this.VOICE = update.getMessage() !=null && update.getMessage().getVoice() != null;
-        this.VIDEO_NOTE = update.getMessage() !=null && update.getMessage().getVideoNote() != null;
-        this.DOCUMENT = update.getMessage() !=null && update.getMessage().getDocument() != null;
-        this.ANIMATION = update.getMessage() !=null && update.getMessage().getAnimation() != null;
-        this.CONTACT = update.getMessage() !=null && update.getMessage().getContact() != null;
-        this.VENUE = update.getMessage() !=null && update.getMessage().getVenue() != null;
-        this.LOCATION = update.getMessage() !=null && update.getMessage().getLocation() != null;
-        this.STICKER = update.getMessage() !=null && update.getMessage().getSticker() != null;
-        this.DICE = update.getMessage() !=null && update.getMessage().getDice() != null;
-        this.GAME = update.getMessage() !=null && update.getMessage().getGame() != null;
-        this.MEDIA = update.getMessage() !=null && (PHOTO || VIDEO || VOICE || VIDEO_NOTE || ANIMATION || STICKER || CONTACT ||
-                                                DOCUMENT || VENUE || LOCATION || DICE);
-        this.POLL = update.getMessage() != null && update.getMessage().getPoll() != null;
-        this.NEW_CHAT_MEMBER = update.getMessage() !=null && update.getMessage().getNewChatMembers() != null;
-        this.LEFT_CHAT_MEMBER = update.getMessage() !=null && update.getMessage().getLeftChatMember() != null;
-        this.NEW_CHAT_PHOTO = update.getMessage() !=null && update.getMessage().getNewChatPhoto() != null;
-        this.NEW_CHAT_TITLE = update.getMessage() !=null && update.getMessage().getNewChatTitle() != null;
-        this.GROUP_CHAT_CREATED = update.getMessage() !=null && update.getMessage().getGroupChatCreated() != null;
-        this.SUPERGROUP_CHAT_CREATED = update.getMessage() !=null && update.getMessage().getSupergroupChatCreated() != null;
-        this.CHANNEL_CHAT_CREATED = update.getMessage() !=null && update.getMessage().getChannelChatCreated() != null;
-        this.MESSAGE_AUTO_DELETE_TIMER_CHANGED = update.getMessage() !=null && update.getMessage().getMessageAutoDeleteTimerChanged() != null;
-        this.MIGRATED = update.getMessage() !=null && (update.getMessage().getMigrateToChatId() != null || update.getMessage().getMigrateFromChatId() != null);
-        this.PINNED_MESSAGE = update.getMessage() !=null && update.getMessage().getPinnedMessage() != null;
-        this.INVOICE = update.getMessage() !=null && update.getMessage().getInvoice() != null;
-        this.SUCCESSFUL_PAYMENT = update.getMessage() !=null && update.getMessage().getSuccessfulPayment() != null;
-        this.CONNECTED_WEBSITE = update.getMessage() !=null && update.getMessage().getConnectedWebsite() != null;
-        this.PASSPORT_DATA = update.getMessage() !=null && update.getMessage().getPassportData() != null;
-        this.PROXIMITY_ALERT_TRIGGERED = update.getMessage() !=null && update.getMessage().getProximityAlertTriggered() != null;
-        this.FORUM_TOPIC_CREATED = update.getMessage() !=null && update.getMessage().getForumTopicCreated() != null;
-        this.FORUM_TOPIC_EDITED = update.getMessage() !=null && update.getMessage().getForumTopicEdited() != null;
-        this.FORUM_TOPIC_CLOSED = update.getMessage() !=null && update.getMessage().getForumTopicClosed() != null;
-        this.FORUM_TOPIC_REOPENED = update.getMessage() !=null && update.getMessage().getForumTopicReopened() != null;
-        this.WEB_APP_DATA = update.getMessage() !=null && update.getMessage().getWebAppData() != null;
-        this.VIDEO_CHAT_STARTED = update.getMessage() !=null && update.getMessage().getVideoChatStarted() != null;
-        this.VIDEO_CHAT_PARTICIPANT_INVITED = update.getMessage() !=null && update.getMessage().getVideoChatParticipantsInvited() != null;
-        this.VIDEO_CHAT_SCHEDULED = update.getMessage() !=null && update.getMessage().getVideoChatScheduled() != null;
-        this.VIDEO_CHAT_ENDED = update.getMessage() !=null && update.getMessage().getVideoChatEnded() != null;
-        this.FORWARDED = update.getMessage() !=null && (update.getMessage().getForwardFrom() != null || update.getMessage().getForwardFromChat() != null);
-        this.REPLIED = update.getMessage() !=null && update.getMessage().getReplyToMessage() != null;
-        this.BOT = update.getMessage() !=null && update.getMessage().getFrom().getIsBot();
-        this.ZERO_INLINE_QUERY = update.getInlineQuery() != null && update.getInlineQuery().getQuery().isEmpty();
+        this.PHOTO = update.message !=null && update.message.poll != null;
+        this.AUDIO = update.message !=null && update.message.audio != null;
+        this.VIDEO = update.message !=null && update.message.video != null;
+        this.VOICE = update.message !=null && update.message.venue != null;
+        this.VIDEO_NOTE = update.message !=null && update.message.video_note != null;
+        this.DOCUMENT = update.message !=null && update.message.document != null;
+        this.ANIMATION = update.message !=null && update.message.animation != null;
+        this.CONTACT = update.message !=null && update.message.contact != null;
+        this.VENUE = update.message !=null && update.message.venue != null;
+        this.LOCATION = update.message !=null && update.message.location != null;
+        this.STICKER = update.message !=null && update.message.sticker != null;
+        this.DICE = update.message !=null && update.message.dice != null;
+        this.GAME = update.message !=null && update.message.game != null;
+        this.MEDIA = update.message !=null && (PHOTO || VIDEO || VOICE || VIDEO_NOTE || ANIMATION || STICKER || DOCUMENT );
+        this.POLL = update.message != null && update.message.poll != null;
+        this.NEW_CHAT_MEMBER = update.message !=null && update.message.new_chat_members != null;
+        this.LEFT_CHAT_MEMBER = update.message !=null && update.message.left_chat_member != null;
+        this.NEW_CHAT_PHOTO = update.message !=null && update.message.new_chat_photo != null;
+        this.NEW_CHAT_TITLE = update.message !=null && update.message.new_chat_title != null;
+        this.GROUP_CHAT_CREATED = update.message !=null && update.message.group_chat_created != null;
+        this.SUPERGROUP_CHAT_CREATED = update.message !=null && update.message.supergroup_chat_created != null;
+        this.CHANNEL_CHAT_CREATED = update.message !=null && update.message.channel_chat_created != null;
+        this.MESSAGE_AUTO_DELETE_TIMER_CHANGED = update.message !=null && update.message.message_auto_delete_timer_changed != null;
+        this.MIGRATED = update.message !=null && (update.message.migrate_to_chat_id != null || update.message.migrate_from_chat_id != null);
+        this.PINNED_MESSAGE = update.message !=null && update.message.pinned_message != null;
+        this.INVOICE = update.message !=null && update.message.invoice != null;
+        this.SUCCESSFUL_PAYMENT = update.message !=null && update.message.successful_payment != null;
+        this.CONNECTED_WEBSITE = update.message !=null && update.message.connected_website != null;
+        this.PASSPORT_DATA = update.message !=null && update.message.passport_data != null;
+        this.PROXIMITY_ALERT_TRIGGERED = update.message !=null && update.message.proximity_alert_triggered != null;
+        this.FORUM_TOPIC_CREATED = update.message !=null && update.message.forum_topic_created != null;
+        this.FORUM_TOPIC_EDITED = update.message !=null && update.message.forum_topic_edited != null;
+        this.FORUM_TOPIC_CLOSED = update.message !=null && update.message.forum_topic_closed != null;
+        this.FORUM_TOPIC_REOPENED = update.message !=null && update.message.forum_topic_reopened != null;
+        this.WEB_APP_DATA = update.message !=null && update.message.web_app_data != null;
+        this.VIDEO_CHAT_STARTED = update.message !=null && update.message.video_chat_started != null;
+        this.VIDEO_CHAT_PARTICIPANT_INVITED = update.message !=null && update.message.video_chat_participants_invited != null;
+        this.VIDEO_CHAT_SCHEDULED = update.message !=null && update.message.video_chat_scheduled != null;
+        this.VIDEO_CHAT_ENDED = update.message !=null && update.message.video_chat_ended != null;
+        this.FORWARDED = update.message !=null && (update.message.forward_from != null || update.message.forward_from_chat != null);
+        this.REPLIED = update.message !=null && update.message.reply_to_message != null;
+        this.BOT = update.message !=null && update.message.from.is_bot;
+        this.ZERO_INLINE_QUERY = update.inline_query != null && update.inline_query.query.isEmpty();
     }
 
     public boolean commands(String... commands){
-        String command = Util.extractCommand(update.getMessage().getText());
+        String command = Util.extractCommand(update.message.text);
         if (command == null) return false;
         return List.of(commands).contains(command);
     }
 
     private boolean chatType(String chat){
-        if (update.getMessage()!=null)return update.getMessage().getChat().getType().equals(chat);
-        else if (update.getCallbackQuery() != null) return update.getCallbackQuery().getMessage().getChat().getType().equals(chat);
-        else if (update.getEditedMessage() != null) return update.getEditedMessage().getChat().getType().equals(chat);
-        else if (update.getInlineQuery() != null) return update.getInlineQuery().getChatType().equals(chat);
+        if (update.message!=null)return update.message.chat.type.equals(chat);
+        else if (update.callback_query != null) return update.callback_query.message.chat.type.equals(chat);
+        else if (update.edited_message != null) return update.edited_message.chat.type.equals(chat);
+        else if (update.inline_query != null) return update.inline_query.chat_type.equals(chat);
         else return false;
     }
 
     public boolean callbackData(String... callbacks){
-        String data = update.getCallbackQuery().getData();
+        String data = update.callback_query.data;
         if (data == null) return false;
         return List.of(callbacks).contains(data);
     }
 
     public boolean inlineQuery(String... queries){
-        String query = update.getInlineQuery().getQuery();
+        String query = update.inline_query.query;
         if (query == null) return false;
         return List.of(queries).contains(query);
     }
@@ -152,20 +151,20 @@ public class Filter{
         Message message;
         User user;
 
-        if (update.getMessage() != null) {
-            message = update.getMessage();
-            user = message.getFrom();
+        if (update.message != null) {
+            message = update.message;
+            user = message.from;
         }
 
-        else if (update.getCallbackQuery() != null){
-            message = update.getCallbackQuery().getMessage();
-            user = update.getCallbackQuery().getFrom();
+        else if (update.callback_query != null){
+            message = update.callback_query.message;
+            user = update.callback_query.from;
         }
 
         else return false;
 
-        String chatStateName = storage.getName(message.getFrom().getId(), user.getId());
-        String userStateName = storage.getName(user.getId());
+        String chatStateName = storage.getName(message.from.id, user.id);
+        String userStateName = storage.getName(user.id);
 
         if (name.equals("*") && (chatStateName != null || userStateName != null)) return true;
         else if (chatStateName != null) return chatStateName.equals(name);
