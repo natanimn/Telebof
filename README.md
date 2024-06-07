@@ -1,5 +1,5 @@
 # <p align="center">Telebo<i>f</i></p>
-<p align="center">Easy and modern Telegram bot API for java.</p>
+<p align="center">Easy and modern Java Telegram bot API</p>
 
 
 ## <p align="center">Supported Bot API version: 6.7</p>
