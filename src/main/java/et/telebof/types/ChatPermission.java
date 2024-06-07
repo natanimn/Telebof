@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 
 public class ChatPermission implements Serializable {
-    private Boolean can_send_messages, can_send_audios, can_send_documents, can_send_photos, can_send_videos,
+    public Boolean can_send_messages, can_send_audios, can_send_documents, can_send_photos, can_send_videos,
             can_send_video_notes, can_send_voice_notes, can_send_polls, can_send_other_messages, can_add_web_page_previews,
             can_change_info, can_invite_users, can_pin_messages, can_manage_topics;
     public ChatPermission canSendMessages(boolean canSendMessages) {
@@ -76,62 +76,5 @@ public class ChatPermission implements Serializable {
         this.can_manage_topics = canManageTopics;
         return this;
     }
-
-    public Boolean getCanSendVoiceNotes() {
-        return can_send_voice_notes;
-    }
-
-    public Boolean getCanSendPolls() {
-        return can_send_polls;
-    }
-
-    public Boolean getCanSendVideos() {
-        return can_send_videos;
-    }
-
-    public Boolean getCanSendVideoNotes() {
-        return can_send_video_notes;
-    }
-
-    public Boolean getCanSendPhotos() {
-        return can_send_photos;
-    }
-
-    public Boolean getCanSendOtherMessages() {
-        return can_send_other_messages;
-    }
-
-    public Boolean getCanSendMessages() {
-        return can_send_messages;
-    }
-
-    public Boolean getCanSendDocuments() {
-        return can_send_documents;
-    }
-
-    public Boolean getCanSendAudios() {
-        return can_send_audios;
-    }
-
-    public Boolean getCanAddWebPagePreviews() {
-        return can_add_web_page_previews;
-    }
-
-    public Boolean getCanPinMessages() {
-        return can_pin_messages;
-    }
-
-    public Boolean getCanManageTopics() {
-        return can_manage_topics;
-    }
-
-    public Boolean getCanInviteUsers() {
-        return can_invite_users;
-    }
-
-    public Boolean getCanChangeInfo() {
-        return can_change_info;
-    }
-
 
 }

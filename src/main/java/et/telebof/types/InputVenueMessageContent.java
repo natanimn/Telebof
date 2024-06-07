@@ -1,6 +1,5 @@
 package et.telebof.types;
 
-import java.io.File;
 import java.io.Serializable;
 
 public class InputVenueMessageContent implements InputMedia, Serializable {

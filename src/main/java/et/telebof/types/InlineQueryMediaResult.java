@@ -1,19 +1,15 @@
 package et.telebof.types;
 
 import et.telebof.enums.ParseMode;
-
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 @SuppressWarnings("unchecked")
 class InlineQueryMediaResult<T>  implements Serializable, InlineQueryResult {
-    protected String type, id, caption, thumbnail_url, parse_mode, title;
-    protected List<MessageEntity> caption_entities;
-    protected InputMessageContent input_message_content;
-    protected InlineKeyboardMarkup reply_markup;
+    public String type, id, caption, thumbnail_url, parse_mode, title;
+    public List<MessageEntity> caption_entities;
+    public InputMessageContent input_message_content;
+    public InlineKeyboardMarkup reply_markup;
     T thisT = (T) this;
     public InlineQueryMediaResult(String type, String id) {
         this.type = type;

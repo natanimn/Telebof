@@ -1,5 +1,5 @@
 package et.telebof.types;
 
 public class MessageId {
-    Integer messageId;
+    Integer message_id;
 }

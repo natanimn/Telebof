@@ -4,11 +4,11 @@ import java.io.Serializable;
 
 
 public class ChatAdministratorRights implements Serializable {
-    private Boolean is_anonymous, can_manage_chat, can_delete_messages, can_manage_video_chats,
+    public Boolean is_anonymous, can_manage_chat, can_delete_messages, can_manage_video_chats,
             can_restrict_members, can_promote_members, can_change_info, can_invite_users,
             can_post_messages, can_edit_messages, can_pin_messages, can_manage_topics;
 
-    private ChatAdministratorRights add(String key, boolean value) {
+    public ChatAdministratorRights add(String key, boolean value) {
         return this;
     }
 
@@ -72,51 +72,4 @@ public class ChatAdministratorRights implements Serializable {
         return add("can_manage_topics", canManageTopics);
     }
 
-    public Boolean getCanChangeInfo() {
-        return can_change_info;
-    }
-
-    public Boolean getCanDeleteMessages() {
-        return can_delete_messages;
-    }
-
-    public Boolean getCanManageChat() {
-        return can_manage_chat;
-    }
-
-    public Boolean getCanManageVideoChats() {
-        return can_manage_video_chats;
-    }
-
-    public Boolean getCanEditMessages() {
-        return can_edit_messages;
-    }
-
-    public Boolean getCanPinMessages() {
-        return can_pin_messages;
-    }
-
-    public Boolean getCanPromoteMembers() {
-        return can_promote_members;
-    }
-
-    public Boolean getCanRestrictMembers() {
-        return can_restrict_members;
-    }
-
-    public Boolean getCanInviteUsers() {
-        return can_invite_users;
-    }
-
-    public Boolean getCanPostMessages() {
-        return can_post_messages;
-    }
-
-    public Boolean getIsAnonymous() {
-        return is_anonymous;
-    }
-
-    public Boolean getCanManageTopics() {
-        return can_manage_topics;
-    }
 }

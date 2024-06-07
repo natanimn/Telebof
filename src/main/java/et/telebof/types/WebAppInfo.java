@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 
 public class WebAppInfo implements Serializable {
-    private String url;
+    public String url;
 
     public WebAppInfo(String url) {
         this.url = url;
@@ -15,7 +15,4 @@ public class WebAppInfo implements Serializable {
         return this;
     }
 
-    public String getUrl() {
-        return url;
-    }
 }

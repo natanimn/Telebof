@@ -1,41 +1,38 @@
 package et.telebof.types;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.io.Serializable;
 
-public class InputLocationMessageContent {
-    private final Map<String, Object> json = new HashMap<>();
+public class InputLocationMessageContent implements Serializable {
+    private Float latitude, longitude, horizontal_accuracy;
+    private Integer live_period, heading, proximity_alert_radius;
+
     public InputLocationMessageContent latitude(float latitude) {
-        json.put("latitude", latitude);
+        this.latitude = latitude;
         return this;
     }
 
     public InputLocationMessageContent longitude(float longitude) {
-        json.put("longitude", longitude);
+        this.longitude = longitude;
         return this;
     }
 
     public InputLocationMessageContent horizontalAccuracy(float horizontalAccuracy) {
-        json.put("horizontal_accuracy", horizontalAccuracy);
+        this.horizontal_accuracy = horizontalAccuracy;
         return this;
     }
 
     public InputLocationMessageContent livePeriod(int livePeriod) {
-        json.put("live_period", livePeriod);
+        this.live_period = livePeriod;
         return this;
     }
 
     public InputLocationMessageContent heading(int heading) {
-        json.put("heading", heading);
+        this.heading = heading;
         return this;
     }
 
     public InputLocationMessageContent proximityAlertRadius(int proximityAlertRadius) {
-        json.put("proximity_alert_radius", proximityAlertRadius);
+        this.proximity_alert_radius = proximityAlertRadius;
         return this;
-    }
-
-    public Map<String, Object> getJson() {
-        return json;
     }
 }

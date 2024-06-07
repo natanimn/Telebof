@@ -3,12 +3,12 @@ package et.telebof.types;
 import java.io.Serializable;
 
 public class InlineKeyboardButton implements Serializable {
-    private String text, url, callback_data, switch_inline_query_current_chat;
-    private WebAppInfo wep_app;
-    private LoginUrl login_url;
-    private Boolean pay;
-    private CallbackGame callback_game;
-    private SwitchInlineQueryChosenChat switch_inline_query_chosen_chat;
+    public String text, url, callback_data, switch_inline_query_current_chat;
+    public WebAppInfo wep_app;
+    public LoginUrl login_url;
+    public Boolean pay;
+    public CallbackGame callback_game;
+    public SwitchInlineQueryChosenChat switch_inline_query_chosen_chat;
 
     public InlineKeyboardButton(String text) {
         this.text = text;

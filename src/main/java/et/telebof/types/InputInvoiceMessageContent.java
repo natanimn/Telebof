@@ -9,7 +9,8 @@ public class InputInvoiceMessageContent implements Serializable {
     private List<LabeledPrice> prices;
     private List<Integer> suggested_tip_amount;
     private Integer max_tip_amount, photo_width, photo_height, photo_size;
-    private Boolean need_name, need_phone_number;
+    private Boolean need_name, need_phone_number, need_email, is_flexible, send_phone_number_to_provider,
+            need_shipping_address, send_email_to_provider;
 
 
     public InputInvoiceMessageContent title(String title) {
@@ -78,22 +79,27 @@ public class InputInvoiceMessageContent implements Serializable {
     }
 
     public InputInvoiceMessageContent needEmail(Boolean needEmail) {
+        this.need_email = needEmail;
         return this;
     }
 
     public InputInvoiceMessageContent needShippingAddress(Boolean needShippingAddress) {
+        this.need_shipping_address = needShippingAddress;
         return this;
     }
 
     public InputInvoiceMessageContent sendPhoneNumberToProvider(Boolean sendPhoneNumberToProvider) {
+        this.send_phone_number_to_provider = sendPhoneNumberToProvider;
         return this;
     }
 
     public InputInvoiceMessageContent sendEmailToProvider(Boolean sendEmailToProvider) {
+        this.send_email_to_provider = sendEmailToProvider;
         return this;
     }
 
     public InputInvoiceMessageContent isFlexible(Boolean isFlexible) {
+        this.is_flexible = isFlexible;
         return this;
     }
 

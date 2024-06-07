@@ -11,51 +11,14 @@ import java.util.Map;
 import java.util.HashMap;
 
 public class InlineKeyboardMarkup implements Markup, Serializable {
-    transient private final Map<String, Object> json = new HashMap<>();
     private final List<List<InlineKeyboardButton>> inline_keyboard = new ArrayList<>();
-    transient private String text, url, callback_data;
-    transient private LoginUrl login_url;
-    transient private WebAppInfo web_app;
-    transient private String switch_inline_query, switch_inline_query_current_chat;
-    transient private CallbackGame callback_game;
-    transient private Boolean pay;
+    transient public String text, url, callback_data;
+    transient public LoginUrl login_url;
+    transient public WebAppInfo web_app;
+    transient public String switch_inline_query, switch_inline_query_current_chat;
+    transient public CallbackGame callback_game;
+    transient public Boolean pay;
     transient private int rowWidth = 3;
-
-    public String getText() {
-        return text;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public String getCallbackData() {
-        return callback_data;
-    }
-
-    public LoginUrl getLoginUrl() {
-        return login_url;
-    }
-
-    public WebAppInfo getWebApp() {
-        return web_app;
-    }
-
-    public String getSwitchInlineQuery() {
-        return switch_inline_query;
-    }
-
-    public String getSwitchInlineQueryCurrentChat() {
-        return switch_inline_query_current_chat;
-    }
-
-    public CallbackGame getCallbackGame() {
-        return callback_game;
-    }
-
-    public Boolean getPay() {
-        return pay;
-    }
 
     public InlineKeyboardMarkup(){}
 
@@ -106,7 +69,7 @@ public class InlineKeyboardMarkup implements Markup, Serializable {
         }
     }
 
-    public void rowWidth(int rowWidth) {
+    public void setRowWidth(int rowWidth) {
         this.rowWidth = rowWidth;
     }
 

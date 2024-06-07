@@ -5,10 +5,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ForceReply implements Markup, Serializable {
-    private final Map<String, Object> json = new HashMap<>();
-    private final boolean force_reply;
-    private Boolean selective;
-    private String input_field_placeholder;
+    public final boolean force_reply;
+    public Boolean selective;
+    public String input_field_placeholder;
 
     public ForceReply() {
         this.force_reply = true;
