@@ -132,12 +132,14 @@ public class Filter{
     }
 
     public boolean callbackData(String... callbacks){
+        if (update.callback_query == null) return false;
         String data = update.callback_query.data;
         if (data == null) return false;
         return List.of(callbacks).contains(data);
     }
 
     public boolean inlineQuery(String... queries){
+        if (update.inline_query == null) return false;
         String query = update.inline_query.query;
         if (query == null) return false;
         return List.of(queries).contains(query);
