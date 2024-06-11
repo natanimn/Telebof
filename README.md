@@ -35,7 +35,7 @@
 <dependecy>
     <groupId>et.telebof</groupId>
     <artifactId>telegrambot</artifactId>
-    <version>1.2.0</version>
+    <version>1.2.1</version>
 </dependecy>
 
 ```
