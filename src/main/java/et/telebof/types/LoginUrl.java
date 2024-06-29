@@ -4,11 +4,8 @@ import java.io.Serializable;
 
 
 public class LoginUrl implements Serializable {
-    private String url, forwardText, botUsername;
-    private Boolean requestWriteAccess;
-
-    private String forward_text, bot_username;
-    private Boolean request_write_access;
+    public String url, forward_text, bot_username;
+    public Boolean request_write_access;
 
 
     public LoginUrl url(String url){

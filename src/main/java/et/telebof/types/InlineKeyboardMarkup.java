@@ -7,8 +7,7 @@ import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Map;
-import java.util.HashMap;
+
 
 public class InlineKeyboardMarkup implements Markup, Serializable {
     private final List<List<InlineKeyboardButton>> inline_keyboard = new ArrayList<>();
@@ -69,7 +68,7 @@ public class InlineKeyboardMarkup implements Markup, Serializable {
         }
     }
 
-    public void setRowWidth(int rowWidth) {
+    public void rowWidth(int rowWidth) {
         this.rowWidth = rowWidth;
     }
 

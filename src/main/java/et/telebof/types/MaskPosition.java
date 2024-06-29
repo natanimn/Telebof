@@ -4,8 +4,8 @@ import java.io.Serializable;
 
 
 public class MaskPosition implements Serializable {
-    private String point;
-    private Float x_shift, y_shift, scale;
+    public String point;
+    public Float x_shift, y_shift, scale;
 
     public MaskPosition point(String point){
         this.point = point;
