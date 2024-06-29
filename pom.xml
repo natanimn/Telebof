@@ -6,7 +6,7 @@
 
     <groupId>et.telebof</groupId>
     <artifactId>telegrambot</artifactId>
-    <version>1.2.1</version>
+    <version>1.3.0</version>
     <description>Easy and modern Java Telegram bot API</description>
     <name>Telebof</name>
     <packaging>jar</packaging>
