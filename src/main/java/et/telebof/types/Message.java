@@ -31,6 +31,7 @@ public class Message extends JsonSerializable implements Serializable {
     public Dice dice;
     public Game game;
     public Poll poll;
+    public Story story;
     public Venue venue;
     public Location location;
     public Integer message_auto_delete_timer_changed;
