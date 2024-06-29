@@ -1,7 +1,6 @@
 package et.telebof.filters;
 
 import et.telebof.Util;
-import et.telebof.TelegramContext;
 import et.telebof.types.Update;
 import et.telebof.states.StateMemoryStorage;
 import et.telebof.types.Message;
@@ -60,11 +59,10 @@ public class Filter{
     public final boolean BOT;
     public final boolean POLL;
     public final boolean ZERO_INLINE_QUERY;
-    public final TelegramContext context;
     private final StateMemoryStorage storage;
-    public Filter(Update update, TelegramContext context, StateMemoryStorage storage){
+
+    public Filter(Update update, StateMemoryStorage storage){
         this.update = update;
-        this.context = context;
         this.storage = storage;
         this.TEXT = update.message !=null && update.message.text != null;
         this.PRIVATE = chatType("private");
@@ -118,6 +116,7 @@ public class Filter{
     }
 
     public boolean commands(String... commands){
+        if (update.message == null) return false;
         String command = Util.extractCommand(update.message.text);
         if (command == null) return false;
         return List.of(commands).contains(command);
