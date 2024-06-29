@@ -7,5 +7,6 @@ public class PollAnswer implements Serializable {
     public String poll_id;
     public User user;
     public List<Integer> options_id;
+    public Chat voter_chat;
 
 }
