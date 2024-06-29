@@ -1,6 +1,5 @@
 package et.telebof.requests;
 
-import et.telebof.Util;
 import java.io.File;
 import java.util.Map;
 import java.util.TreeMap;
@@ -15,8 +14,8 @@ abstract public class AbstractBaseRequest<T, R>{
     protected String methodName ;
     protected RequestSender requestSender;
 
-    public AbstractBaseRequest(Object chatId, RequestSender requestSender, String methodName) {
-        add("chat_id", chatId);
+    public AbstractBaseRequest(Object chat_id, RequestSender requestSender, String methodName) {
+        add("chat_id", chat_id);
         this.requestSender = requestSender;
         this.methodName = methodName;
     }
@@ -55,11 +54,6 @@ abstract public class AbstractBaseRequest<T, R>{
 
     protected String getContentType() {
         return contentType;
-    }
-
-    @Deprecated(since = "v1.2.0")
-    public R bind(){
-        return exec();
     }
 
     public abstract R exec();
