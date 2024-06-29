@@ -21,5 +21,6 @@ public class Chat extends JsonSerializable  implements Serializable {
     public Boolean can_set_sticker_set;
     public Integer linked_chat_id;
     public Location location;
+    public Integer emoji_status_expiration_date;
 
 }
