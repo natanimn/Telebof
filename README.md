@@ -146,9 +146,11 @@ We have two handlers: `/start` command handler and `text` handler.
 
 - `exec()` meaning `execute` is an enclosing and request sender method. This means before ending and sending request, you can pass 
 optional parameters and then send a request to telegram. For example `sendMessage` method has optional parameters like: 
-`parseMode`, `replyMarkup`. So you can pass their value for these parameters and send request to telegram.
+`parse_mode`, `reply_markup`. So you can pass their value for these parameters and send request to telegram.
 
 ```java
+import et.telebof.enums.ParseMode;
+
 context.sendMessage("*Hello, World*").parseMode(ParseMode.MARKDOWN).exec();
 ```
 Lastly we start our bot by using `start()` which does not take any parameter and run our bot via **long polling.** 
@@ -482,15 +484,11 @@ public class InlineBot {
 
 ```java
 import et.telebof.Webhook;
-import et.telebof.enums.Updates;
-
 import java.io.File;
 
 class MyWebhookBot {
   public static void main(String[] args) {
-    Webhook webhook = new Webhook("www.example.com", "/bot")  // URL and path respectively
-            .certificate(new File(""))
-            .maxConnections(100);
+    Webhook webhook = new Webhook("www.example.com", "/bot");  // URL and path respectively
     //...
     bot.setWebhook(webhook); // set webhook
 
@@ -533,7 +531,7 @@ import et.telebof.BotClient;
 import java.net.InetSocketAddress;
 import java.net.Proxy;
 
-InetSocketAddress address = new InetSocketAddress(80, "127.97.91"); /* port and hostname respectively */ 
+InetSocketAddress address = new InetSocketAddress(80, "127.97.91"); // port and hostname respectively 
 
 Proxy proxy = new Proxy(Proxy.Type.SOCKS, address);
 BotClient bot = new BotClient
@@ -555,7 +553,7 @@ BotClient bot = new BotClient.Builder(TOKEN)
         .useTestServer(false) // Using test server
         .timeout(30) // timeout
         .offset(-1) // offset
-        .allowedUpdates(new Updates[]{Updates.MESSAGE, Updates.CALLBACK_QUERY}) // Specifying which update should be received 
+        .allowedUpdates(Updates.ALL) // Allowed updates
         .proxy(null) // proxy
         .build(); // build our client
 ```
