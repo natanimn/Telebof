@@ -15,8 +15,9 @@ public class ChatMember extends JsonSerializable implements Serializable {
             can_send_photos, can_send_videos, can_send_video_notes, can_send_voice_votes, can_send_polls,
             can_send_other_messages, can_add_web_page_previews;
 
-    public Integer until_date;
+    public Boolean can_post_stories, can_edit_stories, can_delete_stories;
 
+    public Integer until_date;
 
 }
 
