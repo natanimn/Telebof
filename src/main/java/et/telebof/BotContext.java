@@ -306,10 +306,6 @@ public class BotContext {
         return new StopMessageLiveLocation(getChatId(), messageId, this.requestSender);
     }
 
-    public StopMessageLiveLocation stopMessageLiveLocation() {
-        return new StopMessageLiveLocation(getChatId(), getMessageId(), this.requestSender);
-    }
-
     public StopMessageLiveLocation stopMessageLiveLocation(String inlineMessageId) {
         return new StopMessageLiveLocation(inlineMessageId, this.requestSender);
     }
@@ -737,8 +733,8 @@ public class BotContext {
         return new EditMessageCaption(chatId, messageId, this.requestSender).parseMode(parseMode);
     }
 
-    public EditMessageCaption editMessageCaption() {
-        return new EditMessageCaption(getChatId(), getMessageId(), this.requestSender).parseMode(parseMode);
+    public EditMessageCaption editMessageCaption(int messageId) {
+        return new EditMessageCaption(getChatId(), messageId, this.requestSender).parseMode(parseMode);
     }
 
     public EditMessageCaption editMessageCaption(String inlineMessageId) {
@@ -761,8 +757,8 @@ public class BotContext {
         return new EditMessageReplyMarkup(chatId, messageId, this.requestSender);
     }
 
-    public EditMessageReplyMarkup editMessageReplyMarkup() {
-        return new EditMessageReplyMarkup(getChatId(), getMessageId(), this.requestSender);
+    public EditMessageReplyMarkup editMessageReplyMarkup(int messageId) {
+        return new EditMessageReplyMarkup(getChatId(), messageId, this.requestSender);
     }
 
     public EditMessageReplyMarkup editMessageReplyMarkup(String inlineMessageId) {
@@ -773,16 +769,16 @@ public class BotContext {
         return new StopPoll(chatId, messageId, this.requestSender);
     }
 
-    public StopPoll stopPoll() {
-        return new StopPoll(getChatId(), getMessageId(), this.requestSender);
+    public StopPoll stopPoll(int messageId) {
+        return new StopPoll(getChatId(), messageId, this.requestSender);
     }
 
     public DeleteMessage deleteMessage(Object chatId, int messageId) {
         return new DeleteMessage(chatId, messageId, this.requestSender);
     }
 
-    public DeleteMessage deleteMessage() {
-        return new DeleteMessage(getChatId(), getMessageId(), this.requestSender);
+    public DeleteMessage deleteMessage(int messageId) {
+        return new DeleteMessage(getChatId(), messageId, this.requestSender);
     }
 
     public SendSticker sendSticker(Object chatId, File sticker) {
