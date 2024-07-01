@@ -1,6 +1,6 @@
 package et.telebof.requests;
 
-@SuppressWarnings("unused")
+
 public class PromoteChatMember extends AbstractBaseRequest<PromoteChatMember, Boolean> {
 
     public PromoteChatMember(Object chatId, long userId, RequestSender requestSender) {
@@ -11,6 +11,7 @@ public class PromoteChatMember extends AbstractBaseRequest<PromoteChatMember, Bo
     public PromoteChatMember isAnonymous(boolean isAnonymous) {
         return add("is_anonymous", isAnonymous);
     }
+
     public PromoteChatMember canManageChat(boolean canManageChat) {
         return add("can_manage_chat", canManageChat);
     }
@@ -53,6 +54,18 @@ public class PromoteChatMember extends AbstractBaseRequest<PromoteChatMember, Bo
 
     public PromoteChatMember canManageTopics(boolean canManageTopics) {
         return add("can_manage_topics", canManageTopics);
+    }
+
+    public PromoteChatMember canPostStories(boolean canPostStories){
+        return add("can_post_stories", canPostStories);
+    }
+
+    public PromoteChatMember canEditStories(boolean canEditStories){
+        return add("can_edit_stories", canEditStories);
+    }
+
+    public PromoteChatMember canDeleteStories(boolean canDeleteStories){
+        return add("can_delete_stories", canDeleteStories);
     }
 
     @Override
