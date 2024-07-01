@@ -3,10 +3,7 @@ package et.telebof.requests;
 import et.telebof.enums.StickerType;
 import et.telebof.types.InputSticker;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 public class CreateNewStickerSet extends AbstractBaseRequest<CreateNewStickerSet, Boolean> {
     public CreateNewStickerSet(long userId, String name, String title, InputSticker[] stickers, String stickerFormat,

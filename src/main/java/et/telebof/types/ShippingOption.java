@@ -7,19 +7,10 @@ public class ShippingOption implements Serializable {
     private String id, title;
     private List<LabeledPrice> prices;
 
-    public ShippingOption id(String id) {
+    public ShippingOption(String id, String title, List<LabeledPrice> prices){
         this.id = id;
-        return this;
-    }
-
-    public ShippingOption title(String title) {
         this.title = title;
-        return this;
-    }
-
-    public ShippingOption prices(LabeledPrice[] prices) {
-        this.prices = List.of(prices);
-        return this;
+        this.prices = prices;
     }
 
 }

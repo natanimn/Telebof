@@ -3,7 +3,6 @@ package et.telebof.types;
 import et.telebof.enums.ParseMode;
 
 import java.io.File;
-import java.io.Serializable;
 import java.util.List;
 
 @SuppressWarnings("unchecked")
