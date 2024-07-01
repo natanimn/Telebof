@@ -1,6 +1,9 @@
 package et.telebof;
 
+import et.telebof.enums.Updates;
+
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -51,8 +54,12 @@ public class Webhook {
         return add("max_connections", maxConnections);
     }
 
-    public Webhook allowedUpdates(String[] allowedUpdates){
-        return add("allowed_updates", List.of(allowedUpdates));
+    public Webhook allowedUpdates(Updates[] allowedUpdates){
+        List<String> updates = new ArrayList<>();
+        if (allowedUpdates != null) {
+            List.of(allowedUpdates).forEach(update -> updates.add(update.name().toLowerCase()));
+        }
+        return add("allowed_updates", updates);
     }
 
     public Webhook dropPendingUpdates(Boolean dropPendingUpdates){
