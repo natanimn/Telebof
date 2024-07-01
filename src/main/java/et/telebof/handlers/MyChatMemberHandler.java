@@ -1,9 +1,9 @@
 package et.telebof.handlers;
 
+import et.telebof.BotContext;
 import et.telebof.types.ChatMemberUpdated;
 
 @FunctionalInterface
 public interface MyChatMemberHandler {
-
-    void handle(ChatMemberUpdated chatMemberUpdated);
+    void handle(BotContext context, ChatMemberUpdated chatMemberUpdated);
 }

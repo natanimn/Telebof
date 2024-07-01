@@ -1,8 +1,9 @@
 package et.telebof.handlers;
 
+import et.telebof.BotContext;
 import et.telebof.types.ShippingQuery;
 
 @FunctionalInterface
 public interface ShippingHandler {
-    boolean handle(ShippingQuery shippingQuery);
+    boolean handle(BotContext context, ShippingQuery shippingQuery);
 }

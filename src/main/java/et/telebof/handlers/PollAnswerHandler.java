@@ -1,8 +1,9 @@
 package et.telebof.handlers;
 
+import et.telebof.BotContext;
 import et.telebof.types.PollAnswer;
 
 @FunctionalInterface
 public interface PollAnswerHandler {
-    void handle(PollAnswer pollAnswer);
+    void handle(BotContext context, PollAnswer pollAnswer);
 }
