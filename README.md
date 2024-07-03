@@ -2,7 +2,7 @@
 <p align="center">Easy and modern Java Telegram bot API</p>
 
 
-## <p align="center">Supported Bot API version: 6.9</p>
+## <p align="center">Supported Bot API version: 7.0</p>
 
 
 ## Contents
@@ -34,7 +34,7 @@
 <dependecy>
     <groupId>et.telebof</groupId>
     <artifactId>telegrambot</artifactId>
-    <version>1.4.0</version>
+    <version>1.5.0</version>
 </dependecy>
 
 ```
@@ -53,7 +53,7 @@ public class MyFirstEchoBot {
 
     // Listening for /start command
     bot.onMessage(filter -> filter.commands("start"), (context, message) -> {
-        context.reply("Hello, welcome to your first bot!").exec();
+        context.reply("Welcome!").exec();
     });
 
     // Listening for any text
@@ -102,11 +102,9 @@ bot.context.sendPhoto(123456789L, new File("photo.png")).exec();
 
 ## Listening Updates
 ### Update
-Update is an event that bot receives from user like incoming messages, pressing button or in group, supergroup and channels like:
-new member joins, left etc.
+Update is an event that bot receives like incoming messages, pressing button.
 
-There are 14 updates type that a bot can receive. These updates are handled
-by registering one or more callback classes. 
+Updates are handled by [registering one or more callback classes](#types-of-handlers). 
 
 Each update has its own handler. These handlers take two parameters as argument: filter class 
 and callback class. The filter class is a lambda class of `et.telebof.filter.FilterExecutor` takes `et.telebof.filter.Filter`
@@ -127,7 +125,7 @@ public class MyFirstEchoBot {
     final BotClient bot = new BotClient(TOKEN);
 
     bot.onMessage(filter -> filter.commands("start"), (context, message) -> {
-      context.reply("Hello, welcome to your first bot!").exec();
+      context.reply("Welcome!").exec();
     });
 
     bot.onMessage(filter -> filter.TEXT, (context, message) -> {
@@ -140,9 +138,9 @@ public class MyFirstEchoBot {
 ```
 We have two handlers: `/start` command handler and `text` handler.
 
-- The first handler handles `/start` command and send back a text `Hello, welcome to your first bot!`.
+- The first handler handles `/start` command and send back a text `Welcome!`.
 - The second handler handles any incoming **text** and echoes the text.
-- The `reply` method is a shortage of `sendMessage` and replies message to the `chat_id` with `reply_to_message_id` argument.
+- The `reply` method is a shortage of `sendMessage` and replies message to the `chat_id`.
 
 - `exec()` meaning `execute` is an enclosing and request sender method. This means before ending and sending request, you can pass 
 optional parameters and then send a request to telegram. For example `sendMessage` method has optional parameters like: 
@@ -205,7 +203,7 @@ These filter classes are used for filtering content of updates and separate the 
 - `filter.VIDEO_CHAT_ENDED` - filter field `message.video_ehat_ended` is not null
 - `filter.VIDEO_CHAT_PARTICIPANT_INVITED` - filter field `message.video_chat_participant_invited` is not null
 - `filter.VIDEO_CHAT_SCHEDULED` - filter field `message.video_chat_scheduled` is not null
-- `filter.FORWARDED` - filter field `message.forwardFrom` or `message.forward_from_chat` is not null
+- `filter.FORWARDED` - filter field `message.forward_origin` is not null
 - `filter.REPLIED` - filter field `message.reply_to_message` is not null
 - `filter.BOT` - filter user is bot or filed `message.from.is_bot` is `true`
 - `filter.ZERO_INLINE_QUERY` - filter filed `inline_query.query` is empty or has no value
@@ -256,6 +254,7 @@ You can write your own filter using `filter.customFilter`.
 This example will show you how you can write filters using `et.telebof.filters.CustomFilter` and `filter.customFilter`.
 
 ```java
+import et.telebof.BotContext;
 import et.telebof.filters.CustomFilter;
 import et.telebof.handlers.MessageHandler;
 import et.telebof.types.Message;
@@ -278,12 +277,16 @@ class IsNumberFilter implements CustomFilter {
   }
 }
 
-class NumberFilterBot {
+class FilterBot {
+
+  static void numberFilter(BotContext context, Message message){
+      context.sendMessage("It is number").exec();
+  }
+
   public static void main(String[] args) {
-    // ...
-    bot.onMessage(filter -> filter.TEXT && filter.customFilter(new IsNumberFilter()), (context, message) -> {
-        context.sendMessage("It is number").exec();
-    });
+      // ...
+      bot.onMessage(filter -> filter.TEXT && filter.customFilter(new IsNumberFilter()),
+              FilterBot::numberFilter);
   }
 }
 ```
@@ -296,7 +299,6 @@ There are some advanced filters for handling incoming `command` from user, `pres
 Example for handling commands using `filter.commands`
 
 ```java
-
 // handles /start command
 bot.onMessage(filter -> filter.commands("start"), (context, message) -> {});
 
@@ -320,7 +322,7 @@ bot.onInline(filter -> filter.inlineQuery("hello"), (context, query) -> {});
 ```
 
 ### State Filter
-There is another special filter to make conversations with a bot called `state filter`.
+There is another special filter to make conversations with bot called `state filter`.
 ```java
 bot.onMessage(filter -> filter.commands("start"), (context, message) -> {
     context.sendMessage("What is your name?").exec();
@@ -334,69 +336,77 @@ bot.onMessage(filter -> filter.state("name") && filter.TEXT, (context, message) 
 ```
 
 ## Types of Handlers
-There are 14 types of handlers to be handled
+There are 18 types of updates to be handled
 
 #### Message Handler
-
 ```java
-bot.onMessage(filter -> true, (context, message) -> {}); 
+bot.onMessage((context, message) -> {}); 
 ```
 #### CallbackQuery handler
 ```java
-bot.onCallback(filter -> true, (context, callback) -> {});
+bot.onCallback((context, callback) -> {});
 ```
-#### Inline Handler
+#### InlineQuery Handler
 ```java
-bot.onInline(fileter -> true, (context, query) -> {} );
+bot.onInline((context, query) -> {} );
 ```
 #### Poll Handler
 ```java
-bot.onPoll(filter -> true, (context, poll) -> {});
+bot.onPoll((context, poll) -> {});
 ```
-
 #### PollAnswer Handler
 ```java
-bot.onPoll(filter -> true, (context, poll_answer) -> {});
+bot.onPoll((context, poll_answer) -> {});
 ```
-#### Shipping Handler
+#### ShippingQuery Handler
 ```java
-bot.onShipping(filter -> true, (context, shipping) -> {});
+bot.onShipping((context, shipping) -> {});
 ```
-
 #### ChannelPost Handler
 ```java
-bot.onChannelPost(filter -> true, (context, channel_post) -> {});
+bot.onChannelPost((context, channel_post) -> {});
 ```
-
 #### PreCheckoutQuery Handler
 ```java
-bot.onPreCheckout(filter -> true, (context, pre_checkout) -> {});
+bot.onPreCheckout((context, pre_checkout) -> {});
 ```
-
 #### EditedMessage Handler
 ```java
-bot.onEditedMessage(filter -> true, (context, edited_message) -> {});
+bot.onEditedMessage((context, edited_message) -> {});
 ```
-
 #### EditedChannelPost Handler
 ```java
-bot.onEditedChannelPost(filter -> true, (context, edited_c) -> {});
+bot.onEditedChannelPost((context, edited_c) -> {});
 ```
-
 #### MyChatMember Handler
 ```java
-bot.onMychatMember(filter -> true, (context, my_chat) -> {});
+bot.onMychatMember((context, my_chat) -> {});
 ```
-
 #### ChatMember Handler
 ```java
-bot.onChatMember(filter -> true, (context, chat_member) -> {});
+bot.onChatMember((context, chat_member) -> {});
 ```
-
 #### ChosenInlineResult Handler
 ```java
-bot.onChosenInlineResult(filter -> true, (context, chosen) -> {});
+bot.onChosenInlineResult((context, chosen) -> {});
 ```
+#### MessageReaction Handler
+```java
+bot.onReaction((context, reaction) -> {});
+```
+#### MessageReactionCount Handler
+```java
+bot.onReactionCount((context, reaction_count) -> {});
+```
+#### ChatBoost Handler
+```java
+bot.onChatBoost((context, chat_boost) -> {});
+```
+#### RemovedChatBoost Handler
+```java
+bot.onRemovedChatBoost((context, removed_chat_boost) -> {});
+```
+
 
 ## Markups
 ### ReplyMarkup
@@ -448,34 +458,38 @@ context.sendMessage("Press one button").replyMarkup(inlineMarkup).exec();
 
 ### ForceReply
 ```java
-context.sendMessage("Can you tell me your name please?").replyMarkup(new ForceReply()).exec();
+context.sendMessage("Can you tell me your name please?")
+        .replyMarkup(new ForceReply())
+        .exec();
 ```
 
 ### RemoveReplyKeyboard
 ```java
-context.sendMessage("There is no reply keyboard now").replyMarkup(new RemoveReplyKeybaord()).exec(); 
+context.sendMessage("There is no reply keyboard now")
+        .replyMarkup(new RemoveReplyKeybaord())
+        .exec(); 
 ```
 
 ## Inline Bot
 
 ```java
-import et.telebof.BotClient;
+import et.telebof.types.InlineQueryResult;
 import et.telebof.types.InlineQueryResultArticle;
-import et.telebof.types.InputMessageContent;
+import et.telebof.types.InputTextMessageContent;
 
 public class InlineBot {
   public static void main(String[] args) {
     //...
-    
+
     bot.onInline(filter -> filter.ZERO_INLINE_QUERY, (context, query) -> {
-      InlineQueryResult result = new InlineQueryResultArticle("1")
+      InlineQueryResultArticle article = new InlineQueryResultArticle("1")
               .title("Write something")
               .description("click here")
-              .inputMessageContent(new InputMessageContent("Please write something"));
+              .inputTextMessageContent(new InputTextMessageContent("Please write something"));
 
-      context.answerInline(query.id, new InlineQueryResult[]{result}).exec();
+      context.answerInline(new InlineQueryResult[]{article}).exec();
     });
-    
+
   }
 }
 ```
