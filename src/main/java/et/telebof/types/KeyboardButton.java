@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class KeyboardButton implements Serializable {
     private String text;
-    private KeyboardButtonRequestUser request_user;
+    private KeyboardButtonRequestUsers request_users;
     private KeyboardButtonRequestChat request_chat;
     private KeyboardButtonPollType request_poll;
     private Boolean request_contact, request_location;
@@ -15,8 +15,8 @@ public class KeyboardButton implements Serializable {
         this.text = text;
     }
 
-    public KeyboardButton requestUser(KeyboardButtonRequestUser requestUser) {
-        this.request_user = requestUser;
+    public KeyboardButton requestUser(KeyboardButtonRequestUsers requestUsers) {
+        this.request_users = requestUsers;
         return this;
     }
 
