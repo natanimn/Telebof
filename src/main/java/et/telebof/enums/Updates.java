@@ -15,7 +15,11 @@ public enum Updates{
     PRE_CHECKOUT_QUERY,
     MY_CHAT_MEMBER,
     CHAT_MEMBER,
-    CHAT_JOIN_REQUEST;
+    CHAT_JOIN_REQUEST,
+    MESSAGE_REACTION,
+    MESSAGE_REACTION_COUNT,
+    CHAT_BOOST,
+    REMOVED_CHAT_BOOST;
 
     public static final Updates[] ALL = {
             MESSAGE,
@@ -31,6 +35,10 @@ public enum Updates{
             PRE_CHECKOUT_QUERY,
             MY_CHAT_MEMBER,
             CHAT_MEMBER,
-            CHAT_JOIN_REQUEST
+            CHAT_JOIN_REQUEST,
+            MESSAGE_REACTION,
+            MESSAGE_REACTION_COUNT,
+            CHAT_BOOST,
+            REMOVED_CHAT_BOOST
     };
 }
