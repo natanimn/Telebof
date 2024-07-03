@@ -1,6 +1,7 @@
 package et.telebof.requests;
 import et.telebof.Util;
 import et.telebof.types.Message;
+import et.telebof.types.ReplyParameters;
 
 public class SendVenue extends AbstractBaseRequest<SendVenue, Message> {
 
@@ -36,14 +37,20 @@ public class SendVenue extends AbstractBaseRequest<SendVenue, Message> {
         return add("protect_content", protectContent);
     }
 
+    @Deprecated(since = "v1.5.0")
     public SendVenue replyToMessageId(int replyToMessageId) {
         return add("reply_to_message_id", replyToMessageId);
     }
 
+    @Deprecated(since = "v1.5.0")
     public SendVenue  allowSendingWithoutReply(boolean allowSendingWithoutReply) {
         return add("allow_sending_without_reply", allowSendingWithoutReply);
     }
 
+
+    public SendVenue replyParameters(ReplyParameters parameters){
+        return add("reply_parameters", parameters);
+    }
     @Override
     public Message exec() {
         return Util.parse(requestSender.makeRequest(this), Message.class);
