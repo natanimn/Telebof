@@ -109,7 +109,7 @@ public class Filter{
         this.VIDEO_CHAT_PARTICIPANT_INVITED = update.message !=null && update.message.video_chat_participants_invited != null;
         this.VIDEO_CHAT_SCHEDULED = update.message !=null && update.message.video_chat_scheduled != null;
         this.VIDEO_CHAT_ENDED = update.message !=null && update.message.video_chat_ended != null;
-        this.FORWARDED = update.message !=null && (update.message.forward_from != null || update.message.forward_from_chat != null);
+        this.FORWARDED = update.message !=null && update.message.forward_origin != null;
         this.REPLIED = update.message !=null && update.message.reply_to_message != null;
         this.BOT = update.message !=null && update.message.from.is_bot;
         this.ZERO_INLINE_QUERY = update.inline_query != null && update.inline_query.query.isEmpty();
@@ -153,11 +153,17 @@ public class Filter{
         User user;
 
         if (update.message != null) {
+            // In accessible message
+            if (update.message.date == 0) return false;
+
             message = update.message;
             user = message.from;
         }
 
         else if (update.callback_query != null){
+            // In accessible message
+            if (update.callback_query.message.date == 0) return false;
+
             message = update.callback_query.message;
             user = update.callback_query.from;
         }
