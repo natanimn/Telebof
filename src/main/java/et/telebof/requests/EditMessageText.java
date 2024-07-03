@@ -3,6 +3,7 @@ package et.telebof.requests;
 import et.telebof.enums.ParseMode;
 import et.telebof.Util;
 import et.telebof.types.InlineKeyboardMarkup;
+import et.telebof.types.LinkPreviewOptions;
 import et.telebof.types.Message;
 import et.telebof.types.MessageEntity;
 
@@ -29,9 +30,15 @@ public class EditMessageText extends AbstractBaseRequest<EditMessageText, Messag
         return add("entities", List.of(entities));
     }
 
+    @Deprecated(since = "v1.5.0")
     public EditMessageText disableWebPagePreview(boolean disableWebPagePreview) {
         return add("disable_web_page_preview", disableWebPagePreview);
     }
+
+    public EditMessageText linkPreviewOption(LinkPreviewOptions linkPreviewOptions) {
+        return add("disable_web_page_preview", linkPreviewOptions);
+    }
+
 
     public EditMessageText replyMarkup(InlineKeyboardMarkup replyMarkup) {
         return add("reply_markup", replyMarkup);
