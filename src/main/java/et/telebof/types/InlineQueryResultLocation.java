@@ -6,7 +6,7 @@ public class InlineQueryResultLocation implements Serializable, InlineQueryResul
     private String id, type, location, thumbnail_url;
     private Integer live_period, heading, proximity_alert_radius, thumbnail_width, thumbnail_height;
     private Float latitude, longitude, horizontal_accuracy;
-    private InputMessageContent input_message_content;
+    private InputTextMessageContent input_message_content;
     private InlineKeyboardMarkup reply_markup;
 
     public InlineQueryResultLocation(String id) {
@@ -44,8 +44,8 @@ public class InlineQueryResultLocation implements Serializable, InlineQueryResul
         return this;
     }
 
-    public InlineQueryResultLocation inputMessageContent(InputMessageContent inputMessageContent) {
-        this.input_message_content = inputMessageContent;
+    public InlineQueryResultLocation inputMessageContent(InputTextMessageContent inputTextMessageContent) {
+        this.input_message_content = inputTextMessageContent;
         return this;
     }
 

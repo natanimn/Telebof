@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class InlineQueryResultArticle implements Serializable, InlineQueryResult {
     private String id, type, url, description, thumbnail_url, title;
     private Integer thumbnail_width, thumbnail_height;
-    private InputMessageContent input_message_content;
+    private InputTextMessageContent input_message_content;
     private InlineKeyboardMarkup reply_markup;
     private Boolean hide_url;
 
@@ -19,8 +19,8 @@ public class InlineQueryResultArticle implements Serializable, InlineQueryResult
         return this;
     }
 
-    public InlineQueryResultArticle inputMessageContent(InputMessageContent inputMessageContent) {
-        this.input_message_content = inputMessageContent;
+    public InlineQueryResultArticle inputMessageContent(InputTextMessageContent inputTextMessageContent) {
+        this.input_message_content = inputTextMessageContent;
         return this;
     }
 

@@ -6,7 +6,7 @@ public class InlineQueryResultContact implements Serializable, InlineQueryResult
     private String type, id, phone_number, first_name, last_name, vcard, thumbnail_url;
     private Integer thumbnail_width, thumbnail_height;
     private InlineKeyboardMarkup reply_markup;
-    private InputMessageContent input_message_content;
+    private InputTextMessageContent input_message_content;
     public InlineQueryResultContact(String id) {
         this.type = "contact";
         this.id = id;
@@ -32,8 +32,8 @@ public class InlineQueryResultContact implements Serializable, InlineQueryResult
         return this;
     }
 
-    public InlineQueryResultContact inputMessageContent(InputMessageContent inputMessageContent) {
-        this.input_message_content = inputMessageContent;
+    public InlineQueryResultContact inputMessageContent(InputTextMessageContent inputTextMessageContent) {
+        this.input_message_content = inputTextMessageContent;
         return this;
     }
 

@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class InlineQueryResultCachedSticker implements Serializable, InlineQueryResult {
     private String sticker_file_id, type, id;
-    private InputMessageContent input_message_content;
+    private InputTextMessageContent input_message_content;
     private InlineKeyboardMarkup reply_markup;
 
     public InlineQueryResultCachedSticker(String id) {
@@ -17,8 +17,8 @@ public class InlineQueryResultCachedSticker implements Serializable, InlineQuery
         return this;
     }
 
-    public InlineQueryResultCachedSticker inputMessageContent(InputMessageContent inputMessageContent) {
-        this.input_message_content = inputMessageContent;
+    public InlineQueryResultCachedSticker inputMessageContent(InputTextMessageContent inputTextMessageContent) {
+        this.input_message_content = inputTextMessageContent;
         return this;
     }
 

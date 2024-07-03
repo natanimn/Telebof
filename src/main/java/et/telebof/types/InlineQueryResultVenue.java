@@ -7,7 +7,7 @@ public class InlineQueryResultVenue implements Serializable, InlineQueryResult {
             google_place_id, google_place_type;
     private Integer thumbnail_width, thumbnail_height;
     private Float latitude, longitude, horizontal_accuracy;
-    private InputMessageContent input_message_content;
+    private InputTextMessageContent input_message_content;
     private InlineKeyboardMarkup reply_markup;
 
     public InlineQueryResultVenue(String id) {
@@ -65,8 +65,8 @@ public class InlineQueryResultVenue implements Serializable, InlineQueryResult {
         return this;
     }
 
-    public InlineQueryResultVenue inputMessageContent(InputMessageContent inputMessageContent) {
-        this.input_message_content = inputMessageContent;
+    public InlineQueryResultVenue inputMessageContent(InputTextMessageContent inputTextMessageContent) {
+        this.input_message_content = inputTextMessageContent;
         return this;
     }
 

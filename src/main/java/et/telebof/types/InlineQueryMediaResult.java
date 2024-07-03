@@ -8,7 +8,7 @@ import java.util.List;
 class InlineQueryMediaResult<T>  implements Serializable, InlineQueryResult {
     public String type, id, caption, thumbnail_url, parse_mode, title;
     public List<MessageEntity> caption_entities;
-    public InputMessageContent input_message_content;
+    public InputTextMessageContent input_message_content;
     public InlineKeyboardMarkup reply_markup;
     T thisT = (T) this;
     public InlineQueryMediaResult(String type, String id) {
@@ -21,8 +21,8 @@ class InlineQueryMediaResult<T>  implements Serializable, InlineQueryResult {
         return thisT;
     }
 
-    public T inputMessageContent(InputMessageContent inputMessageContent) {
-        this.input_message_content = inputMessageContent;
+    public T inputMessageContent(InputTextMessageContent inputTextMessageContent) {
+        this.input_message_content = inputTextMessageContent;
         return thisT;
     }
 
