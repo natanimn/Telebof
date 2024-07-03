@@ -9,7 +9,7 @@ public class ApiResponse extends JsonSerializable {
     public String description;
     public int error_code;
     public Object result;
-    public Map<String,  Object> parameters;
+    public ResponseParameters parameters;
 
 }
 

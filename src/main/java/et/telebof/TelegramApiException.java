@@ -1,12 +1,11 @@
 package et.telebof;
 
-import java.util.Map;
 
 public class TelegramApiException extends RuntimeException {
     public boolean ok;
     public String description;
     public int error_code;
-    public Map<String, Object> parameters;
+    public ResponseParameters parameters;
 
     public TelegramApiException(ApiResponse response) {
         super(String.format("Error code: %d. %s", response.error_code, response.description));
