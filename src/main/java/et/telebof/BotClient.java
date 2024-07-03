@@ -24,21 +24,16 @@ import et.telebof.types.User;
 import et.telebof.types.WebhookInfo;
 import et.telebof.filters.Filter;
 import et.telebof.filters.FilterExecutor;
-
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.logging.Level;
 
 /**<h1>BotClient</h1>
- * @apiNote The main class of the library for interacting with telegram.
- *
- * <p>Using this class you can do: create Handlers, send message, delete webhook and other actions bot can do.
+ * @apiNote The main class of the library for interacting with telegram bot api
  @author Natanim Negash
- @version 1.3.0
  */
 
 
-@SuppressWarnings("unused")
 final public class BotClient {
     private Integer offset;
     private Webhook webhook;
@@ -60,6 +55,11 @@ final public class BotClient {
     private final LinkedHashMap<FilterExecutor, EditedChannelPostHandler> editedChannelPostHandlers = new LinkedHashMap<>();
     private final LinkedHashMap<FilterExecutor, ChosenInlineResultHandler> chosenInlineResultHandlers = new LinkedHashMap<>();
     private final LinkedHashMap<FilterExecutor, ShippingHandler> shippingHandlers = new LinkedHashMap<>();
+    private final LinkedHashMap<FilterExecutor, MessageReactionHandler> messageReactionHandler = new LinkedHashMap<>();
+    private final LinkedHashMap<FilterExecutor, MessageReactionCountHandler> messageReactionCountUpdated = new LinkedHashMap<>();
+    private final LinkedHashMap<FilterExecutor, ChatBoostHandler> chatBoostHandler = new LinkedHashMap<>();
+    private final LinkedHashMap<FilterExecutor, RemovedChatBoostHandler> chatBoostRemoved = new LinkedHashMap<>();
+
     private Filter filter;
     private final GetUpdates getUpdates;
     private User bot;
@@ -192,56 +192,144 @@ final public class BotClient {
         messageHandlers.put(filterExecutor, messageHandler);
     }
 
+    public void onMessage(MessageHandler messageHandler){
+        messageHandlers.put(filter -> true, messageHandler);
+    }
+
     public void onCallback(FilterExecutor filterExecutor, CallbackHandler callbackHandler){
         callbackQueryHandlers.put(filterExecutor, callbackHandler);
+    }
+
+    public void onCallback(CallbackHandler callbackHandler){
+        callbackQueryHandlers.put(filter -> true, callbackHandler);
     }
 
     public void onInline(FilterExecutor filterExecutor, InlineHandler inlineHandler){
         inlineQueryHandlers.put(filterExecutor, inlineHandler);
     }
 
+    public void onInline(InlineHandler inlineHandler){
+        inlineQueryHandlers.put(filter -> true, inlineHandler);
+    }
+
     public void onPoll(FilterExecutor filterExecutor, PollHandler pollHandler){
         pollHandlers.put(filterExecutor, pollHandler);
+    }
+
+    public void onPoll(PollHandler pollHandler){
+        pollHandlers.put(filter -> true, pollHandler);
     }
 
     public void onMyChatMember(FilterExecutor filterExecutor, MyChatMemberHandler myChatMemberHandler){
         myChatMemberHandlers.put(filterExecutor, myChatMemberHandler);
     }
 
+    public void onMyChatMember(MyChatMemberHandler myChatMemberHandler){
+        myChatMemberHandlers.put(filter -> true, myChatMemberHandler);
+    }
+
     public void onPollAnswer(FilterExecutor filterExecutor, PollAnswerHandler pollAnswerHandler){
         pollAnswerHandlers.put(filterExecutor, pollAnswerHandler);
+    }
+
+    public void onPollAnswer(PollAnswerHandler pollAnswerHandler){
+        pollAnswerHandlers.put(filter -> true, pollAnswerHandler);
     }
 
     public void onPreCheckout(FilterExecutor filterExecutor, PreCheckoutHandler preCheckoutHandler){
         preCheckoutHandlers.put(filterExecutor, preCheckoutHandler);
     }
 
+    public void onPreCheckout(PreCheckoutHandler preCheckoutHandler){
+        preCheckoutHandlers.put(filter -> true, preCheckoutHandler);
+    }
+
     public void onChatMember(FilterExecutor filterExecutor, ChatMemberHandler chatMemberHandler){
         chatMemberHandlers.put(filterExecutor, chatMemberHandler);
+    }
+
+    public void onChatMember(ChatMemberHandler chatMemberHandler){
+        chatMemberHandlers.put(filter -> true, chatMemberHandler);
     }
 
     public void onEditedMessage(FilterExecutor filterExecutor, EditedMessageHandler editedMessageHandler){
         editedMessages.put(filterExecutor, editedMessageHandler);
     }
 
+    public void onEditedMessage(EditedMessageHandler editedMessageHandler){
+        editedMessages.put(filter -> true, editedMessageHandler);
+    }
+
     public void onChannelPost(FilterExecutor filterExecutor, ChannelPostHandler channelPostHandler){
         channelPostHandlers.put(filterExecutor, channelPostHandler);
+    }
+
+    public void onChannelPost(ChannelPostHandler channelPostHandler){
+        channelPostHandlers.put(filter -> true, channelPostHandler);
     }
 
     public void onEditedChannelPost(FilterExecutor filterExecutor, EditedChannelPostHandler editedChannelPostHandler) {
         editedChannelPostHandlers.put(filterExecutor, editedChannelPostHandler);
     }
 
+    public void onEditedChannelPost(EditedChannelPostHandler editedChannelPostHandler) {
+        editedChannelPostHandlers.put(filter -> true, editedChannelPostHandler);
+    }
+
     public void onChatJoinRequest(FilterExecutor filterExecutor, ChatJoinRequestHandler chatJoinRequestHandler){
         chatJoinRequestHandlers.put(filterExecutor, chatJoinRequestHandler);
+    }
+
+    public void onChatJoinRequest(ChatJoinRequestHandler chatJoinRequestHandler){
+        chatJoinRequestHandlers.put(filter -> true, chatJoinRequestHandler);
     }
 
     public void onChosenInlineResult(FilterExecutor filterExecutor, ChosenInlineResultHandler chosenInlineResult){
         chosenInlineResultHandlers.put(filterExecutor, chosenInlineResult);
     }
 
+    public void onChosenInlineResult(ChosenInlineResultHandler chosenInlineResult){
+        chosenInlineResultHandlers.put(filter -> true, chosenInlineResult);
+    }
+
     public void onShipping(FilterExecutor filterExecutor, ShippingHandler shippingHandler){
         shippingHandlers.put(filterExecutor, shippingHandler);
+    }
+
+    public void onShipping(ShippingHandler shippingHandler){
+        shippingHandlers.put(filter -> true, shippingHandler);
+    }
+
+    public void onReaction(FilterExecutor filterExecutor, MessageReactionHandler reactionHandler){
+        messageReactionHandler.put(filterExecutor, reactionHandler);
+    }
+
+    public void onReaction(MessageReactionHandler reactionHandler){
+        messageReactionHandler.put(filter -> true, reactionHandler);
+    }
+
+    public void onReactionCount(FilterExecutor filterExecutor, MessageReactionCountHandler reactionCountHandler){
+        messageReactionCountUpdated.put(filterExecutor, reactionCountHandler);
+    }
+
+    public void onReactionCount(MessageReactionCountHandler reactionCountHandler){
+        messageReactionCountUpdated.put(filter -> true, reactionCountHandler);
+    }
+
+    public void onChatBoost(FilterExecutor filterExecutor, ChatBoostHandler boostHandler){
+        chatBoostHandler.put(filterExecutor, boostHandler);
+    }
+
+    public void onChatBoost(ChatBoostHandler boostHandler){
+        chatBoostHandler.put(filter -> true, boostHandler);
+    }
+
+    public void onRemovedChatBoost(FilterExecutor filterExecutor, RemovedChatBoostHandler removedChatBoost){
+        chatBoostRemoved.put(filterExecutor, removedChatBoost);
+    }
+
+    public void onRemovedChatBoost(RemovedChatBoostHandler removedChatBoost){
+        chatBoostRemoved.put(filter -> true, removedChatBoost);
     }
 
     /**
@@ -352,11 +440,16 @@ final public class BotClient {
         else if (update.edited_channel_post != null) processEditedChannelPost(update);
         else if (update.poll != null) processPoll(update);
         else if (update.chat_member != null) processChatMember(update);
+        else if (update.message_reaction != null) processMessageReaction(update);
+        else if (update.message_reaction_count != null) processReactionCount(update);
+        else if (update.chat_boost != null) processChatBoost(update);
+        else if (update.removed_chat_boost != null) processRemovedChatBoost(update);
         else if (update.pre_checkout_query != null) processPreCheckoutQuery(update);
         else if (update.shipping_query != null) processShippingQuery(update);
         else if (update.chat_join_request != null) processChatJoinRequest(update);
         else if (update.chosen_inline_result != null) processChosenInlineResult(update);
         else if (update.poll_answer != null) processPollAnswer(update);
+
     }
 
     private void processMessages(Update update) {
@@ -528,6 +621,54 @@ final public class BotClient {
         }
     }
 
+    private void processMessageReaction(Update update){
+        for (Map.Entry<FilterExecutor, MessageReactionHandler> entry: messageReactionHandler.entrySet()){
+            FilterExecutor filterExecutor = entry.getKey();
+            MessageReactionHandler reactionHandler = entry.getValue();
+            boolean executed = filterExecutor.execute(filter);
+            if (executed){
+                reactionHandler.handle(this.context, update.message_reaction);
+                break;
+            }
+        }
+    }
+
+    private void processReactionCount(Update update){
+        for (Map.Entry<FilterExecutor, MessageReactionCountHandler> entry: messageReactionCountUpdated.entrySet()){
+            FilterExecutor filterExecutor = entry.getKey();
+            MessageReactionCountHandler reactionCountHandler = entry.getValue();
+            boolean executed = filterExecutor.execute(filter);
+            if (executed){
+                reactionCountHandler.handle(this.context, update.message_reaction_count);
+                break;
+            }
+        }
+    }
+
+    private void processChatBoost(Update update){
+        for (Map.Entry<FilterExecutor, ChatBoostHandler> entry: chatBoostHandler.entrySet()){
+            FilterExecutor filterExecutor = entry.getKey();
+            ChatBoostHandler boostHandler = entry.getValue();
+            boolean executed = filterExecutor.execute(filter);
+            if (executed){
+                boostHandler.handle(this.context, update.chat_boost);
+                break;
+            }
+        }
+    }
+
+    private void processRemovedChatBoost(Update update){
+        for (Map.Entry<FilterExecutor, RemovedChatBoostHandler> entry: chatBoostRemoved.entrySet()){
+            FilterExecutor filterExecutor = entry.getKey();
+            RemovedChatBoostHandler removedChatBoostHandler = entry.getValue();
+            boolean executed = filterExecutor.execute(filter);
+            if (executed){
+                removedChatBoostHandler.handle(this.context, update.removed_chat_boost);
+                break;
+            }
+        }
+    }
+
     private void startPolling(){
 
         while (!stopPolling.get()){
@@ -537,9 +678,9 @@ final public class BotClient {
             } catch (TelegramError var1) {
                 throw var1;
             } catch (TelegramApiException apiException){
-                if (apiException.parameters !=null){
-                    int delay = ((Double) (apiException.parameters.get("retry_after"))).intValue();
-                    BotLog.error(String.format("Waiting for %d seconds", delay));
+                if (apiException.parameters !=null && apiException.parameters.retry_after != null){
+                    int delay = apiException.parameters.retry_after;
+                    BotLog.error(String.format("Trying after %d seconds", delay));
                     if (BotLog.logger.getLevel() == Level.OFF)
                         apiException.printStackTrace();
                     else BotLog.error(apiException.description);
