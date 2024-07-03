@@ -6,6 +6,7 @@ import et.telebof.enums.PollType;
 import et.telebof.types.Markup;
 import et.telebof.types.Message;
 import et.telebof.types.MessageEntity;
+import et.telebof.types.ReplyParameters;
 
 import java.util.List;
 
@@ -70,13 +71,22 @@ public class SendPoll extends AbstractBaseRequest<SendPoll, Message> {
         return add("protect_content", protectContent);
     }
 
+
+    @Deprecated(since = "v1.5.0")
     public SendPoll replyToMessageId(int replyToMessageId) {
         return add("reply_to_message_id", replyToMessageId);
     }
 
+
+    @Deprecated(since = "v1.5.0")
     public SendPoll  allowSendingWithoutReply(boolean allowSendingWithoutReply) {
         return add("allow_sending_without_reply", allowSendingWithoutReply);
     }
+
+    public SendPoll replyParameters(ReplyParameters replyParameters){
+        return add("reply_parameters", replyParameters);
+    }
+
 
     public SendPoll replyMarkup(Markup replyMarkup) {
         return add("reply_markup", replyMarkup);

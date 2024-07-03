@@ -3,6 +3,7 @@ package et.telebof.requests;
 import et.telebof.Util;
 import et.telebof.types.Markup;
 import et.telebof.types.Message;
+import et.telebof.types.ReplyParameters;
 
 public class SendContact extends AbstractBaseRequest<SendContact, Message> {
 
@@ -28,12 +29,18 @@ public class SendContact extends AbstractBaseRequest<SendContact, Message> {
         return add("protect_content", protectContent);
     }
 
+    @Deprecated(since = "v1.5.0")
     public SendContact replyToMessageId(int replyToMessageId) {
         return add("reply_to_message_id", replyToMessageId);
     }
 
+    @Deprecated(since = "v1.5.0")
     public SendContact allowSendingWithoutReply(boolean allowSendingWithoutReply) {
         return add("allow_sending_without_reply", allowSendingWithoutReply);
+    }
+
+    public SendContact replyParameters(ReplyParameters parameters){
+        return add("reply_parameters", parameters);
     }
 
     public SendContact replyMarkup(Markup replyMarkup) {
