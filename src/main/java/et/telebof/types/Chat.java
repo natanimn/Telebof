@@ -22,5 +22,10 @@ public class Chat extends JsonSerializable  implements Serializable {
     public Integer linked_chat_id;
     public Location location;
     public Integer emoji_status_expiration_date;
-
+    public List<ReactionType> available_reactions;
+    public Boolean has_visible_history;
+    public Integer accent_color_id;
+    public String background_custom_emoji_id;
+    public Integer profile_accent_color_id;
+    public String profile_background_custom_emoji_id;
 }
