@@ -8,13 +8,13 @@ import java.util.List;
  */
 
 public class Message extends JsonSerializable implements Serializable {
-    public Integer message_id, message_thread_id, date, forward_from_message_id, forward_date, edit_date;
+    public Integer message_id, message_thread_id, date, edit_date;
     public Long migrate_to_chat_id, migrate_from_chat_id;
-    public String forward_signature, forward_sender_name, author_signature, text, caption,
+    public String author_signature, text, caption,
             new_chat_title, connected_website, media_group_id;
-    public User from, forward_from, via_bot, left_chat_member;
+    public User from, via_bot, left_chat_member;
     public List<User> new_chat_members;
-    public Chat sender_chat, chat, forward_from_chat;
+    public Chat sender_chat, chat;
     public Boolean is_topic, is_topic_message, is_automatic_forward, has_protected_content,
             has_media_spoiler, delete_chat_photo, group_chat_created, supergroup_chat_created, channel_chat_created;
     public Message reply_to_message, pinned_message;
@@ -37,7 +37,7 @@ public class Message extends JsonSerializable implements Serializable {
     public Integer message_auto_delete_timer_changed;
     public Invoice invoice;
     public SuccessfulPayment successful_payment;
-    public UserShared user_shared;
+    public UsersShared users_shared;
     public ChatShared chat_shared;
     public WriteAccessAllowed write_access_allowed;
     public PassportData passport_data;
@@ -54,5 +54,12 @@ public class Message extends JsonSerializable implements Serializable {
     public VideoChatParticipantsInvited video_chat_participants_invited;
     public WebAppData web_app_data;
     public InlineKeyboardMarkup reply_markup;
-
+    public ExternalReplyInfo external_reply;
+    public TextQuote quote;
+    public LinkPreviewOptions link_preview_options;
+    public Giveaway giveaway;
+    public GiveawayCreated giveaway_created;
+    public GiveawayWinners giveaway_winners;
+    public GiveawayCompleted giveaway_completed;
+    public MessageOrigin forward_origin;
 }
