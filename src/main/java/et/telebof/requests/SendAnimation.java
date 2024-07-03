@@ -3,12 +3,8 @@ package et.telebof.requests;
 import et.telebof.Util;
 import et.telebof.types.Message;
 import et.telebof.types.MessageEntity;
-
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+
 
 public class SendAnimation extends DefaultParameters<SendAnimation, Message> {
 
@@ -24,13 +20,12 @@ public class SendAnimation extends DefaultParameters<SendAnimation, Message> {
         setContentType(MediaContentType.GIF);
     }
 
-    public SendAnimation caption(String cap)
-    {
+    public SendAnimation caption(String cap) {
         return add("caption", cap);
     }
 
     public SendAnimation captionEntities(MessageEntity[] captionEntities) {
-        return add("caption_entities", List.of(captionEntities));
+        return add("caption_entities", captionEntities);
     }
 
     public SendAnimation hasSpoiler(boolean hasSpoiler) {

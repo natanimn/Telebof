@@ -13,8 +13,8 @@ public class SendMessage extends DefaultParameters<SendMessage, Message> {
         add("allow_sending_without_reply", true);
     }
 
-    public SendMessage entities(MessageEntity ... entities) {
-        return add("entities", List.of(entities));
+    public SendMessage entities(MessageEntity[] entities) {
+        return add("entities", entities);
     }
 
     @Override

@@ -18,7 +18,7 @@ public class SendInvoice extends DefaultParameters<SendInvoice, Message> {
         add("payload", payload);
         add("provider_token", providerToken);
         add("currency", currency);
-        add("prices", List.of(prices));
+        add("prices", prices);
     }
 
     public SendInvoice maxTipAmount(int maxTipAmount) {

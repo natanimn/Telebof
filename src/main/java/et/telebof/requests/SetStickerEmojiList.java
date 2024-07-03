@@ -1,7 +1,5 @@
 package et.telebof.requests;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class SetStickerEmojiList extends AbstractBaseRequest<SetStickerEmojiList, Boolean> {

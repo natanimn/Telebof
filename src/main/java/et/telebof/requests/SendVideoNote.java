@@ -3,12 +3,8 @@ package et.telebof.requests;
 import et.telebof.Util;
 import et.telebof.types.Message;
 import et.telebof.types.MessageEntity;
-
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 public class SendVideoNote extends DefaultParameters<SendVideoNote, Message> {
     public SendVideoNote(Object chatId, String videoNote, RequestSender requestSender) {

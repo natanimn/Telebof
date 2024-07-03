@@ -3,9 +3,8 @@ package et.telebof.requests;
 import et.telebof.Util;
 import et.telebof.types.Message;
 import et.telebof.types.MessageEntity;
-
 import java.io.File;
-import java.util.*;
+
 
 public class SendPhoto extends DefaultParameters<SendPhoto, Message>{
 
@@ -25,7 +24,7 @@ public class SendPhoto extends DefaultParameters<SendPhoto, Message>{
     }
 
     public SendPhoto captionEntities(MessageEntity[] captionEntities) {
-        return add("caption_entities", List.of(captionEntities));
+        return add("caption_entities", captionEntities);
     }
 
     public SendPhoto hasSpoiler(boolean hasSpoiler) {

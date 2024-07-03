@@ -10,9 +10,4 @@ public class WebAppInfo implements Serializable {
         this.url = url;
     }
 
-    public WebAppInfo url(String url) {
-        this.url = url;
-        return this;
-    }
-
 }
