@@ -13,11 +13,13 @@ import et.telebof.types.LabeledPrice;
 import et.telebof.types.MaskPosition;
 import et.telebof.types.Message;
 import et.telebof.types.PassportElementError;
+import et.telebof.types.ReplyParameters;
 import et.telebof.types.Update;
 import java.io.File;
 import java.util.List;
 import java.util.Map;
 
+@SuppressWarnings("unused")
 public class BotContext {
     private Update update;
     private RequestSender requestSender;
@@ -59,11 +61,13 @@ public class BotContext {
     }
 
     public SendMessage reply(String text) {
-        return new SendMessage(getChatId(), text, this.requestSender).replyToMessageId(getMessageId()).parseMode(parseMode);
+        return new SendMessage(getChatId(), text, this.requestSender)
+                .replyParameters(new ReplyParameters(getMessageId()).allowSendingWithoutReply(true))
+                .parseMode(parseMode);
     }
 
-    public ForwardMessage forwardMessage(Object chatId, Object fromChatId, int messageId) {
-        return new ForwardMessage(chatId, fromChatId, messageId, this.requestSender);
+    public ForwardMessage forwardMessage(Object toChatId, Object fromChatId, int messageId) {
+        return new ForwardMessage(toChatId, fromChatId, messageId, this.requestSender);
     }
 
     public ForwardMessage forwardMessage(Object toChatId, int messageId) {
@@ -74,26 +78,58 @@ public class BotContext {
         return new ForwardMessage(toChatId, getChatId(), messageId, this.requestSender);
     }
 
-    public ForwardMessage forward(Object chatId, Object fromChatId, int messageId) {
-        return new ForwardMessage(chatId, fromChatId, messageId, this.requestSender);
+    public ForwardMessage forward(Object toChatId, Object fromChatId, int messageId) {
+        return new ForwardMessage(toChatId, fromChatId, messageId, this.requestSender);
     }
 
-    public CopyMessage copyMessage(Object chatId, Object fromChatId, int messageId) {
-        return new CopyMessage(chatId, fromChatId, messageId, this.requestSender).parseMode(parseMode);
+    public CopyMessage copyMessage(Object toChatId, Object fromChatId, int messageId) {
+        return new CopyMessage(toChatId, fromChatId, messageId, this.requestSender).parseMode(parseMode);
     }
 
     public CopyMessage copyMessage(Object toChatId, int messageId) {
         return new CopyMessage(toChatId, getChatId(), messageId, this.requestSender).parseMode(parseMode);
     }
 
-    public CopyMessage copy(Object chatId, Object fromChatId, int messageId) {
-        return new CopyMessage(chatId, fromChatId, messageId, this.requestSender).parseMode(parseMode);
+    public CopyMessage copy(Object toChatId, Object fromChatId, int messageId) {
+        return new CopyMessage(toChatId, fromChatId, messageId, this.requestSender).parseMode(parseMode);
     }
 
     public CopyMessage copy(Object toChatId, int messageId) {
         return new CopyMessage(toChatId, getChatId(), messageId, this.requestSender).parseMode(parseMode);
     }
 
+    public CopyMessages copyMessages(Object toChatId, Object fromChatId, List<Integer> messageIds) {
+        return new CopyMessages(toChatId, fromChatId, messageIds, this.requestSender);
+    }
+
+    public CopyMessages copyMessages(Object toChatId, List<Integer> messageIds) {
+        return new CopyMessages(toChatId, getChatId(), messageIds, this.requestSender);
+    }
+
+    public CopyMessages copy(Object toChatId, Object fromChatId, List<Integer> messageIds) {
+        return new CopyMessages(toChatId, fromChatId, messageIds, this.requestSender);
+    }
+
+    public CopyMessages copy(Object toChatId, List<Integer> messageIds) {
+        return new CopyMessages(toChatId, getChatId(), messageIds, this.requestSender);
+    }
+
+    public ForwardMessages forwardMessages(Object toChatId, Object fromChatId, List<Integer> messageId) {
+        return new ForwardMessages(toChatId, fromChatId, messageId, this.requestSender);
+    }
+    
+    public ForwardMessages forwardMessages(Object toChatId, List<Integer> messageId) {
+        return new ForwardMessages(toChatId, getChatId(), messageId, this.requestSender);
+    }
+
+    public ForwardMessages forward(Object toChatId, Object fromChatId, List<Integer> messageId) {
+        return new ForwardMessages(toChatId, fromChatId, messageId, this.requestSender);
+    }
+
+    public ForwardMessages forward(Object toChatId, List<Integer> messageId) {
+        return new ForwardMessages(toChatId, getChatId(), messageId, this.requestSender);
+    }
+    
     public SendPhoto sendPhoto(Object chatId, String photo) {
         return new SendPhoto(chatId, photo, this.requestSender).parseMode(parseMode);
     }
@@ -106,24 +142,20 @@ public class BotContext {
         return new SendPhoto(getChatId(), photo, this.requestSender).parseMode(parseMode);
     }
 
-    public SendPhoto replyPhoto(String photo) {
-        return new SendPhoto(getChatId(), photo, this.requestSender).replyToMessageId(getMessageId()).parseMode(parseMode);
-    }
-
     public SendPhoto sendPhoto(Object chatId, File photo) {
         return new SendPhoto(chatId, photo, this.requestSender).parseMode(parseMode);
     }
 
+    public SendPhoto replyPhoto(String photo) {
+        return new SendPhoto(getChatId(), photo, this.requestSender)
+                .replyParameters(new ReplyParameters(getMessageId()).allowSendingWithoutReply(true))
+                .parseMode(parseMode);
+    }
+
     public SendPhoto replyPhoto(File photo) {
-        return new SendPhoto(getChatId(), photo, this.requestSender).replyToMessageId(getMessageId()).parseMode(parseMode);
-    }
-
-    public SendPhoto replyPhoto(Message message, String photo) {
-        return new SendPhoto(message.chat.id, photo, this.requestSender).replyToMessageId(message.message_id).parseMode(parseMode);
-    }
-
-    public SendPhoto replyPhoto(Message message, File photo) {
-        return new SendPhoto(message.chat.id, photo, this.requestSender).replyToMessageId(message.message_id).parseMode(parseMode);
+        return new SendPhoto(getChatId(), photo, this.requestSender)
+                .replyParameters(new ReplyParameters(getMessageId()).allowSendingWithoutReply(true))
+                .parseMode(parseMode);
     }
 
     public SendAudio sendAudio(Object chatId, String audio) {
@@ -143,7 +175,9 @@ public class BotContext {
     }
 
     public SendAudio replyAudio(Message message, String audio) {
-        return new SendAudio(message, audio, this.requestSender).replyToMessageId(message.message_id).parseMode(parseMode);
+        return new SendAudio(message, audio, this.requestSender)
+                .replyParameters(new ReplyParameters(message.message_id).allowSendingWithoutReply(true))
+                .parseMode(parseMode);
     }
 
     public SendAudio replyAudio(Message message, File audio) {
@@ -167,7 +201,9 @@ public class BotContext {
     }
 
     public SendDocument replyDocument(String document) {
-        return new SendDocument(getChatId(), document, this.requestSender).replyToMessageId(getMessageId()).parseMode(parseMode);
+        return new SendDocument(getChatId(), document, this.requestSender)
+                .replyParameters(new ReplyParameters(getMessageId()).allowSendingWithoutReply(true))
+                .parseMode(parseMode);
     }
 
     public SendDocument replyDocument(File document) {
@@ -191,11 +227,15 @@ public class BotContext {
     }
 
     public SendVideo replyVideo(String video) {
-        return new SendVideo(getChatId(), video, this.requestSender).replyToMessageId(getMessageId()).parseMode(parseMode);
+        return new SendVideo(getChatId(), video, this.requestSender)
+                .replyParameters(new ReplyParameters(getMessageId()).allowSendingWithoutReply(true))
+                .parseMode(parseMode);
     }
 
     public SendVideo replyVideo(File video) {
-        return new SendVideo(getChatId(), video, this.requestSender).replyToMessageId(getMessageId()).parseMode(parseMode);
+        return new SendVideo(getChatId(), video, this.requestSender)
+                .replyParameters(new ReplyParameters(getMessageId()).allowSendingWithoutReply(true))
+                .parseMode(parseMode);
     }
 
     public SendAnimation sendAnimation(Object chatId, String animation) {
@@ -215,11 +255,15 @@ public class BotContext {
     }
 
     public SendAnimation replyAnimation(String animation) {
-        return new SendAnimation(getChatId(), animation, this.requestSender).replyToMessageId(getMessageId()).parseMode(parseMode);
+        return new SendAnimation(getChatId(), animation, this.requestSender)
+                .replyParameters(new ReplyParameters(getMessageId()).allowSendingWithoutReply(true))
+                .parseMode(parseMode);
     }
 
     public SendAnimation replyAnimation(File animation) {
-        return new SendAnimation(getChatId(), animation, this.requestSender).replyToMessageId(getMessageId()).parseMode(parseMode);
+        return new SendAnimation(getChatId(), animation, this.requestSender)
+                .replyParameters(new ReplyParameters(getMessageId()).allowSendingWithoutReply(true))
+                .parseMode(parseMode);
     }
 
     public SendVoice sendVoice(Object chatId, String voice) {
@@ -239,11 +283,15 @@ public class BotContext {
     }
 
     public SendVoice replyVoice(String voice) {
-        return new SendVoice(getChatId(), voice, this.requestSender).replyToMessageId(getMessageId()).parseMode(parseMode);
+        return new SendVoice(getChatId(), voice, this.requestSender)
+                .replyParameters(new ReplyParameters(getMessageId()).allowSendingWithoutReply(true))
+                .parseMode(parseMode);
     }
 
     public SendVoice replyVoice(File voice) {
-        return new SendVoice(getChatId(), voice, this.requestSender).replyToMessageId(getMessageId()).parseMode(parseMode);
+        return new SendVoice(getChatId(), voice, this.requestSender)
+                .replyParameters(new ReplyParameters(getMessageId()).allowSendingWithoutReply(true))
+                .parseMode(parseMode);
     }
 
     public SendVideoNote sendVideoNote(Object chatId, String video_note) {
@@ -255,11 +303,15 @@ public class BotContext {
     }
 
     public SendVideoNote replyVideoNote(String videoNote) {
-        return new SendVideoNote(getChatId(), videoNote, this.requestSender).replyToMessageId(getMessageId()).parseMode(parseMode);
+        return new SendVideoNote(getChatId(), videoNote, this.requestSender)
+                .replyParameters(new ReplyParameters(getMessageId()).allowSendingWithoutReply(true))
+                .parseMode(parseMode);
     }
 
     public SendVideoNote replyVideoNote(File videoNote) {
-        return new SendVideoNote(getChatId(), videoNote, this.requestSender).replyToMessageId(getMessageId()).parseMode(parseMode);
+        return new SendVideoNote(getChatId(), videoNote, this.requestSender)
+                .replyParameters(new ReplyParameters(getMessageId()).allowSendingWithoutReply(true))
+                .parseMode(parseMode);
     }
 
     public <T extends InputMedia> SendMediaGroup sendMediaGroup(Object chatId, T[] medias) {
@@ -271,7 +323,9 @@ public class BotContext {
     }
 
     public <T extends InputMedia> SendMediaGroup replyMediaGroup(T[] medias) {
-        return new SendMediaGroup(getChatId(), medias, this.requestSender).replyToMessageId(getMessageId()).parseMode(parseMode);
+        return new SendMediaGroup(getChatId(), medias, this.requestSender)
+                .replyParameters(new ReplyParameters(getMessageId()).allowSendingWithoutReply(true))
+                .parseMode(parseMode);
     }
 
     public SendLocation sendLocation(Object chatId, float latitude, float longitude) {
@@ -283,7 +337,8 @@ public class BotContext {
     }
 
     public SendLocation replyLocation(float latitude, float longitude) {
-        return new SendLocation(getChatId(), latitude, longitude, this.requestSender).replyToMessageId(getMessageId());
+        return new SendLocation(getChatId(), latitude, longitude, this.requestSender)
+                .replyParameters(new ReplyParameters(getMessageId()).allowSendingWithoutReply(true));
     }
 
     public EditMessageLiveLocation editMessageLiveLocation(Object chatId, float latitude, float longitude, int messageId) {
@@ -319,7 +374,8 @@ public class BotContext {
     }
 
     public SendVenue replyVenue(float latitude, float longitude, String title, String address) {
-        return new SendVenue(getChatId(), latitude, longitude, title, address, this.requestSender).replyToMessageId(getMessageId());
+        return new SendVenue(getChatId(), latitude, longitude, title, address, this.requestSender)
+                .replyParameters(new ReplyParameters(getMessageId()).allowSendingWithoutReply(true));
     }
 
     public SendContact sendContact(Object chatId, String phoneNumber, String firstName) {
@@ -331,7 +387,8 @@ public class BotContext {
     }
 
     public SendContact replyContact(String phoneNumber, String firstName) {
-        return new SendContact(getChatId(), phoneNumber, firstName, this.requestSender).replyToMessageId(getMessageId());
+        return new SendContact(getChatId(), phoneNumber, firstName, this.requestSender)
+                .replyParameters(new ReplyParameters(getMessageId()).allowSendingWithoutReply(true));
     }
 
     public SendPoll sendPoll(Object chatId, String question, String[] options) {
@@ -346,7 +403,8 @@ public class BotContext {
         return new SendPoll(getChatId(), question, options.toArray(new String[0]), this.requestSender);
     }
     public SendPoll replyPoll(String question, String[] options) {
-        return new SendPoll(getChatId(), question, options, this.requestSender).replyToMessageId(getMessageId());
+        return new SendPoll(getChatId(), question, options, this.requestSender)
+                .replyParameters(new ReplyParameters(getMessageId()).allowSendingWithoutReply(true));
     }
 
     public SendDice sendDice(Object chatId) {
@@ -358,7 +416,8 @@ public class BotContext {
     }
 
     public SendDice replyDice() {
-        return new SendDice(getChatId(), this.requestSender).replyToMessageId(getMessageId());
+        return new SendDice(getChatId(), this.requestSender)
+                .replyParameters(new ReplyParameters(getMessageId()).allowSendingWithoutReply(true));
     }
 
     public SendChatAction sendChatAction(Object chatId, ChatAction chatAction) {
@@ -549,6 +608,14 @@ public class BotContext {
         return new GetChat(chatId, this.requestSender);
     }
 
+    public GetUserChatBoosts getUserChatBoosts(Object chat_id, long user_id){
+        return new GetUserChatBoosts(chat_id, user_id, requestSender);
+    }
+
+    public GetUserChatBoosts getUserChatBoosts(long user_id){
+        return new GetUserChatBoosts(getChatId(), user_id, requestSender);
+    }
+
     public GetChatAdministrators getChatAdministrators(Object chatId) {
         return new GetChatAdministrators(chatId, this.requestSender);
     }
@@ -567,6 +634,14 @@ public class BotContext {
 
     public GetChatMember getChatMember(Object chatId, long userId) {
         return new GetChatMember(chatId, userId, this.requestSender);
+    }
+
+    public SetMessageReaction setMessageReaction(Object chat_id, int message_id){
+        return new SetMessageReaction(chat_id, message_id, requestSender);
+    }
+
+    public SetMessageReaction setMessageReaction(int message_id){
+        return new SetMessageReaction(getChatId(), message_id, requestSender);
     }
 
     public SetChatStickerSet setChatStickerSet(Object chatId, String stickerSetName) {
@@ -866,6 +941,14 @@ public class BotContext {
         return new AnswerInlineQuery(update.inline_query.id, results, this.requestSender);
     }
 
+    public AnswerInlineQuery answerInline(String inlineQueryId, InlineQueryResult[] results) {
+        return new AnswerInlineQuery(inlineQueryId, results, this.requestSender);
+    }
+
+    public AnswerInlineQuery answerInline(InlineQueryResult[] results) {
+        return new AnswerInlineQuery(update.inline_query.id, results, this.requestSender);
+    }
+
     public AnswerWebAppQuery answerWebAppQuery(String webAppQueryId, InlineQueryResult result) {
         return new AnswerWebAppQuery(webAppQueryId, result, this.requestSender);
     }
@@ -885,7 +968,8 @@ public class BotContext {
     public SendInvoice replyInvoice(String title, String description, String payload, String providerToken,
                                     String currency, LabeledPrice[] prices) {
         return new SendInvoice(getChatId(), title, description, payload, providerToken, currency, prices, this.requestSender)
-                .parseMode(parseMode).replyToMessageId(getMessageId());
+                .replyParameters(new ReplyParameters(getMessageId()).allowSendingWithoutReply(true))
+                .parseMode(parseMode);
     }
 
     public CreateInvoiceLink createInvoiceLink(Object chatId, String title, String description, String payload, String providerToken,
