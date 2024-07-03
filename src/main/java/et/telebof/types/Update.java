@@ -6,7 +6,6 @@ import java.io.Serializable;
  *
  * @see <a href="https://core.telegram.org/bots/api#Update">Telegram documentation</a>"
  * @author Natanim Negash
- * @version 1.3.0
  */
 
 public class Update extends JsonSerializable implements Serializable {
@@ -21,5 +20,9 @@ public class Update extends JsonSerializable implements Serializable {
     public ShippingQuery shipping_query;
     public ChatMemberUpdated my_chat_member, chat_member;
     public ChatJoinRequest chat_join_request;
+    public MessageReactionUpdated message_reaction;
+    public MessageReactionCountUpdated message_reaction_count;
+    public ChatBoostUpdated chat_boost;
+    public ChatBoostRemoved removed_chat_boost;
 
 }
