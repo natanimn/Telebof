@@ -62,4 +62,7 @@ public class Message extends JsonSerializable implements Serializable {
     public GiveawayWinners giveaway_winners;
     public GiveawayCompleted giveaway_completed;
     public MessageOrigin forward_origin;
+    public ChatBoostAdded boost_added;
+    public Integer sender_boost_count;
+    public Story reply_to_story;
 }
