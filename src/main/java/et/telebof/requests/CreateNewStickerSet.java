@@ -6,14 +6,12 @@ import et.telebof.types.InputSticker;
 import java.util.List;
 
 public class CreateNewStickerSet extends AbstractBaseRequest<CreateNewStickerSet, Boolean> {
-    public CreateNewStickerSet(long userId, String name, String title, InputSticker[] stickers, String stickerFormat,
-                               RequestSender requestSender) {
+    public CreateNewStickerSet(long userId, String name, String title, InputSticker[] stickers, RequestSender requestSender) {
         super(requestSender, "createNewStickerSet");
         add("user_id", userId);
         add("name", name);
         add("title", title);
         add("stickers", List.of(stickers));
-        add("sticker_format", stickerFormat);
     }
 
     public CreateNewStickerSet stickerType(StickerType stickerType) {
