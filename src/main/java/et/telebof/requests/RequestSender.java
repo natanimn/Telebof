@@ -64,7 +64,7 @@ public class RequestSender {
                 MediaType contentType = MediaType.parse(baseRequest.getContentType());
                 if (val == null) continue;
                 if (val instanceof java.io.File file){
-                    builder.addFormDataPart(name, file.getName(), RequestBody.create(contentType, file));
+                    builder.addFormDataPart(name, file.getName(), RequestBody.create(file, contentType));
                 } else {
                     String stringVal;
                     if (val.getClass().getName().startsWith("java.lang") || val.getClass().isPrimitive())
@@ -77,7 +77,7 @@ public class RequestSender {
             return builder.build();
 
         } else {
-            return RequestBody.create(JSON, gson.toJson(baseRequest.getParameters()));
+            return RequestBody.create(gson.toJson(baseRequest.getParameters()), JSON);
         }
     }
 
@@ -90,14 +90,10 @@ public class RequestSender {
         Request request = builder.url(getUrl(baseRequest))
                 .post(requestBody).build();
 
-        try {
-            Response response = client.newCall(request).execute();
+        try (Response response = client.newCall(request).execute()){
             ResponseBody responseBody = response.body();
-            assert responseBody != null;
             String stringResponse = responseBody.string();
             return Util.parse(stringResponse, ApiResponse.class);
-        } catch (AssertionError e){
-            throw new RuntimeException("Server send back empty response");
         } catch (UnknownHostException e){
             throw new ConnectionError(String.format("Unable to send request to %s", request.url().url().getHost()));
         } catch (IOException e){
@@ -117,12 +113,9 @@ public class RequestSender {
     public byte[] downloadFile(String filePath) {
         Request request = new Request.Builder().url(String.format(FILE_URL, botToken, filePath)).build();
         BotLog.debug(String.format("Request: file=%s, url=%s", filePath, request.url()));
-        Response response;
-        try {
-            response = client.newCall(request).execute();
-            assert response.body() != null;
-            if (response.code() != 200) throw new IOException(String.format("Error %d! Unable to download file. %s",
-                    response.code(), response.body().string()));
+        try (Response response = client.newCall(request).execute()){
+            if (response.code() != 200)
+                throw new IOException(String.format("Error %d! Unable to download file. %s", response.code(), response.body().string()));
             BotLog.debug("The server returned status code: " + response.code());
             return response.body().bytes();
         } catch (AssertionError e){
