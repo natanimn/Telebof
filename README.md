@@ -430,8 +430,11 @@ bot.onMessage(filter -> filter.state("name") && filter.TEXT, (context, message) 
 Example for using reply markup
 
 ```java
+import et.telebof.types.ReplyKeyboardMarkup;
+import et.telebof.types.KeyboardButton;
+
 ReplyKeyboardMarkup markup = new ReplyKeyboardMarkup()
-        .resizeKeyboard(true) // resize keyboard
+        .resizeKeyboard(true); // resize keyboard
         
 markup.add("A", "B", "C"); // You can add String or 
 markup.add("D", "E"); 
@@ -444,6 +447,9 @@ context.sendMssage("Hello, World!").replyMarkup(markup).exec();
 example for using InlineKeyboardMarkup
 
 ```java
+import et.telebof.types.InlineKeyboardButton;
+import et.telebof.types.InlineKeyboardMarkup;
+
 InlineKeybaordMarkup inlineMarkup = new InlineKeybaordMarkup();
 
 inlineMarkup.addKeybaord(
@@ -475,6 +481,8 @@ context.sendMessage("Press one button").replyMarkup(inlineMarkup).exec();
 
 ### ForceReply
 ```java
+import et.telebof.types.ForceReply;
+
 context.sendMessage("Can you tell me your name please?")
         .replyMarkup(new ForceReply())
         .exec();
@@ -482,6 +490,8 @@ context.sendMessage("Can you tell me your name please?")
 
 ### RemoveReplyKeyboard
 ```java
+import et.telebof.types.ReplyKeyboardMarkup;
+
 context.sendMessage("There is no reply keyboard now")
         .replyMarkup(new RemoveReplyKeybaord())
         .exec(); 
@@ -494,21 +504,15 @@ import et.telebof.types.InlineQueryResult;
 import et.telebof.types.InlineQueryResultArticle;
 import et.telebof.types.InputTextMessageContent;
 
-public class InlineBot {
-  public static void main(String[] args) {
-    //...
 
-    bot.onInline(filter -> filter.ZERO_INLINE_QUERY, (context, query) -> {
-      InlineQueryResultArticle article = new InlineQueryResultArticle("1")
-              .title("Write something")
-              .description("click here")
-              .inputTextMessageContent(new InputTextMessageContent("Please write something"));
+bot.onInline(filter -> filter.ZERO_INLINE_QUERY, (context, query) -> {
+    InlineQueryResultArticle article = new InlineQueryResultArticle("1")
+            .title("Write something")
+            .description("click here")
+            .inputTextMessageContent(new InputTextMessageContent("Please write something"));
 
-      context.answerInline(new InlineQueryResult[]{article}).exec();
-    });
-
-  }
-}
+    context.answerInline(new InlineQueryResult[]{article}).exec();
+});
 ```
 
 ## Using Webhook
@@ -559,7 +563,6 @@ BotClient bot = new BotClient.Builder(TOKEN)
 
 ```java
 import et.telebof.BotClient;
-
 import java.net.InetSocketAddress;
 import java.net.Proxy;
 
