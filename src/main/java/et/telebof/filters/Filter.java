@@ -5,7 +5,6 @@ import et.telebof.types.Update;
 import et.telebof.states.StateMemoryStorage;
 import et.telebof.types.Message;
 import et.telebof.types.User;
-
 import java.util.List;
 
 public class Filter{
@@ -59,6 +58,14 @@ public class Filter{
     public final boolean BOT;
     public final boolean POLL;
     public final boolean ZERO_INLINE_QUERY;
+    public final boolean GIVEAWAY;
+    public final boolean GIVEAWAY_CREATED;
+    public final boolean GIVEAWAY_COMPLETED;
+    public final boolean BOOST_ADDED;
+    public final boolean REPLIED_TO_STORY;
+    public final boolean USERS_SHARED;
+    public final boolean WRITE_ACCESS_ALLOWED;
+    public final boolean ENTITIES;
     private final StateMemoryStorage storage;
 
     public Filter(Update update, StateMemoryStorage storage){
@@ -73,7 +80,7 @@ public class Filter{
         this.PHOTO = update.message !=null && update.message.poll != null;
         this.AUDIO = update.message !=null && update.message.audio != null;
         this.VIDEO = update.message !=null && update.message.video != null;
-        this.VOICE = update.message !=null && update.message.venue != null;
+        this.VOICE = update.message !=null && update.message.voice != null;
         this.VIDEO_NOTE = update.message !=null && update.message.video_note != null;
         this.DOCUMENT = update.message !=null && update.message.document != null;
         this.ANIMATION = update.message !=null && update.message.animation != null;
@@ -113,6 +120,14 @@ public class Filter{
         this.REPLIED = update.message !=null && update.message.reply_to_message != null;
         this.BOT = update.message !=null && update.message.from.is_bot;
         this.ZERO_INLINE_QUERY = update.inline_query != null && update.inline_query.query.isEmpty();
+        this.GIVEAWAY = update.message != null && update.message.giveaway != null;
+        this.GIVEAWAY_COMPLETED = update.message != null && update.message.giveaway_completed != null;
+        this.GIVEAWAY_CREATED = update.message != null && update.message.giveaway_created != null;
+        this.BOOST_ADDED = update.message != null && update.message.boost_added != null;
+        this.REPLIED_TO_STORY = update.message != null && update.message.reply_to_story != null;
+        this.USERS_SHARED = update.message != null && update.message.users_shared != null;
+        this.WRITE_ACCESS_ALLOWED = update.message != null && update.message.write_access_allowed != null;
+        this.ENTITIES = update.message != null && update.message.entities != null;
     }
 
     public boolean commands(String... commands){
