@@ -6,7 +6,7 @@
 
     <groupId>et.telebof</groupId>
     <artifactId>telegrambot</artifactId>
-    <version>1.6.0</version>
+    <version>1.7.0</version>
     <description>Easy and modern Java Telegram bot API</description>
     <name>Telebof</name>
     <packaging>jar</packaging>
@@ -40,7 +40,7 @@
         <dependency>
             <groupId>com.squareup.okhttp3</groupId>
             <artifactId>okhttp</artifactId>
-            <version>4.12.0</version>
+            <version>5.0.0-alpha.12</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>

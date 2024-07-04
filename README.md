@@ -156,7 +156,7 @@ Lastly we start our bot by using `start()` which does not take any parameter and
 **IMPORTANT: All handlers are handled in the order in which they were registered.**
 
 ## Types of Handlers
-There are 18 types of updates to be handled
+There are 22 types of updates to be handled
 
 #### Message Handler
 ```java
@@ -196,11 +196,11 @@ bot.onEditedMessage((context, edited_message) -> {});
 ```
 #### EditedChannelPost Handler
 ```java
-bot.onEditedChannelPost((context, edited_c) -> {});
+bot.onEditedChannelPost((context, edited_channel_post) -> {});
 ```
 #### MyChatMember Handler
 ```java
-bot.onMychatMember((context, my_chat) -> {});
+bot.onMychatMember((context, chat_updated) -> {});
 ```
 #### ChatMember Handler
 ```java
@@ -226,6 +226,23 @@ bot.onChatBoost((context, chat_boost) -> {});
 ```java
 bot.onRemovedChatBoost((context, removed_chat_boost) -> {});
 ```
+#### BusinessMessage Handler
+```java
+bot.onBusinessMessage((context, businnes_message) -> {});
+```
+#### BusinessConnection Handler
+```java
+bot.onBusinessConnection((context, business_connection) -> {});
+```
+#### EditedBusinessMessage Handler
+```java
+bot.onEditedBusinessMessage((context, edited_business_message) -> {});
+```
+#### DeletedBusinessMessage Handler
+```java
+bot.onDeletedBusinessMessage((context, deleted_business_message) -> {});
+```
+
 **If only callback class is passed to a handler, the filter class will return `true` by default**
 
 ```java
