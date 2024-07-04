@@ -10,7 +10,7 @@ import java.io.Serializable;
 
 public class Update extends JsonSerializable implements Serializable {
     public int update_id;
-    public Message message, edited_message, channel_post, edited_channel_post;
+    public Message message, edited_message, channel_post, edited_channel_post, business_message, edited_business_message;
     public CallbackQuery callback_query;
     public InlineQuery inline_query;
     public ChosenInlineResult chosen_inline_result;
@@ -24,5 +24,8 @@ public class Update extends JsonSerializable implements Serializable {
     public MessageReactionCountUpdated message_reaction_count;
     public ChatBoostUpdated chat_boost;
     public ChatBoostRemoved removed_chat_boost;
+    public BusinessConnection business_connection;
+    public BusinessMessagesDeleted deleted_business_messages;
+
 
 }
