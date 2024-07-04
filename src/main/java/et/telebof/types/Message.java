@@ -11,11 +11,11 @@ public class Message extends JsonSerializable implements Serializable {
     public Integer message_id, message_thread_id, date, edit_date;
     public Long migrate_to_chat_id, migrate_from_chat_id;
     public String author_signature, text, caption,
-            new_chat_title, connected_website, media_group_id;
-    public User from, via_bot, left_chat_member;
+            new_chat_title, connected_website, media_group_id, business_connection_id;
+    public User from, via_bot, left_chat_member, sender_business_bot;
     public List<User> new_chat_members;
     public Chat sender_chat, chat;
-    public Boolean is_topic, is_topic_message, is_automatic_forward, has_protected_content,
+    public Boolean is_topic, is_topic_message, is_automatic_forward, has_protected_content, is_from_online,
             has_media_spoiler, delete_chat_photo, group_chat_created, supergroup_chat_created, channel_chat_created;
     public Message reply_to_message, pinned_message;
     public List<MessageEntity> entities, caption_entities;
