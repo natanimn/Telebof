@@ -59,6 +59,10 @@ final public class BotClient {
     private final LinkedHashMap<FilterExecutor, MessageReactionCountHandler> messageReactionCountUpdated = new LinkedHashMap<>();
     private final LinkedHashMap<FilterExecutor, ChatBoostHandler> chatBoostHandler = new LinkedHashMap<>();
     private final LinkedHashMap<FilterExecutor, RemovedChatBoostHandler> chatBoostRemoved = new LinkedHashMap<>();
+    private final LinkedHashMap<FilterExecutor, BusinessConnectionHandler> businessConnectionHandlers = new LinkedHashMap<>();
+    private final LinkedHashMap<FilterExecutor, BusinessMessageHandler> businessMessageHandlers = new LinkedHashMap<>();
+    private final LinkedHashMap<FilterExecutor, EditedBusinessMessageHandler> editedBusinessMessageHandlers = new LinkedHashMap<>();
+    private final LinkedHashMap<FilterExecutor, DeletedBusinessMessageHandler> deletedBusinessMessageHandlers = new LinkedHashMap<>();
 
     private Filter filter;
     private final GetUpdates getUpdates;
@@ -332,6 +336,38 @@ final public class BotClient {
         chatBoostRemoved.put(filter -> true, removedChatBoost);
     }
 
+    public void onBusinessConnection(FilterExecutor filterExecutor, BusinessConnectionHandler businessConnection){
+        businessConnectionHandlers.put(filterExecutor, businessConnection);
+    }
+
+    public void onBusinessConnection(BusinessConnectionHandler businessConnection){
+        businessConnectionHandlers.put(filter -> true, businessConnection);
+    }
+
+    public void onBusinessMessage(FilterExecutor filterExecutor, BusinessMessageHandler businessMessage){
+        businessMessageHandlers.put(filterExecutor, businessMessage);
+    }
+
+    public void onBusinessMessage(BusinessMessageHandler businessMessage){
+        businessMessageHandlers.put(filter -> true, businessMessage);
+    }
+
+    public void onEditedBusinessMessage(FilterExecutor filterExecutor, EditedBusinessMessageHandler editedBusiness){
+        editedBusinessMessageHandlers.put(filterExecutor, editedBusiness);
+    }
+
+    public void onEditedBusinessMessage(EditedBusinessMessageHandler editedBusiness){
+        editedBusinessMessageHandlers.put(filter -> true, editedBusiness);
+    }
+
+    public void onDeletedBusinessMessage(FilterExecutor filterExecutor, DeletedBusinessMessageHandler deletedBusiness){
+        deletedBusinessMessageHandlers.put(filterExecutor, deletedBusiness);
+    }
+
+    public void onDeletedBusinessMessages(DeletedBusinessMessageHandler deletedBusiness){
+        deletedBusinessMessageHandlers.put(filter -> true, deletedBusiness);
+    }
+
     /**
      * <p>Use this method to specify a URL and receive incoming updates via an outgoing webhook. Whenever
      * there is an update for the bot, we will send an HTTPS POST request to the specified URL, containing a
@@ -449,6 +485,10 @@ final public class BotClient {
         else if (update.chat_join_request != null) processChatJoinRequest(update);
         else if (update.chosen_inline_result != null) processChosenInlineResult(update);
         else if (update.poll_answer != null) processPollAnswer(update);
+        else if (update.business_connection != null) processBusinessConnection(update);
+        else if (update.business_message != null) processBusinessMessage(update);
+        else if (update.edited_business_message != null) processBusinessMessage(update);
+        else if (update.deleted_business_messages != null) processDeletedBusinessMessage(update);
 
     }
 
@@ -657,6 +697,18 @@ final public class BotClient {
         }
     }
 
+    private void processDeletedBusinessMessage(Update update){
+        for (Map.Entry<FilterExecutor, DeletedBusinessMessageHandler> entry: deletedBusinessMessageHandlers.entrySet()){
+            FilterExecutor filterExecutor = entry.getKey();
+            DeletedBusinessMessageHandler deletedBusinessMessageHandler = entry.getValue();
+            boolean executed = filterExecutor.execute(filter);
+            if (executed){
+                deletedBusinessMessageHandler.handle(this.context, update.deleted_business_messages);
+                break;
+            }
+        }
+    }
+
     private void processRemovedChatBoost(Update update){
         for (Map.Entry<FilterExecutor, RemovedChatBoostHandler> entry: chatBoostRemoved.entrySet()){
             FilterExecutor filterExecutor = entry.getKey();
@@ -664,6 +716,42 @@ final public class BotClient {
             boolean executed = filterExecutor.execute(filter);
             if (executed){
                 removedChatBoostHandler.handle(this.context, update.removed_chat_boost);
+                break;
+            }
+        }
+    }
+
+    private void processBusinessMessage(Update update){
+        for (Map.Entry<FilterExecutor, BusinessMessageHandler> entry: businessMessageHandlers.entrySet()){
+            FilterExecutor filterExecutor = entry.getKey();
+            BusinessMessageHandler businessMessageHandler = entry.getValue();
+            boolean executed = filterExecutor.execute(filter);
+            if (executed){
+                businessMessageHandler.handle(this.context, update.business_message);
+                break;
+            }
+        }
+    }
+
+    private void processBusinessConnection(Update update){
+        for (Map.Entry<FilterExecutor, BusinessConnectionHandler> entry: businessConnectionHandlers.entrySet()){
+            FilterExecutor filterExecutor = entry.getKey();
+            BusinessConnectionHandler businessConnectionHandler = entry.getValue();
+            boolean executed = filterExecutor.execute(filter);
+            if (executed){
+                businessConnectionHandler.handle(this.context, update.business_connection);
+                break;
+            }
+        }
+    }
+
+    private void processEditedBusinessMessage(Update update){
+        for (Map.Entry<FilterExecutor, EditedBusinessMessageHandler> entry: editedBusinessMessageHandlers.entrySet()){
+            FilterExecutor filterExecutor = entry.getKey();
+            EditedBusinessMessageHandler editedBusinessMessageHandler = entry.getValue();
+            boolean executed = filterExecutor.execute(filter);
+            if (executed){
+                editedBusinessMessageHandler.handle(this.context, update.edited_business_message);
                 break;
             }
         }
