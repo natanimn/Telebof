@@ -5,5 +5,5 @@ import et.telebof.types.PollAnswer;
 
 @FunctionalInterface
 public interface PollAnswerHandler {
-    void handle(BotContext context, PollAnswer pollAnswer);
+    void handle(BotContext context, PollAnswer poll_answer);
 }

@@ -5,5 +5,5 @@ import et.telebof.types.InlineQuery;
 
 @FunctionalInterface
 public interface InlineHandler {
-    void handle(BotContext context, InlineQuery inlineQuery);
+    void handle(BotContext context, InlineQuery inline_query);
 }

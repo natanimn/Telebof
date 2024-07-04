@@ -5,5 +5,5 @@ import et.telebof.types.ChatMemberUpdated;
 
 @FunctionalInterface
 public interface MyChatMemberHandler {
-    void handle(BotContext context, ChatMemberUpdated chatMemberUpdated);
+    void handle(BotContext context, ChatMemberUpdated chat_member_updated);
 }

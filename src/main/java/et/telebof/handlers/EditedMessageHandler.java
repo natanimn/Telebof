@@ -5,5 +5,5 @@ import et.telebof.types.Message;
 
 @FunctionalInterface
 public interface EditedMessageHandler {
-    void handle(BotContext context, Message editedMessage);
+    void handle(BotContext context, Message edited_message);
 }
