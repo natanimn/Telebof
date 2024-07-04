@@ -28,4 +28,6 @@ public class Chat extends JsonSerializable  implements Serializable {
     public String background_custom_emoji_id;
     public Integer profile_accent_color_id;
     public String profile_background_custom_emoji_id;
+    public Integer unrestrict_boost_count;
+    public String custom_emoji_sticker_set_name;
 }
