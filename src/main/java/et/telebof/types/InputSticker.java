@@ -7,24 +7,23 @@ import java.io.Serializable;
 import java.util.List;
 
 public class InputSticker implements InputMedia, Serializable {
-    private String sticker;
+    private String sticker, format;
     private List<String> emoji_list, keywords;
     private MaskPosition mask_position;
     private boolean isFile;
     transient private InputFile inputFile;
 
-    public InputSticker sticker(File sticker) {
+    public InputSticker(File sticker, String format) {
         this.sticker = "attach://"+sticker.getName();
+        this.format = format;
         this.inputFile = new InputFile(sticker, MediaContentType.PHOTO);
         isFile = true;
-        return this;
     }
 
-    public InputSticker sticker(String sticker) {
+    public InputSticker(String sticker, String format) {
         this.sticker = sticker;
+        this.format = format;
         isFile = false;
-        return this;
-
     }
 
     public InputSticker emojiList(String[] emojiList) {
