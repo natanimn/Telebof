@@ -19,7 +19,11 @@ public enum Updates{
     MESSAGE_REACTION,
     MESSAGE_REACTION_COUNT,
     CHAT_BOOST,
-    REMOVED_CHAT_BOOST;
+    REMOVED_CHAT_BOOST,
+    BUSINESS_MESSAGE,
+    BUSINESS_CONNECTION,
+    EDITED_BUSINESS_MESSAGE,
+    DELETED_BUSINESS_MESSAGES;
 
     public static final Updates[] ALL = {
             MESSAGE,
@@ -39,6 +43,10 @@ public enum Updates{
             MESSAGE_REACTION,
             MESSAGE_REACTION_COUNT,
             CHAT_BOOST,
-            REMOVED_CHAT_BOOST
+            REMOVED_CHAT_BOOST,
+            BUSINESS_MESSAGE,
+            BUSINESS_CONNECTION,
+            EDITED_BUSINESS_MESSAGE,
+            DELETED_BUSINESS_MESSAGES
     };
 }
