@@ -87,11 +87,14 @@ public class SendPoll extends AbstractBaseRequest<SendPoll, Message> {
         return add("reply_parameters", replyParameters);
     }
 
-
     public SendPoll replyMarkup(Markup replyMarkup) {
         return add("reply_markup", replyMarkup);
     }
 
+
+    public SendPoll businessConnectionId(String business_connection_id){
+        return add("business_connection_id", business_connection_id);
+    }
     @Override
     public Message exec() {
         return Util.parse(requestSender.makeRequest(this), Message.class);

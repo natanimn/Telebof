@@ -47,6 +47,9 @@ public class SendContact extends AbstractBaseRequest<SendContact, Message> {
         return add("reply_markup", replyMarkup);
     }
 
+    public SendContact businessConnectionId(String business_connection_id){
+        return add("business_connection_id", business_connection_id);
+    }
     @Override
     public Message exec() {
         return Util.parse(requestSender.makeRequest(this), Message.class);

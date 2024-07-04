@@ -47,9 +47,12 @@ public class SendVenue extends AbstractBaseRequest<SendVenue, Message> {
         return add("allow_sending_without_reply", allowSendingWithoutReply);
     }
 
-
     public SendVenue replyParameters(ReplyParameters parameters){
         return add("reply_parameters", parameters);
+    }
+
+    public SendVenue businessConnectionId(String business_connection_id){
+        return add("business_connection_id", business_connection_id);
     }
     @Override
     public Message exec() {

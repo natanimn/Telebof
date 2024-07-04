@@ -50,4 +50,7 @@ abstract public class DefaultParameters<T, R> extends AbstractBaseRequest<T, R> 
         return add("reply_markup", replyMarkup);
     }
 
+    public T businessConnectionId(String business_connection_id){
+        return add("business_connection_id", business_connection_id);
+    }
 }
