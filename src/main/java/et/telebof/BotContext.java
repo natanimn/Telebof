@@ -884,9 +884,8 @@ public class BotContext {
         return new UploadStickerFile(userId, sticker, stickerFormat, this.requestSender);
     }
 
-    public CreateNewStickerSet createNewStickerSet(long userId, String name, String title, InputSticker[] stickers,
-                                                   String stickerFormat) {
-        return new CreateNewStickerSet(userId, name, title, stickers, stickerFormat, this.requestSender);
+    public CreateNewStickerSet createNewStickerSet(long userId, String name, String title, InputSticker[] stickers) {
+        return new CreateNewStickerSet(userId, name, title, stickers, this.requestSender);
     }
 
     public AddStickerToSet addStickerToSet(long userId, String name, File sticker) {
@@ -917,12 +916,16 @@ public class BotContext {
         return new SetStickerSetTitle(sticker, title, this.requestSender);
     }
 
-    public SetStickerSetThumbnail setStickerSetThumbnail(String name, long userId, File thumbnail) {
-        return new SetStickerSetThumbnail(name, userId, thumbnail, this.requestSender);
+    public ReplaceStickerInSet replaceStickerInSet(long user_id, String name, String  oldName, InputSticker sticker){
+        return new ReplaceStickerInSet(user_id, name, oldName, sticker, requestSender);
     }
 
-    public SetStickerSetThumbnail setStickerSetThumbnail(String name, long userId, String thumbnail) {
-        return new SetStickerSetThumbnail(name, userId, thumbnail, this.requestSender);
+    public SetStickerSetThumbnail setStickerSetThumbnail(String name, long userId, File thumbnail, String format) {
+        return new SetStickerSetThumbnail(name, userId, thumbnail, format, this.requestSender);
+    }
+
+    public SetStickerSetThumbnail setStickerSetThumbnail(String name, long userId, String thumbnail, String format) {
+        return new SetStickerSetThumbnail(name, userId, thumbnail, format, this.requestSender);
     }
 
     public SetCustomEmojiStickerSetThumbnail setCustomEmojiStickerSetThumbnail(String name, String customEmojiId) {
@@ -931,6 +934,10 @@ public class BotContext {
 
     public DeleteStickerSet deleteStickerSet(String name) {
         return new DeleteStickerSet(name, this.requestSender);
+    }
+
+    public GetBusinessConnection getBusinessConnection(String business_connection_id){
+        return new GetBusinessConnection(business_connection_id, requestSender);
     }
 
     public AnswerInlineQuery answerInlineQuery(String inlineQueryId, InlineQueryResult[] results) {
