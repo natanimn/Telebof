@@ -6,6 +6,6 @@ public class ChatMemberUpdated {
     public Integer date;
     public ChatMember old_chat_member, new_chat_member;
     public ChatInviteLink invite_link;
-    public Boolean via_chat_folder_invite_link;
+    public Boolean via_chat_folder_invite_link, via_join_request;
 
 }
