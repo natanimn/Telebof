@@ -8,6 +8,7 @@ import et.telebof.types.BotCommand;
 import et.telebof.types.ChatPermission;
 import et.telebof.types.InlineQueryResult;
 import et.telebof.types.InputMedia;
+import et.telebof.types.InputPollOption;
 import et.telebof.types.InputSticker;
 import et.telebof.types.LabeledPrice;
 import et.telebof.types.MaskPosition;
@@ -391,18 +392,16 @@ public class BotContext {
                 .replyParameters(new ReplyParameters(getMessageId()).allowSendingWithoutReply(true));
     }
 
-    public SendPoll sendPoll(Object chatId, String question, String[] options) {
+    public SendPoll sendPoll(Object chatId, String question, InputPollOption[] options) {
         return new SendPoll(chatId, question, options, this.requestSender);
     }
 
-    public SendPoll sendPoll(String question, String[] options) {
-        return new SendPoll(getChatId(), question, options, this.requestSender);
+
+    public SendPoll sendPoll(String question, List<InputPollOption> options) {
+        return new SendPoll(getChatId(), question, options.toArray(new InputPollOption[0]), this.requestSender);
     }
 
-    public SendPoll sendPoll(String question, List<String> options) {
-        return new SendPoll(getChatId(), question, options.toArray(new String[0]), this.requestSender);
-    }
-    public SendPoll replyPoll(String question, String[] options) {
+    public SendPoll replyPoll(String question, InputPollOption[] options) {
         return new SendPoll(getChatId(), question, options, this.requestSender)
                 .replyParameters(new ReplyParameters(getMessageId()).allowSendingWithoutReply(true));
     }
