@@ -65,4 +65,5 @@ public class Message extends JsonSerializable implements Serializable {
     public ChatBoostAdded boost_added;
     public Integer sender_boost_count;
     public Story reply_to_story;
+    public ChatBackground chat_background_set;
 }
