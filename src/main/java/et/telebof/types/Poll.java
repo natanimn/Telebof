@@ -8,6 +8,6 @@ public class Poll extends JsonSerializable implements Serializable {
     public List<PollOption> options;
     public Integer total_voter_count, correct_option_id, open_period, close_date;
     public Boolean is_closed, is_anonymous, allows_multiple_answers;
-    public List<MessageEntity> explanation_entities;
+    public List<MessageEntity> explanation_entities, question_entities;
 
 }
