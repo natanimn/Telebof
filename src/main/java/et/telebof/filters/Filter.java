@@ -66,6 +66,8 @@ public class Filter{
     public final boolean USERS_SHARED;
     public final boolean WRITE_ACCESS_ALLOWED;
     public final boolean ENTITIES;
+    public final boolean CHAT_BACKGROUND_SET;
+    public final boolean CHAT_SHARED;
     private final StateMemoryStorage storage;
 
     public Filter(Update update, StateMemoryStorage storage){
@@ -128,6 +130,8 @@ public class Filter{
         this.USERS_SHARED = update.message != null && update.message.users_shared != null;
         this.WRITE_ACCESS_ALLOWED = update.message != null && update.message.write_access_allowed != null;
         this.ENTITIES = update.message != null && update.message.entities != null;
+        this.CHAT_BACKGROUND_SET = update.message != null && update.message.chat_background_set != null;
+        this.CHAT_SHARED = update.message != null && update.message.chat_shared != null;
     }
 
     public boolean commands(String... commands){
