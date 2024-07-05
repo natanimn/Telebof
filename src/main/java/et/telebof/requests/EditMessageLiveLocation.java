@@ -20,14 +20,6 @@ public class EditMessageLiveLocation extends AbstractBaseRequest<EditMessageLive
         add("inline_message_id", inlineMessageId);
     }
 
-    public EditMessageLiveLocation chatId(Object chatId) {
-        return add("chat_id", chatId);
-    }
-
-    public EditMessageLiveLocation messageId(int messageId){
-        return add("message_id", messageId);
-    }
-
     public EditMessageLiveLocation inlineMessageId(String inlineMessageId){
         return add("inline_message_id", inlineMessageId);
     }
@@ -48,6 +40,9 @@ public class EditMessageLiveLocation extends AbstractBaseRequest<EditMessageLive
         return add("reply_markup", markup);
     }
 
+    public EditMessageLiveLocation livePeriod(int live_period){
+        return add("live_period", live_period);
+    }
 
     @Override
     public Message exec() {
