@@ -3,10 +3,12 @@ package et.telebof.requests;
 import et.telebof.enums.ParseMode;
 import et.telebof.Util;
 import et.telebof.enums.PollType;
+import et.telebof.types.InputPollOption;
 import et.telebof.types.Markup;
 import et.telebof.types.Message;
 import et.telebof.types.MessageEntity;
 import et.telebof.types.ReplyParameters;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -17,7 +19,7 @@ import java.util.List;
 
 public class SendPoll extends AbstractBaseRequest<SendPoll, Message> {
 
-    public SendPoll(Object chatId, String question, String[] options, RequestSender requestSender) {
+    public SendPoll(Object chatId, String question, InputPollOption[] options, RequestSender requestSender) {
         super(chatId, requestSender, "sendPoll");
         add("question", question);
         add("options", List.of(options));
@@ -95,6 +97,15 @@ public class SendPoll extends AbstractBaseRequest<SendPoll, Message> {
     public SendPoll businessConnectionId(String business_connection_id){
         return add("business_connection_id", business_connection_id);
     }
+
+    public SendPoll questionParseMode(@NotNull ParseMode question_parse_mode){
+        return add("question_parse_mode", question_parse_mode.name());
+    }
+
+    public SendPoll questionEntities(MessageEntity[] question_entities){
+        return add("question_entities", question_entities);
+    }
+
     @Override
     public Message exec() {
         return Util.parse(requestSender.makeRequest(this), Message.class);
