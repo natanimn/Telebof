@@ -30,7 +30,7 @@
 <dependecy>
     <groupId>et.telebof</groupId>
     <artifactId>telegrambot</artifactId>
-    <version>1.6.0</version>
+    <version>1.8.0</version>
 </dependecy>
 
 ```
@@ -290,7 +290,8 @@ The filter class is used for filtering content of updates and separate the same 
 - `filter.SUPERGROUP_CHAT_CREATED` - filter a group chat was created
 - `filter.CHANNEL_CHAT_CREATED` - filter a channel was created
 - `filter.MESSAGE_AUTO_DELETE_TIMER_CHANGED` - filter auto-delete timer settings changed in the chat
-- `filter.MIGRATED` - filter the group/supergroup has been migrated to/from a supergroup/group 
+- `filter.MIGRATED` - filter the group/supergroup has been migrated to/from a supergroup/group
+- `filter.CHAT_BACKGROUND_SET` filter chat background set
 - `filter.PINNED_MESSAGE` - filter a message was pinned
 - `filter.SUCCESFULL_PAYMENT` - filter message is about a successful payment
 - `filter.PROXIMITY_ALERT_TRIGGERED` - filter a user in the chat triggered another user's proximity alert
