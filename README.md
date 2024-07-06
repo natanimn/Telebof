@@ -6,8 +6,8 @@
 * [Available Types](#available-types) 
 * [Available Methods](#available-methods)
 * [Handling Updates](#handling-updates)
-* [Filtering Updates](#filtering-updates)
 * [Types of Handlers](#types-of-handlers)
+* [Filtering Updates](#filtering-updates)
 * [Markup](#markup)
     * [Reply Keyboard Markup](#replymarkup)
     * [Inline Keyboard Markup](#inlinekeyboardmarkup)
@@ -32,9 +32,7 @@
     <artifactId>telegrambot</artifactId>
     <version>1.8.0</version>
 </dependecy>
-
 ```
-
 
 ### Your First Echo Bot
 
@@ -53,7 +51,7 @@ public class MyFirstEchoBot {
     });
 
     // Listening for any text
-    bot.onMessage(filter -> filter.TEXT, (context, message) -> {
+    bot.onMessage(filter -> filter.text(), (context, message) -> {
         context.reply(message.text).exec();
     });
 
@@ -74,10 +72,10 @@ All Telegram methods are defined in `et.telebof.request` and implemented in `et.
 These methods can be used in 2 ways: Inside handler using `context` parameter and Outside handler using `bot.context` instance.
 
 ##### Inside handler
-No need to pass `chat_id` or `user_id` to the methods need it as argument 
+No need to pass `chat_id` or `user_id` to the methods need it as argument using `context` argument or `bot.context` instance
 
 ##### Outside handler
-`chat_id` or `user_id` must be passed to the methods need it as argument 
+`chat_id` or `user_id` must be passed to the methods need it as argument using `bot.context` instance
 
 ```java
 /* Inside Handler */
@@ -86,9 +84,19 @@ No need to pass `chat_id` or `user_id` to the methods need it as argument
 context.sendMessage("Hello, World").exec(); // or
 context.sendMessage(message.chat.id, "Hello, World").exec();
 
+// The same as 
+
+bot.context.sendMessage("Hello, World").exec();
+bot.context.sendMessage(message.chat.id, "Hello, World").exec();
+
 // send Photo
 context.sendPhoto(new File("photo.png")).exec(); // or
 context.sendPhoto(message.chat.id, new File("photo.png")).exec();
+
+// The same as 
+
+bot.context.sendPhoto(new File("photo.png")).exec(); // or
+bot.context.sendPhoto(message.chat.id, new File("photo.png")).exec();
 
 
 /* Outside Handler */
@@ -111,7 +119,7 @@ matches with the update sent from telegram, the callback class will be called an
 
 The callback class takes two parameters: `BotContext` class and type of class of an update which is being handled
 
-Let's back to the first `echo bot` example.
+Let's back to the first [echo bot](#your-first-echo-bot) example.
 
 ```java
 import et.telebof.BotClient;
@@ -126,7 +134,7 @@ public class MyFirstEchoBot {
       context.reply("Welcome!").exec();
     });
 
-    bot.onMessage(filter -> filter.TEXT, (context, message) -> {
+    bot.onMessage(filter -> filter.text(), (context, message) -> {
       context.reply(message.text).exec();
     });
 
@@ -263,77 +271,78 @@ As previously discussed, all handlers take two parameters: filter class and call
 The filter class is used for filtering content of updates and separate the same update by content they hold. 
 
 ### Predefined Filters 
-- `filter.TEXT` - filter message is text  
-- `filer.PHOTO` - filter message is photo 
-- `filter.VIDEO` - filter message is video
-- `filter.VOICE` - filter message is voice
-- `filter.AUDIO` - filter message is audio
-- `filter.ANIMATION` - filter message is animation
-- `filter.DOCUMENT` - filter message is document
-- `filter.VIDEO_NOTE` - filter message is video note
-- `filter.CONTACT` - filter message is contact
-- `filter.LOCATION` - filter message is location
-- `filter.GAME` - filter message is game
-- `filter.VENUE` - filter message is venue
-- `filter.STICKER` - filter message is sticker
-- `filter.DICE` - filter message is dice
-- `filter.INVOICE` - message is an invoice for a payment
-- `filter.MEDIA` - filter message is one of the following: photo, video, audio, sticker, video_note, voice, animation, document.
-- `filter.PASSPORT_DATA` - message is Telegram passport data
-- `filter.USERS_SHARED` - filter users were shared with the bot
-- `filter.CHAT_SHARED` - filter chat was shared with the bot
-- `filter.NEW_CHAT_MEMBER` - filter new members joined or added to the group
-- `filter.LEFT_CHAT_MEMBER` - filter member left from the group
-- `filter.NEW_CHAT_PHOTO` - filter a chat photo was changed
-- `filter.NEW_CHAT_TITLE` - filter a chat title was changed
-- `filter.GROUP_CHAT_CREATED` - filter a group chat was created
-- `filter.SUPERGROUP_CHAT_CREATED` - filter a group chat was created
-- `filter.CHANNEL_CHAT_CREATED` - filter a channel was created
-- `filter.MESSAGE_AUTO_DELETE_TIMER_CHANGED` - filter auto-delete timer settings changed in the chat
-- `filter.MIGRATED` - filter the group/supergroup has been migrated to/from a supergroup/group
-- `filter.CHAT_BACKGROUND_SET` filter chat background set
-- `filter.PINNED_MESSAGE` - filter a message was pinned
-- `filter.SUCCESFULL_PAYMENT` - filter message is about a successful payment
-- `filter.PROXIMITY_ALERT_TRIGGERED` - filter a user in the chat triggered another user's proximity alert
-- `filter.BOOST_ADDED` - filter user boosted the chat
-- `filter.GIVEAWAY` - filter message is scheduled giveaway
-- `filter.GIVEWAY_CREATED` - filter a scheduled giveaway was created
-- `filter.GIVEAWAY_COMPLETED` -  a giveaway without public winners was completed
-- `filter.FORUM_TOPIC_CREATED` - filter forum topic created
-- `filter.FORUM_TOPIC_CLOSED` - filter forum topic closed
-- `filter.FORUM_TOPIC_EDITED` - filter forum topic edited
-- `filter.FORUM_TOPIC_REOPNED` - filter forum topic reopened
-- `filter.WEB_APP_DATA` - filter data sent by a Web App
-- `filter.VIDEO_CHAT_STARTED` - filter video chat was started in the chat
-- `filter.VIDEO_CHAT_ENDED` - filter video chat was ended in the chat
-- `filter.VIDEO_CHAT_PARTICIPANT_INVITED` - filter new participants invited to a video chat
-- `filter.VIDEO_CHAT_SCHEDULED` - filter video chat scheduled
-- `filter.FORWARDED` - filter message was forwarded
-- `filter.REPLIED` - filter message was replied to another message
-- `filter.REPLIED_TO_STORY` - filter message was replied to chat story
-- `filter.ENTITES` - filter message text contains entities(bold, italic, underline, mention, url, hashtag)
-- `filter.BOT` - filter user is bot
-- `filter.ZERO_INLINE_QUERY` - filter query is empty
-- `filter.PRIVATE` - filter the chat is `private`
-- `filter.GROUP` - filter the chat type is `group`
-- `filter.SUPERGROUP` - filter chat type is `supergroup`
-- `filter.CHANNEL` - filter chat type is `channel`
-- `filter.commands()` - filter message contains given commands.
-- `filter.callbackData()` - filter given callback_data belongs to the pressed button.  
-- `filter.inlineQuery()` - filter given query is queried
-- `filter.customFilter()` - filter given filter
-- `filter.state()` - filter current state is given state. Always true if given state is `*` for filtering current state
+- `filter.text()` - filter message is text  
+- `filer.photo()` - filter message is photo 
+- `filter.video()` - filter message is video
+- `filter.voice()` - filter message is voice
+- `filter.audio()` - filter message is audio
+- `filter.animation()` - filter message is animation
+- `filter.document()` - filter message is document
+- `filter.videoNote()` - filter message is video note
+- `filter.contact()` - filter message is contact
+- `filter.loaction()` - filter message is location
+- `filter.game()` - filter message is game
+- `filter.venue()` - filter message is venue
+- `filter.sticker()` - filter message is sticker
+- `filter.dice()` - filter message is dice
+- `filter.invoice()` - message is an invoice for a payment
+- `filter.media()` - filter message is one of the following: photo, video, audio, sticker, video_note, voice, animation, document.
+- `filter.passportData()` - message is Telegram passport data
+- `filter.usersShared()` - filter users were shared with the bot
+- `filter.chatShared()` - filter chat was shared with the bot
+- `filter.newChatMember()` - filter new members joined or added to the group
+- `filter.leftChatMember()` - filter member left from the group
+- `filter.newChatPhoto()` - filter a chat photo was changed
+- `filter.newChatTitle()` - filter a chat title was changed
+- `filter.groupCreated()` - filter a group chat was created
+- `filter.supergroupCreated()` - filter a supergroup chat was created
+- `filter.channelCreated()` - filter a channel was created
+- `filter.messageAutoDeleteTimerChanged()` - filter auto-delete timer settings changed in the chat
+- `filter.migrated()` - filter the group/supergroup has been migrated to/from a supergroup/group
+- `filter.chatBackgroundSet()` filter chat background set
+- `filter.pinnedMessage()` - filter a message was pinned
+- `filter.successfulPayment()` - filter message is about a successful payment
+- `filter.proximityAlertTrigged()` - filter a user in the chat triggered another user's proximity alert
+- `filter.boostAdded()` - filter user boosted the chat
+- `filter.giveaway()` - filter message is scheduled giveaway
+- `filter.giveawayCreated()` - filter a scheduled giveaway was created
+- `filter.giveawayCompleted()` -  a giveaway without public winners was completed
+- `filter.forumTopicCreated()` - filter forum topic created
+- `filter.forumTopicClosed()` - filter forum topic closed
+- `filter.forumTopicEdited()` - filter forum topic edited
+- `filter.forumTopicReopned()` - filter forum topic reopened
+- `filter.webAppData()` - filter data sent by a Web App
+- `filter.videoChatStarted()` - filter video chat was started in the chat
+- `filter.videoChatEnded()` - filter video chat was ended in the chat
+- `filter.videoChatParticipantsInvited()` - filter new participants invited to a video chat
+- `filter.videoChatScheduled()` - filter video chat scheduled
+- `filter.forwarded()` - filter message was forwarded
+- `filter.replied()` - filter message was replied to another message
+- `filter.repliedToStory()` - filter message was replied to chat story
+- `filter.entities()` - filter message text contains entities(bold, italic, underline, mention, url, hashtag)
+- `filter.quote()` - filter message text contains quote
+- `filter.bot()` - filter user is bot
+- `filter.emptyQuery()` - filter query is empty
+- `filter.privateChat()` - filter the chat is `private`
+- `filter.group()` - filter the chat type is `group`
+- `filter.supergroup()` - filter chat type is `supergroup`
+- `filter.channel()` - filter chat type is `channel`
+- `filter.commands(String... commands)` - filter message is given commands.
+- `filter.callbackData(String... datas)` - filter given callback_data belongs to the pressed button.  
+- `filter.inlineQuery(String... queries)` - filter given query is queried
+- `filter.customFilter(CustomFilter cf)` - filter given filter
+- `filter.state(String state)` - filter current state is given state. Pass `*` for filtering any state
 
 ```java
 // handles incoming texts
-bot.onMessage(filter -> filter.TEXT, (context, message) -> {});
+bot.onMessage(filter -> filter.text(), (context, message) -> {});
 
 // handles incoming photos
-bot.onMessage(filter -> filter.PHOTO, (context, message) -> {});
+bot.onMessage(filter -> filter.photo(), (context, message) -> {});
 
 
 // handles incoming videos
-bot.onMessage(filter -> filter.VIDEO, (context, message) -> {});
+bot.onMessage(filter -> filter.video(), (context, message) -> {});
 ```
 ### Combining filters
 You may want to handle `text` and `photo` in one handler or a `text` in different chats. To do so use logical operators 
@@ -343,16 +352,16 @@ Here are some examples
 
 ```java
 // handles incoming text in private chat
-bot.onMessage(filter -> filter.TEXT && filter.PRIVATE, (context, message) -> {});
+bot.onMessage(filter -> filter.text() && filter.privateChat(), (context, message) -> {});
 
 // handles an incoming text or photo
-bot.onMessage(filter -> filter.TEXT || filter.PHOTO, (context, message) -> {});
+bot.onMessage(filter -> filter.text || filter.photo(), (context, message) -> {});
 
 // handles incoming text in supergroup chat 
-bot.onMessage(filter -> filter.TEXT && filter.SUPERGROUP, (context, message) -> {});
+bot.onMessage(filter -> filter.text() && filter.supergroup(), (context, message) -> {});
 
 // handles incoming audio or video in private chat
-bot.onMessage(filter -> filter.PRIVATE && (filter.AUDIO || filter.VIDEO), (context, message) -> {});
+bot.onMessage(filter -> filter.privateChat() && (filter.audio() || filter.video()), (context, message) -> {});
 
 ```
 ### Writing your own filter
@@ -392,7 +401,7 @@ public class FilterBot {
 
   public static void main(String[] args) {
       // ...
-      bot.onMessage(filter -> filter.TEXT && filter.customFilter(new IsNumberFilter()),
+      bot.onMessage(filter -> filter.text() && filter.customFilter(new IsNumberFilter()),
               FilterBot::numberFilter);
   }
 }
@@ -436,7 +445,7 @@ bot.onMessage(filter -> filter.commands("start"), (context, message) -> {
     bot.setState(message.from.id, "name"); // set our state to `name`. You can set whatever
 });
 
-bot.onMessage(filter -> filter.state("name") && filter.TEXT, (context, message) -> {     
+bot.onMessage(filter -> filter.state("name") && filter.text(), (context, message) -> {     
     context.sendMessage(String.format("Your name is %s", message.text)).exec();
     context.clearState(message.from.id);
 });
@@ -479,18 +488,20 @@ inlineMarkup.addKeybaord(
 // also  possible
 InlineKeybaordMarkup inlineMarkup = new InlineKeybaordMarkup(new InlineKeybaordButton[]{
   new InlineKeybaordButton("A").callbackData("a"), 
-  new InlineKeybaordButton("B").callbackData("b")
-}, 1); // 1 rowWidth
+  new InlineKeybaordButton("B").callbackData("b"),    
+  new InlineKeyboardButton("Url").url("www.example.com")
+  
+}, 2); // 2 row width. i.e 2 keyboards on a row at max
 
 // also possible
 InlineKeybaordMarkup inlineMarkup = new InlineKeybaordMarkup(new InlineKeybaordButton[][]{
     new InlineKeybaordButton[]{
       new InlineKeybaordButton("A").callbackData("a"), 
       new InlineKeybaordButton("B").callbackData("b")
-    }, // 2 rows
+    }, 
     new InlineKeyboardButton[]{
       new InlineKeyboardButton("Url").url("www.example.com")
-    } // 1 row
+    } 
   } 
 );
 
@@ -523,7 +534,7 @@ import et.telebof.types.InlineQueryResultArticle;
 import et.telebof.types.InputTextMessageContent;
 
 
-bot.onInline(filter -> filter.ZERO_INLINE_QUERY, (context, query) -> {
+bot.onInline(filter -> filter.emptyQuery(), (context, query) -> {
     InlineQueryResultArticle article = new InlineQueryResultArticle("1")
             .title("Write something")
             .description("click here")
@@ -547,7 +558,7 @@ class MyWebhookBot {
     bot.setWebhook(webhook); // set webhook
 
     //... 
-    bot.start(); // start our bot using webhook
+    bot.start(); // start our bot on webhook
 
   }
 }
@@ -584,7 +595,7 @@ import et.telebof.BotClient;
 import java.net.InetSocketAddress;
 import java.net.Proxy;
 
-InetSocketAddress address = new InetSocketAddress(80, "127.97.91"); // port and hostname respectively 
+InetSocketAddress address = new InetSocketAddress(80, "127.97.91"); //port and hostname respectively 
 
 Proxy proxy = new Proxy(Proxy.Type.SOCKS, address);
 BotClient bot = new BotClient
