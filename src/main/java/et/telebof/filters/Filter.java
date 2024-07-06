@@ -9,130 +9,246 @@ import java.util.List;
 
 public class Filter{
     private final Update update;
-    public final boolean TEXT;
-    public final boolean PRIVATE;
-    public final boolean GROUP;
-    public final boolean SUPERGROUP;
-    public final boolean CHANNEL;
-    public final boolean NON_PRIVATE;
-    public final boolean PHOTO;
-    public final boolean VIDEO;
-    public final boolean AUDIO;
-    public final boolean VENUE;
-    public final boolean VOICE;
-    public final boolean STICKER;
-    public final boolean ANIMATION;
-    public final boolean DICE;
-    public final boolean VIDEO_NOTE;
-    public final boolean DOCUMENT;
-    public final boolean GAME;
-    public final boolean CONTACT;
-    public final boolean LOCATION;
-    public final boolean MEDIA;
-    public final boolean NEW_CHAT_MEMBER;
-    public final boolean LEFT_CHAT_MEMBER;
-    public final boolean NEW_CHAT_PHOTO;
-    public final boolean NEW_CHAT_TITLE;
-    public final boolean SUPERGROUP_CHAT_CREATED;
-    public final boolean GROUP_CHAT_CREATED;
-    public final boolean CHANNEL_CHAT_CREATED;
-    public final boolean MESSAGE_AUTO_DELETE_TIMER_CHANGED;
-    public final boolean MIGRATED;
-    public final boolean PINNED_MESSAGE;
-    public final boolean INVOICE;
-    public final boolean SUCCESSFUL_PAYMENT;
-    public final boolean CONNECTED_WEBSITE;
-    public final boolean PASSPORT_DATA;
-    public final boolean PROXIMITY_ALERT_TRIGGERED;
-    public final boolean FORUM_TOPIC_CREATED;
-    public final boolean FORUM_TOPIC_CLOSED;
-    public final boolean FORUM_TOPIC_EDITED;
-    public final boolean FORUM_TOPIC_REOPENED;
-    public final boolean VIDEO_CHAT_STARTED;
-    public final boolean VIDEO_CHAT_ENDED;
-    public final boolean VIDEO_CHAT_PARTICIPANT_INVITED;
-    public final boolean VIDEO_CHAT_SCHEDULED;
-    public final boolean WEB_APP_DATA;
-    public final boolean FORWARDED;
-    public final boolean REPLIED;
-    public final boolean BOT;
-    public final boolean POLL;
-    public final boolean ZERO_INLINE_QUERY;
-    public final boolean GIVEAWAY;
-    public final boolean GIVEAWAY_CREATED;
-    public final boolean GIVEAWAY_COMPLETED;
-    public final boolean BOOST_ADDED;
-    public final boolean REPLIED_TO_STORY;
-    public final boolean USERS_SHARED;
-    public final boolean WRITE_ACCESS_ALLOWED;
-    public final boolean ENTITIES;
-    public final boolean CHAT_BACKGROUND_SET;
-    public final boolean CHAT_SHARED;
     private final StateMemoryStorage storage;
 
     public Filter(Update update, StateMemoryStorage storage){
         this.update = update;
         this.storage = storage;
-        this.TEXT = update.message !=null && update.message.text != null;
-        this.PRIVATE = chatType("private");
-        this.CHANNEL = chatType("channel");
-        this.GROUP = chatType("group");
-        this.SUPERGROUP = chatType("supergroup");
-        this.NON_PRIVATE = !PRIVATE;
-        this.PHOTO = update.message !=null && update.message.poll != null;
-        this.AUDIO = update.message !=null && update.message.audio != null;
-        this.VIDEO = update.message !=null && update.message.video != null;
-        this.VOICE = update.message !=null && update.message.voice != null;
-        this.VIDEO_NOTE = update.message !=null && update.message.video_note != null;
-        this.DOCUMENT = update.message !=null && update.message.document != null;
-        this.ANIMATION = update.message !=null && update.message.animation != null;
-        this.CONTACT = update.message !=null && update.message.contact != null;
-        this.VENUE = update.message !=null && update.message.venue != null;
-        this.LOCATION = update.message !=null && update.message.location != null;
-        this.STICKER = update.message !=null && update.message.sticker != null;
-        this.DICE = update.message !=null && update.message.dice != null;
-        this.GAME = update.message !=null && update.message.game != null;
-        this.MEDIA = update.message !=null && (PHOTO || VIDEO || VOICE || VIDEO_NOTE || ANIMATION || STICKER || DOCUMENT );
-        this.POLL = update.message != null && update.message.poll != null;
-        this.NEW_CHAT_MEMBER = update.message !=null && update.message.new_chat_members != null;
-        this.LEFT_CHAT_MEMBER = update.message !=null && update.message.left_chat_member != null;
-        this.NEW_CHAT_PHOTO = update.message !=null && update.message.new_chat_photo != null;
-        this.NEW_CHAT_TITLE = update.message !=null && update.message.new_chat_title != null;
-        this.GROUP_CHAT_CREATED = update.message !=null && update.message.group_chat_created != null;
-        this.SUPERGROUP_CHAT_CREATED = update.message !=null && update.message.supergroup_chat_created != null;
-        this.CHANNEL_CHAT_CREATED = update.message !=null && update.message.channel_chat_created != null;
-        this.MESSAGE_AUTO_DELETE_TIMER_CHANGED = update.message !=null && update.message.message_auto_delete_timer_changed != null;
-        this.MIGRATED = update.message !=null && (update.message.migrate_to_chat_id != null || update.message.migrate_from_chat_id != null);
-        this.PINNED_MESSAGE = update.message !=null && update.message.pinned_message != null;
-        this.INVOICE = update.message !=null && update.message.invoice != null;
-        this.SUCCESSFUL_PAYMENT = update.message !=null && update.message.successful_payment != null;
-        this.CONNECTED_WEBSITE = update.message !=null && update.message.connected_website != null;
-        this.PASSPORT_DATA = update.message !=null && update.message.passport_data != null;
-        this.PROXIMITY_ALERT_TRIGGERED = update.message !=null && update.message.proximity_alert_triggered != null;
-        this.FORUM_TOPIC_CREATED = update.message !=null && update.message.forum_topic_created != null;
-        this.FORUM_TOPIC_EDITED = update.message !=null && update.message.forum_topic_edited != null;
-        this.FORUM_TOPIC_CLOSED = update.message !=null && update.message.forum_topic_closed != null;
-        this.FORUM_TOPIC_REOPENED = update.message !=null && update.message.forum_topic_reopened != null;
-        this.WEB_APP_DATA = update.message !=null && update.message.web_app_data != null;
-        this.VIDEO_CHAT_STARTED = update.message !=null && update.message.video_chat_started != null;
-        this.VIDEO_CHAT_PARTICIPANT_INVITED = update.message !=null && update.message.video_chat_participants_invited != null;
-        this.VIDEO_CHAT_SCHEDULED = update.message !=null && update.message.video_chat_scheduled != null;
-        this.VIDEO_CHAT_ENDED = update.message !=null && update.message.video_chat_ended != null;
-        this.FORWARDED = update.message !=null && update.message.forward_origin != null;
-        this.REPLIED = update.message !=null && update.message.reply_to_message != null;
-        this.BOT = update.message !=null && update.message.from.is_bot;
-        this.ZERO_INLINE_QUERY = update.inline_query != null && update.inline_query.query.isEmpty();
-        this.GIVEAWAY = update.message != null && update.message.giveaway != null;
-        this.GIVEAWAY_COMPLETED = update.message != null && update.message.giveaway_completed != null;
-        this.GIVEAWAY_CREATED = update.message != null && update.message.giveaway_created != null;
-        this.BOOST_ADDED = update.message != null && update.message.boost_added != null;
-        this.REPLIED_TO_STORY = update.message != null && update.message.reply_to_story != null;
-        this.USERS_SHARED = update.message != null && update.message.users_shared != null;
-        this.WRITE_ACCESS_ALLOWED = update.message != null && update.message.write_access_allowed != null;
-        this.ENTITIES = update.message != null && update.message.entities != null;
-        this.CHAT_BACKGROUND_SET = update.message != null && update.message.chat_background_set != null;
-        this.CHAT_SHARED = update.message != null && update.message.chat_shared != null;
     }
+
+    public Boolean text(){
+        return update.message !=null && update.message.text != null;
+    }
+
+    public Boolean privateChat(){
+        return chatType("private");
+    }
+
+    public Boolean channel(){
+        return chatType("channel");
+    }
+
+    public Boolean supergroup(){
+        return chatType("supergroup");
+    }
+
+    public Boolean group(){
+        return chatType("group");
+    }
+
+    public Boolean photo(){
+        return update.message !=null && update.message.photo != null;
+    }
+
+    public Boolean video(){
+        return update.message !=null && update.message.video != null;
+    }
+
+    public Boolean voice(){
+        return update.message !=null && update.message.voice != null;
+    }
+
+    public Boolean document(){
+        return update.message !=null && update.message.document != null;
+    }
+
+    public Boolean videoNote(){
+        return update.message !=null && update.message.video_note != null;
+    }
+
+    public Boolean animation(){
+        return update.message !=null && update.message.animation != null;
+    }
+
+    public Boolean contact(){
+        return update.message !=null && update.message.contact != null;
+    }
+
+    public Boolean location(){
+        return update.message !=null && update.message.location != null;
+    }
+
+    public Boolean venue(){
+        return update.message !=null && update.message.venue != null;
+    }
+
+    public Boolean game(){
+        return update.message !=null && update.message.game != null;
+    }
+
+    public Boolean dice(){
+        return update.message !=null && update.message.dice != null;
+    }
+
+    public Boolean sticker(){
+        return update.message !=null && update.message.poll != null;
+    }
+
+    public Boolean audio(){
+        return update.message !=null && update.message.audio != null;
+    }
+
+    public Boolean invoice(){
+        return update.message !=null && update.message.invoice != null;
+    }
+
+    public Boolean quote(){
+        return update.message !=null && update.message.quote != null;
+    }
+
+    public Boolean giveaway(){
+        return update.message !=null && update.message.giveaway != null;
+    }
+
+    public Boolean media(){
+        return update.message !=null && (photo() || video() || videoNote() || sticker() || audio() || animation() || document() || voice());
+    }
+
+    public Boolean newChatMember(){
+        return update.message !=null && update.message.new_chat_members != null;
+    }
+
+    public Boolean leftChatMember(){
+        return update.message !=null && update.message.left_chat_member != null;
+    }
+
+    public Boolean pinnedMessage(){
+        return update.message !=null && update.message.pinned_message != null;
+    }
+
+    public Boolean newChatPhoto(){
+        return update.message !=null && update.message.new_chat_photo != null;
+    }
+
+    public Boolean newChatTitle(){
+        return update.message !=null && update.message.new_chat_title != null;
+    }
+
+    public Boolean newChat(){
+        return update.message !=null && update.message.new_chat_members != null;
+    }
+
+    public Boolean groupCreated(){
+        return update.message !=null && update.message.group_chat_created != null;
+    }
+
+    public Boolean supergroupCreated(){
+        return update.message !=null && update.message.supergroup_chat_created != null;
+    }
+
+    public Boolean channelCreated(){
+        return update.message !=null && update.message.channel_chat_created != null;
+    }
+
+    public Boolean messageAutoDeleteTimerChanged(){
+        return update.message !=null && update.message.message_auto_delete_timer_changed != null;
+    }
+
+    public Boolean migrated(){
+        return update.message !=null && (update.message.migrate_to_chat_id != null || update.message.migrate_from_chat_id != null);
+    }
+
+    public Boolean successfulPayment() {
+        return update.message != null && update.message.successful_payment != null;
+    }
+
+    public Boolean proximityAlertTriggered() {
+        return update.message != null && update.message.proximity_alert_triggered != null;
+    }
+
+    public Boolean forumTopicCreated() {
+        return update.message != null && update.message.forum_topic_edited != null;
+    }
+
+    public Boolean forumTopicEdited() {
+        return update.message != null && update.message.forum_topic_edited != null;
+    }
+
+    public Boolean forumTopicClosed() {
+        return update.message != null && update.message.forum_topic_closed != null;
+    }
+
+
+    public Boolean forumTopicReopened() {
+        return update.message != null && update.message.forum_topic_reopened != null;
+    }
+
+    public Boolean videoChatStarted() {
+        return update.message != null && update.message.video_chat_started != null;
+    }
+
+    public Boolean videoChatScheduled() {
+        return update.message != null && update.message.video_chat_scheduled != null;
+    }
+
+    public Boolean videoChatParticipantInvited() {
+        return update.message != null && update.message.video_chat_participants_invited != null;
+    }
+
+    public Boolean videoChatEnded() {
+        return update.message != null && update.message.video_chat_ended != null;
+    }
+
+    public Boolean forwarded() {
+        return update.message != null && update.message.forward_origin != null;
+    }
+
+    public Boolean replied() {
+        return update.message != null && update.message.reply_to_message != null;
+    }
+
+    public Boolean repliedToStory() {
+        return update.message != null && update.message.reply_to_story != null;
+    }
+
+    public Boolean bot() {
+        return update.message != null && update.message.from.is_bot != null;
+    }
+
+    public Boolean giveawayCreated() {
+        return update.message != null && update.message.giveaway_created != null;
+    }
+
+    public Boolean giveawayCompleted() {
+        return update.message != null && update.message.giveaway_completed != null;
+    }
+
+    public Boolean boostAdded() {
+        return update.message != null && update.message.boost_added != null;
+    }
+
+    public Boolean usersShared() {
+        return update.message != null && update.message.users_shared != null;
+    }
+
+    public Boolean writeAccessAllowed() {
+        return update.message != null && update.message.write_access_allowed != null;
+    }
+
+    public Boolean entities() {
+        return update.message != null && update.message.entities != null;
+    }
+
+    public Boolean chatBackgroundSet() {
+        return update.message != null && update.message.chat_background_set != null;
+    }
+
+    public Boolean chatShared() {
+        return update.message != null && update.message.chat_shared != null;
+    }
+
+    public Boolean emptyQuery(){
+        return update.inline_query != null && update.inline_query.query.isEmpty();
+    }
+
+    public Boolean webAppData(){
+        return update.message != null && update.message.web_app_data != null;
+    }
+
+    public Boolean passportData(){
+        return update.message != null && update.message.passport_data != null;
+    }
+
 
     public boolean commands(String... commands){
         if (update.message == null) return false;
