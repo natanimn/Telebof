@@ -1,6 +1,5 @@
 package et.telebof.requests;
 
-import et.telebof.Util;
 import et.telebof.types.Message;
 import et.telebof.types.MessageEntity;
 import java.io.File;
@@ -52,8 +51,8 @@ public class SendAnimation extends DefaultParameters<SendAnimation, Message> {
         return add("duration", duration);
     }
 
-    @Override
-    public Message exec() {
-        return Util.parse(requestSender.makeRequest(this), Message.class);
+    public SendAnimation showCaptionAboveMedia(boolean show_caption_above_media){
+        return add("show_caption_above_media", show_caption_above_media);
     }
+
 }

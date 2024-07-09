@@ -1,31 +1,18 @@
 package et.telebof.types;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class InputVenueMessageContent implements InputMedia, Serializable {
-    private Float latitude, longitude;
+    private double latitude, longitude;
     private String address, title, foursquare_id, foursquare_type, google_place_id, google_place_type;
 
-    public InputVenueMessageContent latitude(float latitude) {
+    public InputVenueMessageContent(double latitude, double longitude, String title, String address){
         this.latitude = latitude;
-        return this;
-    }
-
-    public InputVenueMessageContent longitude(float longitude) {
         this.longitude = longitude;
-        return this;
-    }
-
-    public InputVenueMessageContent title(String title) {
         this.title = title;
-        return this;
+        this.address = address;
     }
-
-    public InputVenueMessageContent address(String address) {
-        this.title = title;
-        return this;
-    }
-
     public InputVenueMessageContent foursquareId(String foursquareId) {
         this.foursquare_id = foursquareId;
         return this;
@@ -54,5 +41,23 @@ public class InputVenueMessageContent implements InputMedia, Serializable {
     @Override
     public InputFile getInputFile() {
         return null;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        InputVenueMessageContent that = (InputVenueMessageContent) object;
+        return Double.compare(latitude, that.latitude) == 0 && Double.compare(longitude, that.longitude) == 0 &&
+                Objects.equals(address, that.address) && Objects.equals(title, that.title) &&
+                Objects.equals(foursquare_id, that.foursquare_id) &&
+                Objects.equals(foursquare_type, that.foursquare_type) &&
+                Objects.equals(google_place_id, that.google_place_id) &&
+                Objects.equals(google_place_type, that.google_place_type);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(latitude, longitude, address, title, foursquare_id, foursquare_type, google_place_id, google_place_type);
     }
 }

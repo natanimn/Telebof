@@ -9,9 +9,4 @@ public class SetChatPhoto extends AbstractBaseRequest<SetChatPhoto, Boolean> {
         setContentType(MediaContentType.PHOTO);
     }
 
-    @Override
-    public Boolean exec() {
-        Object response = requestSender.makeRequest(this);
-        return (Boolean) response;
-    }
 }

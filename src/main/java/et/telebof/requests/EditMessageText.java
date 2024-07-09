@@ -11,13 +11,13 @@ import java.util.List;
 
 public class EditMessageText extends AbstractBaseRequest<EditMessageText, Message> {
     public EditMessageText(String text, Object chatId, int messageId, RequestSender requestSender) {
-        super(chatId, requestSender, "editMessageText");
+        super(chatId, requestSender, "editMessageText", Message.class);
         add("text", text);
         add("message_id", messageId);
     }
 
     public EditMessageText(String text, String inlineMessageId, RequestSender requestSender) {
-        super(requestSender, "editMessageText");
+        super(requestSender, "editMessageText", Message.class);
         add("text", text);
         add("inline_message_id", inlineMessageId);
     }
@@ -44,8 +44,4 @@ public class EditMessageText extends AbstractBaseRequest<EditMessageText, Messag
         return add("reply_markup", replyMarkup);
     }
 
-    @Override
-    public Message exec() {
-        return Util.parse(requestSender.makeRequest(this), Message.class);
-    }
 }

@@ -5,26 +5,22 @@ import et.telebof.types.InlineKeyboardMarkup;
 import et.telebof.types.Message;
 
 public class EditMessageLiveLocation extends AbstractBaseRequest<EditMessageLiveLocation, Message> {
-    public EditMessageLiveLocation(Object chatId, float latitude, float longitude, int messageId, RequestSender requestSender) {
-        super(chatId, requestSender, "editMessageLiveLocation");
+    public EditMessageLiveLocation(Object chatId, double latitude, double longitude, int messageId, RequestSender requestSender) {
+        super(chatId, requestSender, "editMessageLiveLocation", Message.class);
        
         add("latitude", latitude);
         add("longitude", longitude);
         add("message_id", messageId);
     }
 
-    public EditMessageLiveLocation(String inlineMessageId, float latitude, float longitude, RequestSender requestSender) {
-        super(requestSender, "editMessageLiveLocation");
+    public EditMessageLiveLocation(String inlineMessageId, double latitude, double longitude, RequestSender requestSender) {
+        super(requestSender, "editMessageLiveLocation", Message.class);
         add("latitude", latitude);
         add("longitude", longitude);
         add("inline_message_id", inlineMessageId);
     }
 
-    public EditMessageLiveLocation inlineMessageId(String inlineMessageId){
-        return add("inline_message_id", inlineMessageId);
-    }
-
-    public EditMessageLiveLocation horizontalAccuracy(float horizontalAccuracy){
+    public EditMessageLiveLocation horizontalAccuracy(double horizontalAccuracy){
         return add("horizontal_accuracy", horizontalAccuracy);
     }
 
@@ -44,8 +40,4 @@ public class EditMessageLiveLocation extends AbstractBaseRequest<EditMessageLive
         return add("live_period", live_period);
     }
 
-    @Override
-    public Message exec() {
-        return Util.parse(requestSender.makeRequest(this), Message.class);
-    }
 }

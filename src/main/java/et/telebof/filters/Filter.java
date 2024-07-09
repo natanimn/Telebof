@@ -5,7 +5,10 @@ import et.telebof.types.Update;
 import et.telebof.states.StateMemoryStorage;
 import et.telebof.types.Message;
 import et.telebof.types.User;
+
+import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class Filter{
     private final Update update;
@@ -20,7 +23,7 @@ public class Filter{
         return update.message !=null && update.message.text != null;
     }
 
-    public Boolean privateChat(){
+    public Boolean Private(){
         return chatType("private");
     }
 
@@ -312,6 +315,19 @@ public class Filter{
         else if (chatStateName != null) return chatStateName.equals(name);
         else if (userStateName != null) return userStateName.equals(name);
         else return false;
+    }
+
+    public boolean texts(String... texts){
+        if (text()){
+            return List.of(texts).contains(update.message.text);
+        } else return false;
+    }
+
+    public boolean regex(String pattern){
+        if (!text()) return false;
+
+        Pattern instance = Pattern.compile(pattern);
+        return instance.matcher(update.message.text).find();
     }
 
 }

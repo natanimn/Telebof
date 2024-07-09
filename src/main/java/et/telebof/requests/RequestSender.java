@@ -85,15 +85,14 @@ public class RequestSender {
         return String.format(URL, botToken, baseRequest.getMethodName());
     }
 
-    public ApiResponse postRequest(AbstractBaseRequest<?, ?> baseRequest){
+    public <T> ApiResponse<T> postRequest(AbstractBaseRequest<?, ?> baseRequest){
         RequestBody requestBody = prepareRequest(baseRequest);
         Request request = builder.url(getUrl(baseRequest))
                 .post(requestBody).build();
 
         try (Response response = client.newCall(request).execute()){
             ResponseBody responseBody = response.body();
-            String stringResponse = responseBody.string();
-            return Util.parse(stringResponse, ApiResponse.class);
+            return Util.parseApiResponse(responseBody.string(), baseRequest.getResponseType());
         } catch (UnknownHostException e){
             throw new ConnectionError(String.format("Unable to send request to %s", request.url().url().getHost()));
         } catch (IOException e){
@@ -101,10 +100,10 @@ public class RequestSender {
         }
     }
 
-    public <T, R> Object makeRequest(AbstractBaseRequest<T, R> abstractBase) {
+    public <T, R> R makeRequest(AbstractBaseRequest<T, R> abstractBase) {
         if (botToken == null || botToken.isEmpty()) throw new TelegramError("Undefined botToken");
         BotLog.debug(String.format("Request: method=%s, url=%s", abstractBase.methodName, getUrl(abstractBase)));
-        ApiResponse response = postRequest(abstractBase);
+        ApiResponse<R> response = postRequest(abstractBase);
         BotLog.debug(String.format("The server returned: %s", response.result));
         if (!response.ok) throw new TelegramApiException(response);
         else return response.result;

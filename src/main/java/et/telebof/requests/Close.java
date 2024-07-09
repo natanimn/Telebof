@@ -5,9 +5,4 @@ public class Close extends AbstractBaseRequest<Close, Boolean> {
         super(requestSender, "close");
     }
 
-    @Override
-    public Boolean exec() {
-        Object response = requestSender.makeRequest(this);
-        return (Boolean) response;
-    }
 }

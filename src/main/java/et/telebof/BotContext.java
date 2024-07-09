@@ -329,28 +329,28 @@ public class BotContext {
                 .parseMode(parseMode);
     }
 
-    public SendLocation sendLocation(Object chatId, float latitude, float longitude) {
+    public SendLocation sendLocation(Object chatId, double latitude, double longitude) {
         return new SendLocation(chatId, latitude, longitude, this.requestSender);
     }
 
-    public SendLocation sendLocation(float latitude, float longitude) {
+    public SendLocation sendLocation(double latitude, double longitude) {
         return new SendLocation(getChatId(), latitude, longitude, this.requestSender);
     }
 
-    public SendLocation replyLocation(float latitude, float longitude) {
+    public SendLocation replyLocation(double latitude, double longitude) {
         return new SendLocation(getChatId(), latitude, longitude, this.requestSender)
                 .replyParameters(new ReplyParameters(getMessageId()).allowSendingWithoutReply(true));
     }
 
-    public EditMessageLiveLocation editMessageLiveLocation(Object chatId, float latitude, float longitude, int messageId) {
+    public EditMessageLiveLocation editMessageLiveLocation(Object chatId, double latitude, double longitude, int messageId) {
         return new EditMessageLiveLocation(chatId, latitude, longitude, messageId, this.requestSender);
     }
 
-    public EditMessageLiveLocation editMessageLiveLocation(float latitude, float longitude, int messageId) {
+    public EditMessageLiveLocation editMessageLiveLocation(double latitude, double longitude, int messageId) {
         return new EditMessageLiveLocation(getChatId(), latitude, longitude, messageId, this.requestSender);
     }
 
-    public EditMessageLiveLocation editMessageLiveLocation(String inlineMessageId, float latitude, float longitude) {
+    public EditMessageLiveLocation editMessageLiveLocation(String inlineMessageId, double latitude, double longitude) {
         return new EditMessageLiveLocation(inlineMessageId, latitude, longitude, this.requestSender);
     }
 
@@ -366,15 +366,15 @@ public class BotContext {
         return new StopMessageLiveLocation(inlineMessageId, this.requestSender);
     }
 
-    public SendVenue sendVenue(Object chatId, float latitude, float longitude, String title, String address) {
+    public SendVenue sendVenue(Object chatId, double latitude, double longitude, String title, String address) {
         return new SendVenue(chatId, latitude, longitude, title, address, this.requestSender);
     }
 
-    public SendVenue sendVenue(float latitude, float longitude, String title, String address) {
+    public SendVenue sendVenue(double latitude, double longitude, String title, String address) {
         return new SendVenue(getChatId(), latitude, longitude, title, address, this.requestSender);
     }
 
-    public SendVenue replyVenue(float latitude, float longitude, String title, String address) {
+    public SendVenue replyVenue(double latitude, double longitude, String title, String address) {
         return new SendVenue(getChatId(), latitude, longitude, title, address, this.requestSender)
                 .replyParameters(new ReplyParameters(getMessageId()).allowSendingWithoutReply(true));
     }
@@ -961,31 +961,28 @@ public class BotContext {
 
     public SendInvoice sendInvoice(Object chatId, String title, String description, String payload, String providerToken,
                                    String currency, LabeledPrice[] prices) {
-        return new SendInvoice(chatId, title, description, payload, providerToken, currency, prices, this.requestSender)
+        return new SendInvoice(chatId, title, description, payload, currency, prices, this.requestSender)
                 .parseMode(parseMode);
     }
 
-    public SendInvoice sendInvoice(String title, String description, String payload, String providerToken,
+    public SendInvoice sendInvoice(String title, String description, String payload,
                                    String currency, LabeledPrice[] prices) {
-        return new SendInvoice(getChatId(), title, description, payload, providerToken, currency, prices, this.requestSender)
+        return new SendInvoice(getChatId(), title, description, payload, currency, prices, this.requestSender)
                 .parseMode(parseMode);
     }
 
-    public SendInvoice replyInvoice(String title, String description, String payload, String providerToken,
-                                    String currency, LabeledPrice[] prices) {
-        return new SendInvoice(getChatId(), title, description, payload, providerToken, currency, prices, this.requestSender)
+    public SendInvoice replyInvoice(String title, String description, String payload, String currency, LabeledPrice[] prices) {
+        return new SendInvoice(getChatId(), title, description, payload, currency, prices, this.requestSender)
                 .replyParameters(new ReplyParameters(getMessageId()).allowSendingWithoutReply(true))
                 .parseMode(parseMode);
     }
 
-    public CreateInvoiceLink createInvoiceLink(Object chatId, String title, String description, String payload, String providerToken,
-                                               String currency, LabeledPrice[] prices) {
-        return new CreateInvoiceLink(chatId, title, description, payload, providerToken, currency, prices, this.requestSender);
+    public CreateInvoiceLink createInvoiceLink(Object chatId, String title, String description, String payload, String currency, LabeledPrice[] prices) {
+        return new CreateInvoiceLink(chatId, title, description, payload, currency, prices, this.requestSender);
     }
 
-    public CreateInvoiceLink createInvoiceLink(String title, String description, String payload, String providerToken,
-                                               String currency, LabeledPrice[] prices) {
-        return new CreateInvoiceLink(getChatId(), title, description, payload, providerToken, currency, prices, this.requestSender);
+    public CreateInvoiceLink createInvoiceLink(String title, String description, String payload, String currency, LabeledPrice[] prices) {
+        return new CreateInvoiceLink(getChatId(), title, description, payload, currency, prices, this.requestSender);
     }
 
     public AnswerShippingQuery answerShippingQuery(String shippingQueryId, boolean ok) {

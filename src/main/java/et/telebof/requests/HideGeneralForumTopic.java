@@ -5,8 +5,4 @@ public class HideGeneralForumTopic extends AbstractBaseRequest<HideGeneralForumT
         super(chatId, requestSender, "hideGeneralForumTopic");
     }
 
-    @Override
-    public Boolean exec() {
-        return (Boolean) requestSender.makeRequest(this);
-    }
 }

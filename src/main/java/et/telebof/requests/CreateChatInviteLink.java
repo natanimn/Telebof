@@ -5,10 +5,10 @@ import et.telebof.types.ChatInviteLink;
 
 public class CreateChatInviteLink extends AbstractBaseRequest<CreateChatInviteLink, ChatInviteLink> {
     public CreateChatInviteLink(Object chatId, RequestSender requestSender) {
-        super(chatId, requestSender, "createChatInviteLink");
+        super(chatId, requestSender, "createChatInviteLink", ChatInviteLink.class);
     }
-    public CreateChatInviteLink(Object chatId, RequestSender requestSender, String methodName){
-        super(chatId, requestSender, methodName);
+    CreateChatInviteLink(Object chatId, RequestSender requestSender, String methodName){
+        super(chatId, requestSender, methodName, ChatInviteLink.class);
     }
 
     public CreateChatInviteLink name(String name) {
@@ -27,8 +27,4 @@ public class CreateChatInviteLink extends AbstractBaseRequest<CreateChatInviteLi
         return add("creates_join_request", createsJoinRequest);
     }
 
-    @Override
-    public ChatInviteLink exec() {
-        return Util.parse(requestSender.makeRequest(this), ChatInviteLink.class);
-    }
 }

@@ -8,9 +8,4 @@ public class SetStickerPositionInSet extends AbstractBaseRequest<SetStickerPosit
         add("position", position);
     }
 
-    @Override
-    public Boolean exec() {
-        Object response = requestSender.makeRequest(this);
-        return (Boolean) response;
-    }
 }

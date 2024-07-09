@@ -11,10 +11,4 @@ public class SetMyDescription extends AbstractBaseRequest<SetMyDescription, Bool
         add("language_code", languageCode);
     }
 
-    @Override
-    public Boolean exec() {
-        Object response = requestSender.makeRequest(this);
-        return (Boolean) response;
-    }
-
 }

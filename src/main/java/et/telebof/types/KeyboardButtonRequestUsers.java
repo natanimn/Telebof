@@ -1,6 +1,7 @@
 package et.telebof.types;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 
 public class KeyboardButtonRequestUsers implements Serializable {
@@ -42,4 +43,19 @@ public class KeyboardButtonRequestUsers implements Serializable {
         return this;
     }
 
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        KeyboardButtonRequestUsers that = (KeyboardButtonRequestUsers) object;
+        return Objects.equals(request_id, that.request_id) && Objects.equals(user_is_bot, that.user_is_bot) &&
+                Objects.equals(user_is_premium, that.user_is_premium) && Objects.equals(request_name, that.request_name) &&
+                Objects.equals(request_username, that.request_username) && Objects.equals(request_photo, that.request_photo) &&
+                Objects.equals(max_quantity, that.max_quantity);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(request_id, user_is_bot, user_is_premium, request_name, request_username, request_photo, max_quantity);
+    }
 }

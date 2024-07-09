@@ -68,8 +68,4 @@ public class PromoteChatMember extends AbstractBaseRequest<PromoteChatMember, Bo
         return add("can_delete_stories", canDeleteStories);
     }
 
-    @Override
-    public Boolean exec() {
-        return (Boolean) requestSender.makeRequest(this);
-    }
 }

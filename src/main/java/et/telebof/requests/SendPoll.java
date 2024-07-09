@@ -1,7 +1,6 @@
 package et.telebof.requests;
 
 import et.telebof.enums.ParseMode;
-import et.telebof.Util;
 import et.telebof.enums.PollType;
 import et.telebof.types.InputPollOption;
 import et.telebof.types.Markup;
@@ -20,7 +19,7 @@ import java.util.List;
 public class SendPoll extends AbstractBaseRequest<SendPoll, Message> {
 
     public SendPoll(Object chatId, String question, InputPollOption[] options, RequestSender requestSender) {
-        super(chatId, requestSender, "sendPoll");
+        super(chatId, requestSender, "sendPoll", Message.class);
         add("question", question);
         add("options", List.of(options));
     }
@@ -45,7 +44,7 @@ public class SendPoll extends AbstractBaseRequest<SendPoll, Message> {
         return add("explanation", explanation);
     }
 
-    public SendPoll explanationParseMode(ParseMode explanationParseMode){
+    public SendPoll explanationParseMode(@NotNull ParseMode explanationParseMode){
         return add("explanation_parse_mode", explanationParseMode.name().toLowerCase());
     }
 
@@ -106,8 +105,8 @@ public class SendPoll extends AbstractBaseRequest<SendPoll, Message> {
         return add("question_entities", question_entities);
     }
 
-    @Override
-    public Message exec() {
-        return Util.parse(requestSender.makeRequest(this), Message.class);
+    public SendPoll messageEffectId(String message_effect_id ){
+        return add("message_effect_id ", message_effect_id);
     }
+
 }

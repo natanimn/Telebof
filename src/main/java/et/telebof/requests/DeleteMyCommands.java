@@ -15,9 +15,4 @@ public class DeleteMyCommands extends AbstractBaseRequest<DeleteMyCommands, Bool
         return add("language_code", languageCode);
     }
 
-    @Override
-    public Boolean exec() {
-        Object response = requestSender.makeRequest(this);
-        return (Boolean) response;
-    }
 }

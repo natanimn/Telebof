@@ -1,18 +1,13 @@
 package et.telebof.types;
 
-import et.telebof.BotLog;
-
 import java.io.Serializable;
 
 public class InlineQueryResultCachedPhoto extends InlineQueryMediaResult<InlineQueryResultCachedPhoto> implements Serializable {
     private String photo_file_id, description;
-    public InlineQueryResultCachedPhoto(String id) {
+    private Boolean show_caption_above_media;
+    public InlineQueryResultCachedPhoto(String id, String photo_file_id) {
         super("photo", id);
-    }
-
-    public InlineQueryResultCachedPhoto photoFileId(String photoFileId) {
-        this.photo_file_id = photoFileId;
-        return this;
+        this.photo_file_id = photo_file_id;
     }
 
     public InlineQueryResultCachedPhoto description(String description) {
@@ -20,9 +15,8 @@ public class InlineQueryResultCachedPhoto extends InlineQueryMediaResult<InlineQ
         return this;
     }
 
-    @Deprecated(forRemoval = true)
-    public InlineQueryResultCachedPhoto thumbnailUrl(String thumbnailUrl) {
-        BotLog.warn("InlineQueryResultCachedPhoto does not support thumbnailUrl option");
+    public InlineQueryResultCachedPhoto showCaptionAboveMedia(boolean show_caption_above_media){
+        this.show_caption_above_media = show_caption_above_media;
         return this;
     }
 }

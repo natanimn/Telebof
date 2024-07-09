@@ -5,34 +5,23 @@ import et.telebof.Util;
 import et.telebof.types.InlineKeyboardMarkup;
 import et.telebof.types.Message;
 import et.telebof.types.MessageEntity;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
 public class EditMessageCaption extends AbstractBaseRequest<EditMessageCaption, Message> {
     public EditMessageCaption(Object chatId, int messageId, RequestSender requestSender) {
-        super(chatId, requestSender, "editMessageCaption");
+        super(chatId, requestSender, "editMessageCaption", Message.class);
         add("message_id", messageId);
     }
 
     public EditMessageCaption(String inlineMessageId, RequestSender requestSender) {
-        super(requestSender, "editMessageCaption");
+        super(requestSender, "editMessageCaption", Message.class);
         add("inline_message_id", inlineMessageId);
     }
 
-    public EditMessageCaption chatId(Object chatId) {
-        return add("chat_id", chatId);
-    }
-
-    public EditMessageCaption messageId(int messageId){
-        return add("message_id", messageId);
-    }
-
-    public EditMessageCaption inlineMessageId(String inlineMessageId) {
-        return add("inline_message_id", inlineMessageId);
-    }
-
-    public EditMessageCaption parseMode(ParseMode parseMode) {
-        return add("parse_mode",  parseMode!=null?parseMode.name():null);
+    public EditMessageCaption parseMode(@NotNull ParseMode parseMode) {
+        return add("parse_mode",  parseMode);
     }
 
     public EditMessageCaption entities(MessageEntity[] captionEntities) {
@@ -43,8 +32,7 @@ public class EditMessageCaption extends AbstractBaseRequest<EditMessageCaption, 
         return add("reply_markup", replyMarkup);
     }
 
-    @Override
-    public Message exec() {
-        return Util.parse(requestSender.makeRequest(this), Message.class);
+    public EditMessageCaption showCaptionAboveMedia(boolean show_caption_above_media){
+        return add("show_caption_above_media", show_caption_above_media);
     }
 }

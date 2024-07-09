@@ -1,18 +1,17 @@
 package et.telebof.requests;
 
-import et.telebof.Util;
 import et.telebof.types.Markup;
 import et.telebof.types.Message;
 import et.telebof.types.ReplyParameters;
 
 public class SendLocation extends AbstractBaseRequest<SendLocation, Message> {
-    public SendLocation(Object chatId, float latitude, float longitude, RequestSender requestSender) {
-        super(chatId, requestSender, "sendLocation");
+    public SendLocation(Object chatId, double latitude, double longitude, RequestSender requestSender) {
+        super(chatId, requestSender, "sendLocation", Message.class);
         add("longitude", longitude);
         add("latitude", latitude);
     }
 
-    public SendLocation horizontalAccuracy(float horizontalAccuracy) {
+    public SendLocation horizontalAccuracy(double horizontalAccuracy) {
         return add("horizontal_accuracy", horizontalAccuracy);
     }
 
@@ -57,8 +56,8 @@ public class SendLocation extends AbstractBaseRequest<SendLocation, Message> {
     public SendLocation businessConnectionId(String business_connection_id){
         return add("business_connection_id", business_connection_id);
     }
-    @Override
-    public Message exec() {
-        return Util.parse(requestSender.makeRequest(this), Message.class);
+
+    public SendLocation messageEffectId(String message_effect_id ){
+        return add("message_effect_id ", message_effect_id);
     }
 }

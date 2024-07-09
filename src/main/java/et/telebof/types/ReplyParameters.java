@@ -3,7 +3,9 @@ package et.telebof.types;
 import et.telebof.enums.ParseMode;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 public class ReplyParameters implements Serializable {
     private int message_id;
@@ -48,4 +50,21 @@ public class ReplyParameters implements Serializable {
         return this;
     }
 
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        ReplyParameters that = (ReplyParameters) object;
+        return message_id == that.message_id && Objects.equals(chat_id, that.chat_id) &&
+                Objects.equals(allow_sending_without_reply, that.allow_sending_without_reply) &&
+                Objects.equals(quote, that.quote) && quote_parse_mode == that.quote_parse_mode &&
+                Arrays.equals(quote_entities, that.quote_entities) && Objects.equals(quote_position, that.quote_position);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Objects.hash(message_id, chat_id, allow_sending_without_reply, quote, quote_parse_mode, quote_position);
+        result = 31 * result + Arrays.hashCode(quote_entities);
+        return result;
+    }
 }

@@ -9,9 +9,4 @@ public class SetStickerEmojiList extends AbstractBaseRequest<SetStickerEmojiList
         add("emoji_list", List.of(emojiList));
     }
 
-    @Override
-    public Boolean exec() {
-        Object response = requestSender.makeRequest(this);
-        return (Boolean) response;
-    }
 }

@@ -3,19 +3,23 @@ package et.telebof.types;
 import java.io.Serializable;
 
 public class InlineQueryResultVenue implements Serializable, InlineQueryResult {
-    private String id, type, location, thumbnail_url, title, address, foursquare_id, foursquare_type,
+    private String id, type, thumbnail_url, title, address, foursquare_id, foursquare_type,
             google_place_id, google_place_type;
     private Integer thumbnail_width, thumbnail_height;
-    private Float latitude, longitude, horizontal_accuracy;
+    private double latitude, longitude, horizontal_accuracy;
     private InputTextMessageContent input_message_content;
     private InlineKeyboardMarkup reply_markup;
 
-    public InlineQueryResultVenue(String id) {
+    public InlineQueryResultVenue(String id, double latitude, double longitude, String address) {
         this.type = "venue";
         this.id = id;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.address = address;
     }
 
-    public InlineQueryResultVenue latitude(float latitude) {
+
+    public InlineQueryResultVenue latitude(double latitude) {
         this.latitude = latitude;
         return this;
     }
@@ -30,18 +34,8 @@ public class InlineQueryResultVenue implements Serializable, InlineQueryResult {
         return this;
     }
 
-    public InlineQueryResultVenue longitude(float longitude) {
-        this.longitude = longitude;
-        return this;
-    }
-
     public InlineQueryResultVenue title(String title) {
         this.title = title;
-        return this;
-    }
-
-    public InlineQueryResultVenue address(String address) {
-        this.address = address;
         return this;
     }
 
@@ -79,5 +73,7 @@ public class InlineQueryResultVenue implements Serializable, InlineQueryResult {
         this.thumbnail_url = thumbnailUrl;
         return this;
     }
+
+
 
 }

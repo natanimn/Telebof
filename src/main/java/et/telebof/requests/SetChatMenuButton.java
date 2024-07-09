@@ -15,9 +15,4 @@ public class SetChatMenuButton extends AbstractBaseRequest<SetChatMenuButton, Bo
         return add("menu_button", menuButton);
     }
 
-    @Override
-    public Boolean exec() {
-        Object response = requestSender.makeRequest(this);
-        return (Boolean) response;
-    }
 }

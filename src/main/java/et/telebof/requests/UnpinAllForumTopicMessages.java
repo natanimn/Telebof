@@ -6,9 +6,4 @@ public class UnpinAllForumTopicMessages extends AbstractBaseRequest<UnpinAllForu
         add("message_thread_id", messageThreadId);
     }
 
-    @Override
-    public Boolean exec() {
-        Object response = requestSender.makeRequest(this);
-        return (Boolean) response;
-    }
 }

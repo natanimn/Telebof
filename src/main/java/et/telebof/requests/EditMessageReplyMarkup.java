@@ -6,12 +6,12 @@ import et.telebof.types.Message;
 
 public class EditMessageReplyMarkup extends AbstractBaseRequest<EditMessageReplyMarkup, Message> {
     public EditMessageReplyMarkup(Object chatId, int messageId, RequestSender requestSender) {
-        super(chatId, requestSender, "editMessageReplyMarkup");
+        super(chatId, requestSender, "editMessageReplyMarkup", Message.class);
         add("message_id", messageId);
     }
 
     public EditMessageReplyMarkup(String inlineMessageId, RequestSender requestSender) {
-        super(requestSender, "editMessageReplyMarkup");
+        super(requestSender, "editMessageReplyMarkup", Message.class);
         add("inline_message_id", inlineMessageId);
     }
 
@@ -19,8 +19,4 @@ public class EditMessageReplyMarkup extends AbstractBaseRequest<EditMessageReply
         return add("reply_markup", replyMarkup);
     }
 
-    @Override
-    public Message exec() {
-        return Util.parse(requestSender.makeRequest(this), Message.class);
-    }
 }

@@ -1,14 +1,20 @@
 package et.telebof.requests;
 
+import com.google.gson.reflect.TypeToken;
 import et.telebof.Util;
+import et.telebof.types.ChatMember;
 import et.telebof.types.Message;
 import et.telebof.types.MessageId;
 
+import java.lang.reflect.Type;
 import java.util.List;
 
 public class ForwardMessages extends AbstractBaseRequest<ForwardMessages, List<MessageId>> {
+
+    private static final Type responseType = TypeToken.getParameterized(List.class, MessageId.class).getType();
+
     public ForwardMessages(Object chatId, Object fromChatId, List<Integer> messageIds, RequestSender requestSender) {
-        super(chatId, requestSender, "forwardMessages");
+        super(chatId, requestSender, "forwardMessages", responseType);
         add("from_chat_id", fromChatId);
         add("message_id", messageIds);
     }
@@ -23,11 +29,6 @@ public class ForwardMessages extends AbstractBaseRequest<ForwardMessages, List<M
 
     public ForwardMessages protectContent(boolean protectContent) {
         return add("protect_content", protectContent);
-    }
-
-    @Override
-    public List<MessageId> exec() {
-        return Util.parse(requestSender.makeRequest(this), List.class);
     }
 
 

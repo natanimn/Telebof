@@ -5,8 +5,4 @@ public class LogOut extends AbstractBaseRequest<LogOut, Boolean> {
         super(requestSender, "logOut");
     }
 
-    @Override
-    public Boolean exec() {
-        return (Boolean) requestSender.makeRequest(this);
-    }
 }

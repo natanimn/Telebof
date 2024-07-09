@@ -16,8 +16,4 @@ public class RestrictChatMember extends AbstractBaseRequest<RestrictChatMember, 
         return this;
     }
 
-    @Override
-    public Boolean exec() {
-        return (Boolean) requestSender.makeRequest(this);
-    }
 }

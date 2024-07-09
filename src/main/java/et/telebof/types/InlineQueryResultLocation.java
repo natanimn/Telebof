@@ -5,26 +5,18 @@ import java.io.Serializable;
 public class InlineQueryResultLocation implements Serializable, InlineQueryResult {
     private String id, type, location, thumbnail_url;
     private Integer live_period, heading, proximity_alert_radius, thumbnail_width, thumbnail_height;
-    private Float latitude, longitude, horizontal_accuracy;
+    private double latitude, longitude, horizontal_accuracy;
     private InputTextMessageContent input_message_content;
     private InlineKeyboardMarkup reply_markup;
 
-    public InlineQueryResultLocation(String id) {
+    public InlineQueryResultLocation(String id, double latitude, double longitude) {
         this.type = "location";
         this.id = id;
-    }
-
-    public InlineQueryResultLocation latitude(float latitude) {
         this.latitude = latitude;
-        return this;
-    }
-
-    public InlineQueryResultLocation longitude(float longitude) {
         this.longitude = longitude;
-        return this;
     }
 
-    public InlineQueryResultLocation horizontalAccuracy(float horizontalAccuracy) {
+    public InlineQueryResultLocation horizontalAccuracy(double horizontalAccuracy) {
         this.horizontal_accuracy = horizontalAccuracy;
         return this;
     }

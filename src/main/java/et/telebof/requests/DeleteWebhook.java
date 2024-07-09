@@ -9,9 +9,4 @@ public class DeleteWebhook extends AbstractBaseRequest<DeleteWebhook, Boolean>{
         return add("drop_pending_updates", dropPendingUpdates);
     }
 
-    @Override
-    public Boolean exec() {
-        Object response = requestSender.makeRequest(this);
-        return (Boolean) response;
-    }
 }

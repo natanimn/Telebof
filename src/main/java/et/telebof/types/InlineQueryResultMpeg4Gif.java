@@ -5,14 +5,12 @@ import java.io.Serializable;
 public class InlineQueryResultMpeg4Gif extends InlineQueryMediaResult<InlineQueryResultMpeg4Gif> implements Serializable {
     private String mpeg4_url, thumbnail_mime_type;
     private Integer mpeg4_width, mpeg4_height, mpeg4_duration;
+    private Boolean show_caption_above_media;
+    private String thumbnail_url;
 
-    public InlineQueryResultMpeg4Gif(String id) {
+    public InlineQueryResultMpeg4Gif(String id, String mpeg4_url) {
         super("mpeg4_url", id);
-    }
-
-    public InlineQueryResultMpeg4Gif mpeg4Url(String mpeg4Url) {
-        this.mpeg4_url = mpeg4Url;
-        return this;
+        this.mpeg4_url = mpeg4_url;
     }
 
     public InlineQueryResultMpeg4Gif mpeg4Width(int mpeg4Width) {
@@ -30,8 +28,17 @@ public class InlineQueryResultMpeg4Gif extends InlineQueryMediaResult<InlineQuer
         return this;
     }
 
+    public InlineQueryResultMpeg4Gif thumbnailUrl(String thumbnailUrl) {
+        this.thumbnail_url = thumbnailUrl;
+        return this;
+    }
     public InlineQueryResultMpeg4Gif thumbnailMimeType(String thumbnailMimeType) {
         this.thumbnail_mime_type = thumbnailMimeType;
+        return this;
+    }
+
+    public InlineQueryResultMpeg4Gif showCaptionAboveMedia(boolean showCaptionAboveMedia){
+        this.show_caption_above_media = showCaptionAboveMedia;
         return this;
     }
 

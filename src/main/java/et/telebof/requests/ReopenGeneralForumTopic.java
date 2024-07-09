@@ -5,8 +5,4 @@ public class ReopenGeneralForumTopic extends AbstractBaseRequest<ReopenGeneralFo
         super(chatId, requestSender, "reopenGeneralForumTopic");
     }
 
-    @Override
-    public Boolean exec() {
-        return (Boolean) requestSender.makeRequest(this);
-    }
 }

@@ -6,9 +6,4 @@ public class SetChatTitle extends AbstractBaseRequest<SetChatTitle, Boolean> {
         add("title", title);
     }
 
-    @Override
-    public Boolean exec() {
-        Object response = requestSender.makeRequest(this);
-        return (Boolean) response;
-    }
 }

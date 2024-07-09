@@ -2,6 +2,6 @@ package et.telebof.types;
 
 import java.io.Serializable;
 
-public class ForumTopicReopened extends JsonSerializable implements Serializable {
+public class ForumTopicReopened implements Serializable {
     // not implemented
 }

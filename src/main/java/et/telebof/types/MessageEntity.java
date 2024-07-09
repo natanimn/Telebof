@@ -2,6 +2,7 @@ package et.telebof.types;
 
 import et.telebof.enums.EntityType;
 import java.io.Serializable;
+import java.util.Objects;
 
 
 /**
@@ -9,7 +10,7 @@ import java.io.Serializable;
  */
 
 
-public class MessageEntity extends JsonSerializable implements Serializable {
+public class MessageEntity implements Serializable {
     public String url, language, type;
     public Integer offset, length;
     public User user;
@@ -51,4 +52,19 @@ public class MessageEntity extends JsonSerializable implements Serializable {
         return this;
     }
 
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        MessageEntity entity = (MessageEntity) object;
+        return Objects.equals(url, entity.url) && Objects.equals(language, entity.language) &&
+                Objects.equals(type, entity.type) && Objects.equals(offset, entity.offset) &&
+                Objects.equals(length, entity.length) && Objects.equals(user, entity.user) &&
+                Objects.equals(custom_emoji_id, entity.custom_emoji_id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(url, language, type, offset, length, user, custom_emoji_id);
+    }
 }

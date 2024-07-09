@@ -6,16 +6,10 @@ import java.util.Map;
 public class InputContactMessageContent implements Serializable {
     private String phone_number, first_name, last_name, vcard;
 
-    public InputContactMessageContent phoneNumber(String phoneNumber) {
-        this.phone_number = phoneNumber;
-        return this;
+    public InputContactMessageContent(String phone_number, String first_name){
+        this.phone_number = phone_number;
+        this.first_name = first_name;
     }
-
-    public InputContactMessageContent firstName(String firstName) {
-        this.first_name = firstName;
-        return this;
-    }
-
     public InputContactMessageContent lastName(String lastName) {
         this.last_name = lastName;
         return this;

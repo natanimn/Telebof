@@ -17,8 +17,4 @@ public class SetMessageReaction extends AbstractBaseRequest<SetMessageReaction, 
         return add("is_big", is_big);
     }
 
-    @Override
-    public Boolean exec() {
-        return (Boolean) requestSender.makeRequest(this);
-    }
 }

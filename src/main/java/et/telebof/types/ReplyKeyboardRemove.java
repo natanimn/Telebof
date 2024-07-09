@@ -1,8 +1,8 @@
 package et.telebof.types;
 
 import java.io.Serializable;
+import java.util.Objects;
 
-@SuppressWarnings("unused")
 public class ReplyKeyboardRemove implements Markup, Serializable {
     private final boolean remove_keyboard;
     private boolean selective;
@@ -16,4 +16,16 @@ public class ReplyKeyboardRemove implements Markup, Serializable {
         return this;
     }
 
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        ReplyKeyboardRemove that = (ReplyKeyboardRemove) object;
+        return remove_keyboard == that.remove_keyboard && selective == that.selective;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(remove_keyboard, selective);
+    }
 }

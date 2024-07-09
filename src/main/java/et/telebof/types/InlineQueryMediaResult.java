@@ -1,12 +1,14 @@
 package et.telebof.types;
 
 import et.telebof.enums.ParseMode;
+import org.jetbrains.annotations.NotNull;
+
 import java.io.Serializable;
 import java.util.List;
 
 @SuppressWarnings("unchecked")
 class InlineQueryMediaResult<T>  implements Serializable, InlineQueryResult {
-    public String type, id, caption, thumbnail_url, parse_mode, title;
+    public String type, id, caption, parse_mode, title;
     public List<MessageEntity> caption_entities;
     public InputTextMessageContent input_message_content;
     public InlineKeyboardMarkup reply_markup;
@@ -20,7 +22,6 @@ class InlineQueryMediaResult<T>  implements Serializable, InlineQueryResult {
         this.title = title;
         return thisT;
     }
-
     public T inputMessageContent(InputTextMessageContent inputTextMessageContent) {
         this.input_message_content = inputTextMessageContent;
         return thisT;
@@ -36,18 +37,14 @@ class InlineQueryMediaResult<T>  implements Serializable, InlineQueryResult {
         return thisT;
     }
 
-    public T thumbnailUrl(String thumbnailUrl) {
-        this.thumbnail_url = thumbnailUrl;
-        return thisT;
-    }
 
     public T captionEntities(MessageEntity[] captionEntities) {
         this.caption_entities = List.of(captionEntities);
         return thisT;
     }
 
-    public T parseMode(ParseMode parseMode) {
-        this.parse_mode = parseMode != null ? parseMode.name().toLowerCase() : null;
+    public T parseMode(@NotNull ParseMode parseMode) {
+        this.parse_mode = parseMode.name().toLowerCase();
         return thisT;
     }
 

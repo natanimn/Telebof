@@ -3,17 +3,14 @@ package et.telebof.types;
 import java.io.Serializable;
 
 public class InlineQueryResultVideo extends InlineQueryMediaResult<InlineQueryResultVideo> implements Serializable {
-    private String video_url, description, mime_type;
+    private String video_url, description, mime_type, thumbnail_url;
     private Integer video_width, video_height, video_duration;
+    private Boolean show_caption_above_media;
 
-
-    public InlineQueryResultVideo(String id) {
+    public InlineQueryResultVideo(String id, String video_url, String mime_type) {
         super("video", id);
-    }
-
-    public InlineQueryResultVideo videoUrl(String videoUrl) {
-        this.video_url = videoUrl;
-        return this;
+        this.video_url = video_url;
+        this.mime_type = mime_type;
     }
 
     public InlineQueryResultVideo videoWidth(int videoWidth) {
@@ -36,8 +33,13 @@ public class InlineQueryResultVideo extends InlineQueryMediaResult<InlineQueryRe
         return this;
     }
 
-    public InlineQueryResultVideo mimeType(String mimeType) {
-        this.mime_type = mimeType;
+    public InlineQueryResultVideo thumbnailUrl(String thumbnailUrl) {
+        this.thumbnail_url = thumbnailUrl;
+        return this;
+    }
+
+    public InlineQueryResultVideo showCaptionAboveMedia(boolean show_caption_above_media){
+        this.show_caption_above_media = show_caption_above_media;
         return this;
     }
 }

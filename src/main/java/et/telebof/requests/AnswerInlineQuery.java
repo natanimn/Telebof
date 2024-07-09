@@ -29,9 +29,4 @@ public class AnswerInlineQuery extends AbstractBaseRequest<AnswerInlineQuery, Bo
         return add("button", button);
     }
 
-    @Override
-    public Boolean exec() {
-        Object response = requestSender.makeRequest(this);
-        return (Boolean) response;
-    }
 }

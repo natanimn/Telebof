@@ -5,9 +5,4 @@ public class UnpinAllChatMessages extends AbstractBaseRequest<UnpinAllChatMessag
         super(chatId, requestSender, "unpinAllChatMessages");
     }
 
-    @Override
-    public Boolean exec() {
-        Object response = requestSender.makeRequest(this);
-        return (Boolean) response;
-    }
 }

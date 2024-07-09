@@ -3,20 +3,14 @@ package et.telebof.types;
 import java.io.Serializable;
 
 public class InputLocationMessageContent implements Serializable {
-    private Float latitude, longitude, horizontal_accuracy;
+    private double latitude, longitude, horizontal_accuracy;
     private Integer live_period, heading, proximity_alert_radius;
 
-    public InputLocationMessageContent latitude(float latitude) {
+    public InputLocationMessageContent(double latitude, double longitude){
         this.latitude = latitude;
-        return this;
-    }
-
-    public InputLocationMessageContent longitude(float longitude) {
         this.longitude = longitude;
-        return this;
     }
-
-    public InputLocationMessageContent horizontalAccuracy(float horizontalAccuracy) {
+    public InputLocationMessageContent horizontalAccuracy(double horizontalAccuracy) {
         this.horizontal_accuracy = horizontalAccuracy;
         return this;
     }

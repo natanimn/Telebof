@@ -1,13 +1,15 @@
 package et.telebof.types;
 
 import et.telebof.enums.ParseMode;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 
 public class InputTextMessageContent implements Serializable {
     private String message_text, parse_mode;
-    List<MessageEntity> entities;
+    private List<MessageEntity> entities;
     private Boolean disable_web_page_preview;
     private LinkPreviewOptions link_preview_options;
 
@@ -15,8 +17,8 @@ public class InputTextMessageContent implements Serializable {
         this.message_text = text;
     }
 
-    public InputTextMessageContent parseMode(ParseMode parseMode) {
-        this.parse_mode = parseMode != null? parseMode.name().toLowerCase() : null;
+    public InputTextMessageContent parseMode(@NotNull ParseMode parseMode) {
+        this.parse_mode = parseMode.name().toLowerCase();
         return this;
     }
 
@@ -34,5 +36,21 @@ public class InputTextMessageContent implements Serializable {
     public InputTextMessageContent linkPreviewOptions(LinkPreviewOptions linkPreviewOptions){
         this.link_preview_options = linkPreviewOptions;
         return this;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        InputTextMessageContent that = (InputTextMessageContent) object;
+        return Objects.equals(message_text, that.message_text) && Objects.equals(parse_mode, that.parse_mode) &&
+                Objects.equals(entities, that.entities) &&
+                Objects.equals(disable_web_page_preview, that.disable_web_page_preview) &&
+                Objects.equals(link_preview_options, that.link_preview_options);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(message_text, parse_mode, entities, disable_web_page_preview, link_preview_options);
     }
 }

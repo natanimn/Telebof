@@ -5,11 +5,7 @@ import et.telebof.types.BotDescription;
 
 public class GetMyDescription extends AbstractBaseRequest<GetMyDescription, BotDescription> {
     public GetMyDescription(RequestSender requestSender) {
-        super(requestSender, "getMyDescription");
+        super(requestSender, "getMyDescription", BotDescription.class);
     }
 
-    @Override
-    public BotDescription exec() {
-        return Util.parse(requestSender.makeRequest(this), BotDescription.class);
-    }
 }

@@ -5,10 +5,4 @@ public class CloseForumTopic extends AbstractBaseRequest<Close, Boolean> {
         super(chatId, requestSender, "closeForumTopic");
         add("message_thread_id", messageThreadId);
     }
-
-    @Override
-    public Boolean exec() {
-        Object response = requestSender.makeRequest(this);
-        return (Boolean) response;
-    }
 }

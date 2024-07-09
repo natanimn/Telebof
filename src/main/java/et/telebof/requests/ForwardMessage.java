@@ -5,7 +5,7 @@ import et.telebof.types.Message;
 
 public class ForwardMessage extends AbstractBaseRequest<ForwardMessage, Message> {
     public ForwardMessage(Object chatId, Object fromChatId, int messageId, RequestSender requestSender) {
-        super(chatId, requestSender, "forwardMessage");
+        super(chatId, requestSender, "forwardMessage", Message.class);
         add("from_chat_id", fromChatId);
         add("message_id", messageId);
     }
@@ -22,9 +22,5 @@ public class ForwardMessage extends AbstractBaseRequest<ForwardMessage, Message>
         return add("protect_content", protectContent);
     }
 
-    @Override
-    public Message exec() {
-        return Util.parse(requestSender.makeRequest(this), Message.class);
-    }
 }
 

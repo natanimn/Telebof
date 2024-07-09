@@ -1,10 +1,7 @@
 package et.telebof.requests;
 
-import et.telebof.Util;
 import et.telebof.types.Message;
 import et.telebof.types.MessageEntity;
-
-import java.util.List;
 
 public class SendMessage extends DefaultParameters<SendMessage, Message> {
     public SendMessage(Object chatId,  String text, RequestSender requestSender) {
@@ -17,8 +14,4 @@ public class SendMessage extends DefaultParameters<SendMessage, Message> {
         return add("entities", entities);
     }
 
-    @Override
-    public Message exec() {
-        return Util.parse(requestSender.makeRequest(this), Message.class);
-    }
 }

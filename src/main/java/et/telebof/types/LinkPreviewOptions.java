@@ -1,6 +1,7 @@
 package et.telebof.types;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class LinkPreviewOptions implements Serializable {
     public Boolean is_disabled, prefer_small_media, prefer_large_media, show_above_text;
@@ -31,4 +32,18 @@ public class LinkPreviewOptions implements Serializable {
         return this;
     }
 
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        LinkPreviewOptions that = (LinkPreviewOptions) object;
+        return Objects.equals(is_disabled, that.is_disabled) && Objects.equals(prefer_small_media, that.prefer_small_media) &&
+                Objects.equals(prefer_large_media, that.prefer_large_media) && Objects.equals(show_above_text, that.show_above_text) &&
+                Objects.equals(url, that.url);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(is_disabled, prefer_small_media, prefer_large_media, show_above_text, url);
+    }
 }

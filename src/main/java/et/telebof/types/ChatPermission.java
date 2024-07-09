@@ -1,6 +1,7 @@
 package et.telebof.types;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 
 public class ChatPermission implements Serializable {
@@ -77,4 +78,31 @@ public class ChatPermission implements Serializable {
         return this;
     }
 
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        ChatPermission that = (ChatPermission) object;
+        return Objects.equals(can_send_messages, that.can_send_messages) &&
+                Objects.equals(can_send_audios, that.can_send_audios) &&
+                Objects.equals(can_send_documents, that.can_send_documents) &&
+                Objects.equals(can_send_photos, that.can_send_photos) &&
+                Objects.equals(can_send_videos, that.can_send_videos) &&
+                Objects.equals(can_send_video_notes, that.can_send_video_notes) &&
+                Objects.equals(can_send_voice_notes, that.can_send_voice_notes) &&
+                Objects.equals(can_send_polls, that.can_send_polls) &&
+                Objects.equals(can_send_other_messages, that.can_send_other_messages) &&
+                Objects.equals(can_add_web_page_previews, that.can_add_web_page_previews) &&
+                Objects.equals(can_change_info, that.can_change_info) &&
+                Objects.equals(can_invite_users, that.can_invite_users) &&
+                Objects.equals(can_pin_messages, that.can_pin_messages) &&
+                Objects.equals(can_manage_topics, that.can_manage_topics);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(can_send_messages, can_send_audios, can_send_documents, can_send_photos, can_send_videos,
+                can_send_video_notes, can_send_voice_notes, can_send_polls, can_send_other_messages, can_add_web_page_previews,
+                can_change_info, can_invite_users, can_pin_messages, can_manage_topics);
+    }
 }

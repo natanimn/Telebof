@@ -8,17 +8,19 @@ import java.util.List;
 import java.util.Map;
 
 public class CreateInvoiceLink extends AbstractBaseRequest<CreateInvoiceLink, String> {
-    public CreateInvoiceLink(Object chatId, String title, String description, String payload, String providerToken,
+    public CreateInvoiceLink(Object chatId, String title, String description, String payload,
                              String currency, LabeledPrice[] prices, RequestSender requestSender) {
-        super(chatId, requestSender, "createInvoiceLink");
+        super(chatId, requestSender, "createInvoiceLink", Object.class);
         add("title", title);
         add("description", description);
         add("payload", payload);
-        add("provider_token", providerToken);
         add("currency", currency);
         add("prices", List.of(prices));
     }
 
+    public CreateInvoiceLink providerToken(String providerToken){
+        return add("provider_token", providerToken);
+    }
     public CreateInvoiceLink maxTipAmount(int maxTipAmount) {
         return add("max_tip_amount", maxTipAmount);
     }
@@ -75,9 +77,4 @@ public class CreateInvoiceLink extends AbstractBaseRequest<CreateInvoiceLink, St
         return add("is_flexible", isFlexible);
     }
 
-
-    @Override
-    public String exec() {
-        return (String) requestSender.makeRequest(this);
-    }
 }

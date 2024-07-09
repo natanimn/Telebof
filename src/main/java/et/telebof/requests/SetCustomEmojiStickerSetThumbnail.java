@@ -7,9 +7,4 @@ public class SetCustomEmojiStickerSetThumbnail extends AbstractBaseRequest<SetCu
         add("custom_emoji_id", customEmojiId);
     }
 
-    @Override
-    public Boolean exec() {
-        Object response = requestSender.makeRequest(this);
-        return (Boolean) response;
-    }
 }

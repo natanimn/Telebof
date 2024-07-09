@@ -6,9 +6,4 @@ public class SetChatDescription extends AbstractBaseRequest<SetChatDescription, 
         add("description", title);
     }
 
-    @Override
-    public Boolean exec() {
-        Object response = requestSender.makeRequest(this);
-        return (Boolean) response;
-    }
 }

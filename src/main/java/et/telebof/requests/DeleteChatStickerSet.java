@@ -5,9 +5,4 @@ public class DeleteChatStickerSet extends AbstractBaseRequest<DeleteChatStickerS
         super(chatId, requestSender, "deleteChatStickerSet");
     }
 
-    @Override
-    public Boolean exec() {
-        Object response = requestSender.makeRequest(this);
-        return (Boolean) response;
-    }
 }

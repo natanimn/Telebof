@@ -9,9 +9,4 @@ public class SetPassportDataErrors extends AbstractBaseRequest<SetPassportDataEr
         add("errors", errors);
     }
 
-    @Override
-    public Boolean exec() {
-        Object response = requestSender.makeRequest(this);
-        return (Boolean) response;
-    }
 }

@@ -5,9 +5,4 @@ public class CloseGeneralForumTopic extends AbstractBaseRequest<CloseGeneralForu
         super(chatId, requestSender, "closeGeneralForumTopic");
     }
 
-    @Override
-    public Boolean exec() {
-        Object response = requestSender.makeRequest(this);
-        return (Boolean) response;
-    }
 }

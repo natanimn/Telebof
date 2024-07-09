@@ -23,9 +23,4 @@ public class AnswerCallbackQuery extends AbstractBaseRequest<AnswerCallbackQuery
         return add("cache_time", cacheTime);
     }
 
-    @Override
-    public Boolean exec() {
-        Object response = requestSender.makeRequest(this);
-        return (Boolean) response;
-    }
 }

@@ -14,8 +14,4 @@ public class ReplaceStickerInSet extends AbstractBaseRequest<ReplaceStickerInSet
         add("sticker", sticker);
     }
 
-    @Override
-    public Boolean exec() {
-        return (Boolean) requestSender.makeRequest(this);
-    }
 }

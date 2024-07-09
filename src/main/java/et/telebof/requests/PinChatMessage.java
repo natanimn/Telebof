@@ -10,9 +10,4 @@ public class PinChatMessage extends AbstractBaseRequest<PinChatMessage, Boolean>
         return add("disable_notification", disableNotification);
     }
 
-    @Override
-    public Boolean exec() {
-        return (Boolean) requestSender.makeRequest(this);
-    }
-
 }

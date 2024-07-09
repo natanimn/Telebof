@@ -1,7 +1,11 @@
 package et.telebof.requests;
 import et.telebof.enums.ParseMode;
 import et.telebof.types.Markup;
+import et.telebof.types.Message;
 import et.telebof.types.ReplyParameters;
+import org.jetbrains.annotations.NotNull;
+
+import java.lang.reflect.Type;
 
 /**
  * @author Natanim Negash
@@ -9,15 +13,19 @@ import et.telebof.types.ReplyParameters;
 abstract public class DefaultParameters<T, R> extends AbstractBaseRequest<T, R> {
 
     public DefaultParameters(Object chatId, RequestSender requestSender, String methodName) {
-        super(chatId, requestSender, methodName);
+        super(chatId, requestSender, methodName, Message.class);
+    }
+
+    public DefaultParameters(Object chatId, RequestSender requestSender, String methodName, Type type) {
+        super(chatId, requestSender, methodName, type);
     }
 
     public T messageThreadId(int messageThreadId) {
         return add("message_thread_id", messageThreadId);
     }
 
-    public T parseMode(ParseMode parseMode) {
-        return add("parse_mode",  parseMode != null ? parseMode.name() : null);
+    public T parseMode(@NotNull ParseMode parseMode) {
+        return add("parse_mode",  parseMode.name());
     }
 
     public T disableWebPagePreview(boolean disableWebPagePreview) {
@@ -52,5 +60,9 @@ abstract public class DefaultParameters<T, R> extends AbstractBaseRequest<T, R> 
 
     public T businessConnectionId(String business_connection_id){
         return add("business_connection_id", business_connection_id);
+    }
+
+    public T messageEffectId(String message_effect_id ){
+        return add("message_effect_id ", message_effect_id);
     }
 }

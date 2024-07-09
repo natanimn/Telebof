@@ -1,12 +1,12 @@
 package et.telebof.requests;
-import et.telebof.Util;
+
 import et.telebof.types.Message;
 import et.telebof.types.ReplyParameters;
 
 public class SendVenue extends AbstractBaseRequest<SendVenue, Message> {
 
-    public SendVenue(Object chatId, float latitude, float longitude, String title, String address, RequestSender requestSender) {
-        super(chatId, requestSender, "sendVenue");
+    public SendVenue(Object chatId, double latitude, double longitude, String title, String address, RequestSender requestSender) {
+        super(chatId, requestSender, "sendVenue", Message.class);
         add("latitude", latitude);
         add("longitude", longitude);
         add("title", title);
@@ -54,8 +54,8 @@ public class SendVenue extends AbstractBaseRequest<SendVenue, Message> {
     public SendVenue businessConnectionId(String business_connection_id){
         return add("business_connection_id", business_connection_id);
     }
-    @Override
-    public Message exec() {
-        return Util.parse(requestSender.makeRequest(this), Message.class);
+
+    public SendVenue messageEffectId(String message_effect_id ){
+        return add("message_effect_id ", message_effect_id);
     }
 }

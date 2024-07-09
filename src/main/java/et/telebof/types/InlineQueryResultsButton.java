@@ -1,6 +1,7 @@
 package et.telebof.types;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class InlineQueryResultsButton implements Serializable {
     private String text, start_parameter;
@@ -18,5 +19,20 @@ public class InlineQueryResultsButton implements Serializable {
     public InlineQueryResultsButton startParameter(String startParameter){
         this.start_parameter = startParameter;
         return this;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        InlineQueryResultsButton that = (InlineQueryResultsButton) object;
+        return Objects.equals(text, that.text) &&
+                Objects.equals(start_parameter, that.start_parameter) &&
+                Objects.equals(web_app_info, that.web_app_info);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(text, start_parameter, web_app_info);
     }
 }

@@ -10,10 +10,4 @@ public class AnswerPreCheckoutQuery extends AbstractBaseRequest<AnswerPreCheckou
     public AnswerPreCheckoutQuery errorMessage(String errorMessage) {
         return add("error_message", errorMessage);
     }
-
-    @Override
-    public Boolean exec() {
-        Object response = requestSender.makeRequest(this);
-        return (Boolean) response;
-    }
 }

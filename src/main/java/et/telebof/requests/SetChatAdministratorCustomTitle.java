@@ -7,8 +7,4 @@ public class SetChatAdministratorCustomTitle extends AbstractBaseRequest<SetChat
         add("custom_title", customTitle);
     }
 
-    @Override
-    public Boolean exec() {
-        return (Boolean) requestSender.makeRequest(this);
-    }
 }

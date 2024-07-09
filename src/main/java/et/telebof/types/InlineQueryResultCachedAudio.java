@@ -6,13 +6,9 @@ import java.io.Serializable;
 
 public class InlineQueryResultCachedAudio extends InlineQueryMediaResult<InlineQueryResultCachedAudio> implements Serializable {
     private String audio_file_id, description;
-    public InlineQueryResultCachedAudio(String id) {
+    public InlineQueryResultCachedAudio(String id, String audioFileId) {
         super("audio", id);
-    }
-
-    public InlineQueryResultCachedAudio audioFileId(String audioFileId) {
         this.audio_file_id = audioFileId;
-        return this;
     }
 
     public InlineQueryResultCachedAudio description(String description) {
@@ -20,10 +16,4 @@ public class InlineQueryResultCachedAudio extends InlineQueryMediaResult<InlineQ
         return this;
     }
 
-    @Override
-    @Deprecated(forRemoval = true)
-    public InlineQueryResultCachedAudio thumbnailUrl(String thumbnailUrl) {
-        BotLog.warn("type InlineQueryResultCachedAudio does not support thumbnailUrl option");
-        return this;
-    }
 }

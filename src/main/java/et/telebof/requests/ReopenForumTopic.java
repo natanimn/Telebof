@@ -6,8 +6,4 @@ public class ReopenForumTopic extends AbstractBaseRequest<ReopenForumTopic, Bool
         add("message_thread_id", messageThreadId);
     }
 
-    @Override
-    public Boolean exec() {
-        return (Boolean) requestSender.makeRequest(this);
-    }
 }

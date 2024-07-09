@@ -5,11 +5,7 @@ import et.telebof.types.BotName;
 
 public class GetMyName extends AbstractBaseRequest<GetMyName, BotName> {
     public GetMyName(RequestSender requestSender){
-        super(requestSender, "getMyName");
+        super(requestSender, "getMyName", BotName.class);
     }
 
-    @Override
-    public BotName exec() {
-        return Util.parse(requestSender.makeRequest(this), BotName.class);
-    }
 }

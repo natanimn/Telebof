@@ -10,9 +10,4 @@ public class SetStickerKeywords extends AbstractBaseRequest<SetStickerKeywords, 
         add("keywords", List.of(keywords));
     }
 
-    @Override
-    public Boolean exec() {
-        Object response = requestSender.makeRequest(this);
-        return (Boolean) response;
-    }
 }

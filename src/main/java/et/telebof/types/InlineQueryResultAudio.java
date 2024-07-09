@@ -2,17 +2,12 @@ package et.telebof.types;
 
 import java.io.Serializable;
 
-public class InlineQueryResultAudio implements Serializable, InlineQueryResult {
+public class InlineQueryResultAudio extends InlineQueryMediaResult<InlineQueryResultAudio> implements Serializable, InlineQueryResult {
     private String id, type, audio_url, performer;
     private Integer audio_duration;
-    public InlineQueryResultAudio(String id) {
-        this.type = "audio";
-        this.id = id;
-    }
-
-    public InlineQueryResultAudio audioUrl(String audioUrl) {
-        this.audio_url = audioUrl;
-        return this;
+    public InlineQueryResultAudio(String id, String audio_url) {
+        super(id, "audio");
+        this.audio_url = audio_url;
     }
 
     public InlineQueryResultAudio performer(String performer) {

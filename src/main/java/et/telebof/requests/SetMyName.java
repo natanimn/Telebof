@@ -16,10 +16,4 @@ public class SetMyName extends AbstractBaseRequest<SetMyName, Boolean> {
         add("language_code", languageCode);
         return this;
     }
-
-    @Override
-    public Boolean exec() {
-        Object response = requestSender.makeRequest(this);
-        return (Boolean) response;
-    }
 }

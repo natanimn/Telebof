@@ -14,9 +14,4 @@ public class BanChatMember extends AbstractBaseRequest<BanChatMember, Boolean> {
         return add("revoke_messages", revokeMessages);
     }
 
-    @Override
-    public Boolean exec() {
-        Object response = requestSender.makeRequest(this);
-        return (Boolean) response;
-    }
 }

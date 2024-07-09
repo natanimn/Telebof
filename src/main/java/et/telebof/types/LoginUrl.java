@@ -1,12 +1,12 @@
 package et.telebof.types;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 
 public class LoginUrl implements Serializable {
     public String url, forward_text, bot_username;
     public Boolean request_write_access;
-
 
     public LoginUrl url(String url){
         this.url = url;
@@ -28,4 +28,17 @@ public class LoginUrl implements Serializable {
         return this;
     }
 
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        LoginUrl loginUrl = (LoginUrl) object;
+        return Objects.equals(url, loginUrl.url) && Objects.equals(forward_text, loginUrl.forward_text) &&
+                Objects.equals(bot_username, loginUrl.bot_username) && Objects.equals(request_write_access, loginUrl.request_write_access);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(url, forward_text, bot_username, request_write_access);
+    }
 }

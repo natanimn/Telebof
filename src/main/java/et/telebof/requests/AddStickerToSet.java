@@ -10,10 +10,4 @@ public class AddStickerToSet extends AbstractBaseRequest<AddStickerToSet, Boolea
         add("sticker", sticker);
         this.setContentType(MediaContentType.PHOTO);
     }
-
-    @Override
-    public Boolean exec() {
-        Object response = requestSender.makeRequest(this);
-        return (Boolean) response;
-    }
 }

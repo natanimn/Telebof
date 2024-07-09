@@ -3,6 +3,6 @@ package et.telebof.types;
 
 import java.io.Serializable;
 
-public class VideoChatStarted extends JsonSerializable implements Serializable {
+public class VideoChatStarted implements Serializable {
     // not implemented
 }

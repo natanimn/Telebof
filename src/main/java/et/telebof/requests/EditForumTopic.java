@@ -14,9 +14,4 @@ public class EditForumTopic extends AbstractBaseRequest<EditForumTopic, Boolean>
         return add("icon_custom_emoji_id", iconCustomEmojiId);
     }
 
-    @Override
-    public Boolean exec() {
-        Object response = requestSender.makeRequest(this);
-        return (Boolean) response;
-    }
 }

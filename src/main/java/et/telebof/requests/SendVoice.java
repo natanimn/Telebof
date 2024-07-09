@@ -1,6 +1,5 @@
 package et.telebof.requests;
 
-import et.telebof.Util;
 import et.telebof.types.Message;
 import et.telebof.types.MessageEntity;
 import java.io.File;
@@ -24,11 +23,6 @@ public class SendVoice extends DefaultParameters<SendVoice, Message> {
 
     public SendVoice captionEntities(MessageEntity[] captionEntities) {
         return add("caption_entities", List.of(captionEntities));
-    }
-
-    @Override
-    public Message exec() {
-        return Util.parse(requestSender.makeRequest(this), Message.class);
     }
 
 }

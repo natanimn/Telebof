@@ -411,9 +411,8 @@ final public class BotClient {
             server.createContext(path, httpExchange -> {
                 if (httpExchange.getRequestMethod().equals("POST")){
                     String response = getString(httpExchange);
-                    ApiResponse apiResponse = Util.parseApiResponse(response);
-                    List<Object> objects = Util.parse(apiResponse.result, List.class);
-                    List<Update> updates = Util.parseList(objects, Update.class);
+                    ApiResponse<List<Update>> apiResponse = Util.parseApiResponse(response, Update.class);
+                    List<Update> updates = Util.parseUpdates(apiResponse.result);
                     httpExchange.sendResponseHeaders(200, response.length());
                     OutputStream outputStream = httpExchange.getResponseBody();
                     outputStream.write("!".getBytes());
@@ -804,7 +803,7 @@ final public class BotClient {
         }
     }
 
-    public void start(){
+    public void run(){
         if (webhook != null){
             BotLog.info("Bot started running via webhook");
             deleteWebhook();
@@ -812,7 +811,7 @@ final public class BotClient {
             processWebhook();
         } else {
             BotLog.info("Bot started running via longPolling");
-            deleteWebhook();
+            // deleteWebhook();
             startPolling();
         }
     }

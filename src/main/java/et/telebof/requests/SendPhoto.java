@@ -1,6 +1,5 @@
 package et.telebof.requests;
 
-import et.telebof.Util;
 import et.telebof.types.Message;
 import et.telebof.types.MessageEntity;
 import java.io.File;
@@ -32,8 +31,8 @@ public class SendPhoto extends DefaultParameters<SendPhoto, Message>{
         return this;
     }
 
-    @Override
-    public Message exec() {
-        return Util.parse(requestSender.makeRequest(this), Message.class);
+    public SendPhoto showCaptionAboveMedia(boolean show_caption_above_media){
+        return add("show_caption_above_media", show_caption_above_media);
     }
+
 }

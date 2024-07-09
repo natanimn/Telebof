@@ -1,14 +1,17 @@
 package et.telebof.requests;
 
-import et.telebof.Util;
+import com.google.gson.reflect.TypeToken;
 import et.telebof.types.BotCommand;
 import et.telebof.types.BotCommandScope;
-
+import java.lang.reflect.Type;
 import java.util.List;
 
 public class GetMyCommands extends AbstractBaseRequest<GetMyCommands, List<BotCommand> > {
+
+    private static final Type responseType = TypeToken.getParameterized(List.class, BotCommand.class).getType();
+
     public GetMyCommands(RequestSender requestSender) {
-        super(requestSender, "getMyCommands");
+        super(requestSender, "getMyCommands", responseType);
     }
 
     public GetMyCommands scope(BotCommandScope botCommandScope) {
@@ -19,9 +22,4 @@ public class GetMyCommands extends AbstractBaseRequest<GetMyCommands, List<BotCo
         return add("language_code", languageCode);
     }
 
-    @Override
-    @SuppressWarnings("unchecked")
-    public List<BotCommand> exec() {
-        return Util.parseList(Util.parse(requestSender.makeRequest(this), List.class), BotCommand.class);
-    }
 }

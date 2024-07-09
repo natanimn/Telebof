@@ -17,10 +17,5 @@ public class SendChatAction extends AbstractBaseRequest<SendChatAction, Boolean>
     public SendChatAction businessConnectionId(String business_connection_id){
         return add("business_connection_id", business_connection_id);
     }
-    @Override
-    public Boolean exec() {
-        return (Boolean) requestSender.makeRequest(this);
-    }
-
 
 }

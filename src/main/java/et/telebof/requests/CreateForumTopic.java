@@ -5,7 +5,7 @@ import et.telebof.types.ForumTopic;
 
 public class CreateForumTopic extends AbstractBaseRequest<CreateForumTopic, ForumTopic> {
     public CreateForumTopic(Object chatId, String name, RequestSender requestSender) {
-        super(chatId, requestSender, "createForumTopic");
+        super(chatId, requestSender, "createForumTopic", ForumTopic.class);
         add("name", name);
     }
 
@@ -17,8 +17,4 @@ public class CreateForumTopic extends AbstractBaseRequest<CreateForumTopic, Foru
         return add("icon_custom_emoji_id", iconCustomEmojiId);
     }
 
-    @Override
-    public ForumTopic exec() {
-        return Util.parse(requestSender.makeRequest(this), ForumTopic.class);
-    }
 }

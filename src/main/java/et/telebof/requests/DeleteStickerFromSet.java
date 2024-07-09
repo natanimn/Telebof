@@ -6,9 +6,4 @@ public class DeleteStickerFromSet extends AbstractBaseRequest<DeleteStickerFromS
         add("sticker", sticker);
     }
 
-    @Override
-    public Boolean exec() {
-        Object response = requestSender.makeRequest(this);
-        return (Boolean) response;
-    }
 }

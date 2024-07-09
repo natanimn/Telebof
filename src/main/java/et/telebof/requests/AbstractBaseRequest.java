@@ -1,6 +1,8 @@
 package et.telebof.requests;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.File;
+import java.lang.reflect.Type;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -10,19 +12,38 @@ abstract public class AbstractBaseRequest<T, R>{
     private String contentType = MediaContentType.DEFAULT;
     private boolean hasMultipart;
     T type = (T) this;
-    Class<? extends R> rClass;
     protected String methodName ;
     protected RequestSender requestSender;
+    private final Type responseType;
+
+    public AbstractBaseRequest(Object chat_id, RequestSender requestSender, String methodName, Type responseType) {
+        add("chat_id", chat_id);
+        this.requestSender = requestSender;
+        this.methodName = methodName;
+        this.responseType = responseType;
+    }
+
+    public AbstractBaseRequest(RequestSender requestSender, String methodName, Type responseType) {
+        this.methodName = methodName;
+        this.requestSender = requestSender;
+        this.responseType = responseType;
+    }
 
     public AbstractBaseRequest(Object chat_id, RequestSender requestSender, String methodName) {
         add("chat_id", chat_id);
         this.requestSender = requestSender;
         this.methodName = methodName;
+        this.responseType = Boolean.class;
     }
 
     public AbstractBaseRequest(RequestSender requestSender, String methodName) {
         this.methodName = methodName;
         this.requestSender = requestSender;
+        this.responseType = Boolean.class;
+    }
+
+    protected Type getResponseType(){
+        return responseType;
     }
 
     final protected T add(String key, Object values) {
@@ -56,6 +77,8 @@ abstract public class AbstractBaseRequest<T, R>{
         return contentType;
     }
 
-    public abstract R exec();
+    public R exec(){
+        return requestSender.makeRequest(this);
+    }
 
 }

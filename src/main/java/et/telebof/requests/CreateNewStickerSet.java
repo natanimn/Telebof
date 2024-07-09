@@ -22,9 +22,4 @@ public class CreateNewStickerSet extends AbstractBaseRequest<CreateNewStickerSet
         return add("needs_repainting", needsRepainting);
     }
 
-    @Override
-    public Boolean exec() {
-        Object response = requestSender.makeRequest(this);
-        return (Boolean) response;
-    }
 }

@@ -1,6 +1,5 @@
 package et.telebof.requests;
 
-import et.telebof.Util;
 import et.telebof.types.Message;
 import et.telebof.types.MessageEntity;
 import java.io.File;
@@ -47,8 +46,4 @@ public class SendAudio extends DefaultParameters<SendAudio, Message> {
         return add("thumbnail", thumbnail);
     }
 
-    @Override
-    public Message exec() {
-        return Util.parse(requestSender.makeRequest(this), Message.class);
-    }
 }

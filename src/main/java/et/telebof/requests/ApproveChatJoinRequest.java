@@ -6,10 +6,5 @@ public class ApproveChatJoinRequest extends AbstractBaseRequest<ApproveChatJoinR
         add("user_id", userId);
     }
 
-    @Override
-    public Boolean exec() {
-        Object response = requestSender.makeRequest(this);
-        return (Boolean) response;
-    }
 }
 

@@ -55,7 +55,7 @@ public class MyFirstEchoBot {
         context.reply(message.text).exec();
     });
 
-    bot.start(); // finally run the bot
+    bot.run(); // finally run the bot
   }
 }
 ```
@@ -138,7 +138,7 @@ public class MyFirstEchoBot {
       context.reply(message.text).exec();
     });
 
-    bot.start();
+    bot.run();
   }
 }
 ```
@@ -159,7 +159,7 @@ context.sendMessage("*Hello, World*")
         .parseMode(ParseMode.MARKDOWN)
         .exec();
 ```
-Lastly we start our bot by using `start()` which does not take any parameter and run our bot via **long polling.** 
+Lastly we start our bot by using `run()` which does not take any parameter and run our bot via **long polling.** 
 
 **IMPORTANT: All handlers are handled in the order in which they were registered.**
 
@@ -558,7 +558,7 @@ class MyWebhookBot {
     bot.setWebhook(webhook); // set webhook
 
     //... 
-    bot.start(); // start our bot on webhook
+    bot.run(); // start our bot on webhook
 
   }
 }

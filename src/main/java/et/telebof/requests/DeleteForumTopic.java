@@ -5,10 +5,4 @@ public class DeleteForumTopic extends AbstractBaseRequest<DeleteForumTopic, Bool
         super(chatId, requestSender, "deleteForumTopic");
         add("message_thread_id", messageThreadId);
     }
-
-    @Override
-    public Boolean exec() {
-        Object response = requestSender.makeRequest(this);
-        return (Boolean) response;
-    }
 }

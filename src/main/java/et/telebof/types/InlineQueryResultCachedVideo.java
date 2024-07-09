@@ -7,14 +7,11 @@ import java.io.Serializable;
 public class InlineQueryResultCachedVideo extends InlineQueryMediaResult<InlineQueryResultCachedVideo> implements Serializable {
 
     private String video_file_id, description;
+    private Boolean show_caption_above_media;
 
-    public InlineQueryResultCachedVideo(String id) {
+    public InlineQueryResultCachedVideo(String id, String video_file_id) {
         super("video", id);
-    }
-
-    public InlineQueryResultCachedVideo videoFileId(String videoFileId) {
-        this.video_file_id = videoFileId;
-        return this;
+        this.video_file_id = video_file_id;
     }
 
     public InlineQueryResultCachedVideo description(String description) {
@@ -22,10 +19,8 @@ public class InlineQueryResultCachedVideo extends InlineQueryMediaResult<InlineQ
         return this;
     }
 
-    @Override
-    @Deprecated(forRemoval = true)
-    public InlineQueryResultCachedVideo thumbnailUrl(String thumbnailUrl) {
-        BotLog.warn("type InlineQueryResultCachedVideo does not support thumbnailUrl option");
+    public InlineQueryResultCachedVideo showCaptionAboveMedia(boolean show_caption_above_media){
+        this.show_caption_above_media = show_caption_above_media;
         return this;
     }
 }

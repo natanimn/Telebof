@@ -5,6 +5,7 @@ import et.telebof.requests.MediaContentType;
 import java.io.File;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 
 public class InputSticker implements InputMedia, Serializable {
     private String sticker, format;
@@ -51,4 +52,18 @@ public class InputSticker implements InputMedia, Serializable {
         return null;
     }
 
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        InputSticker that = (InputSticker) object;
+        return Objects.equals(sticker, that.sticker) && Objects.equals(format, that.format) &&
+                Objects.equals(emoji_list, that.emoji_list) && Objects.equals(keywords, that.keywords) &&
+                Objects.equals(mask_position, that.mask_position) && Objects.equals(inputFile, that.inputFile);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(sticker, format, emoji_list, keywords, mask_position, inputFile);
+    }
 }

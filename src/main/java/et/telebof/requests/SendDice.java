@@ -1,13 +1,12 @@
 package et.telebof.requests;
 
-import et.telebof.Util;
 import et.telebof.types.Markup;
 import et.telebof.types.Message;
 import et.telebof.types.ReplyParameters;
 
 public class SendDice extends AbstractBaseRequest<SendDice, Message> {
     public SendDice(Object chatId, RequestSender requestSender) {
-        super(chatId, requestSender, "sendDice");
+        super(chatId, requestSender, "sendDice", Message.class);
     }
 
     public SendDice emoji(String emoji) {
@@ -40,8 +39,4 @@ public class SendDice extends AbstractBaseRequest<SendDice, Message> {
         return add("reply_markup", replyMarkup);
     }
 
-    @Override
-    public Message exec() {
-        return Util.parse(requestSender.makeRequest(this), Message.class);
-    }
 }

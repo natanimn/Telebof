@@ -1,6 +1,5 @@
 package et.telebof.requests;
 
-import et.telebof.Util;
 import et.telebof.types.Markup;
 import et.telebof.types.Message;
 import et.telebof.types.ReplyParameters;
@@ -8,7 +7,7 @@ import et.telebof.types.ReplyParameters;
 public class SendContact extends AbstractBaseRequest<SendContact, Message> {
 
     public SendContact(Object chatId, String phoneNumber, String firstName, RequestSender requestSender) {
-        super(chatId, requestSender, "sendContact");
+        super(chatId, requestSender, "sendContact", Message.class);
         add("phone_number", phoneNumber);
         add("first_name", firstName);
     }
@@ -50,8 +49,8 @@ public class SendContact extends AbstractBaseRequest<SendContact, Message> {
     public SendContact businessConnectionId(String business_connection_id){
         return add("business_connection_id", business_connection_id);
     }
-    @Override
-    public Message exec() {
-        return Util.parse(requestSender.makeRequest(this), Message.class);
+
+    public SendContact messageEffectId(String message_effect_id ){
+        return add("message_effect_id ", message_effect_id);
     }
 }

@@ -7,21 +7,12 @@ public class InlineQueryResultContact implements Serializable, InlineQueryResult
     private Integer thumbnail_width, thumbnail_height;
     private InlineKeyboardMarkup reply_markup;
     private InputTextMessageContent input_message_content;
-    public InlineQueryResultContact(String id) {
+    public InlineQueryResultContact(String id, String phone_number, String first_name) {
         this.type = "contact";
         this.id = id;
+        this.phone_number = phone_number;
+        this.first_name = first_name;
     }
-
-    public InlineQueryResultContact phoneNumber(String phoneNumber) {
-        this.phone_number = phoneNumber;
-        return this;
-    }
-
-    public InlineQueryResultContact firstName(String firstName) {
-        this.first_name = firstName;
-        return this;
-    }
-
     public InlineQueryResultContact lastName(String lastName) {
         this.last_name = lastName;
         return this;

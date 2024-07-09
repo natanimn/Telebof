@@ -10,9 +10,4 @@ public class UnbanChatMember extends AbstractBaseRequest<UnbanChatMember, Boolea
         return add("only_if_banned", onlyIfBanned);
     }
 
-    @Override
-    public Boolean exec() {
-        Object response = requestSender.makeRequest(this);
-        return (Boolean) response;
-    }
 }

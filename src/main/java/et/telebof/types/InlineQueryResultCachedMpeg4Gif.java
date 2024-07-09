@@ -7,18 +7,15 @@ import java.io.Serializable;
 
 public class InlineQueryResultCachedMpeg4Gif extends InlineQueryMediaResult<InlineQueryResultCachedMpeg4Gif> implements Serializable {
     private String mpeg4_file_id;
-    public InlineQueryResultCachedMpeg4Gif(String id) {
+    private Boolean show_caption_above_media;
+    public InlineQueryResultCachedMpeg4Gif(String id, String mpeg4_file_id) {
         super("mpeg4", id);
+        this.mpeg4_file_id = mpeg4_file_id;
     }
 
-    public InlineQueryResultCachedMpeg4Gif mpeg4FileId(String mpeg4FileId) {
-        this.mpeg4_file_id = mpeg4FileId;
+    public InlineQueryResultCachedMpeg4Gif showCaptionAboveMedia(boolean show_caption_above_media){
+        this.show_caption_above_media = show_caption_above_media;
         return this;
     }
 
-    @Deprecated(forRemoval = true)
-    public InlineQueryResultCachedMpeg4Gif thumbnailUrl(String thumbnailUrl) {
-        BotLog.warn("type InlineQueryResultCachedMpeg4Gif does not support thumbnailUrl option");
-        return this;
-    }
 }

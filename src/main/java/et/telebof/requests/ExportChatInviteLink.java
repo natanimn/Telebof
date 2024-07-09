@@ -2,11 +2,7 @@ package et.telebof.requests;
 
 public class ExportChatInviteLink extends AbstractBaseRequest<ExportChatInviteLink, String> {
     public ExportChatInviteLink(Object chatId, RequestSender requestSender) {
-        super(chatId, requestSender, "exportChatInviteLink");
+        super(chatId, requestSender, "exportChatInviteLink", Object.class);
     }
 
-    @Override
-    public String exec() {
-        return (String) requestSender.makeRequest(this);
-    }
 }

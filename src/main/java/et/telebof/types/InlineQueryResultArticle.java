@@ -1,6 +1,7 @@
 package et.telebof.types;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class InlineQueryResultArticle implements Serializable, InlineQueryResult {
     private String id, type, url, description, thumbnail_url, title;
@@ -59,5 +60,27 @@ public class InlineQueryResultArticle implements Serializable, InlineQueryResult
         return this;
     }
 
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        InlineQueryResultArticle article = (InlineQueryResultArticle) object;
+        return Objects.equals(id, article.id) &&
+                Objects.equals(type, article.type) &&
+                Objects.equals(url, article.url) &&
+                Objects.equals(description, article.description) &&
+                Objects.equals(thumbnail_url, article.thumbnail_url) &&
+                Objects.equals(title, article.title) &&
+                Objects.equals(thumbnail_width, article.thumbnail_width) &&
+                Objects.equals(thumbnail_height, article.thumbnail_height) &&
+                Objects.equals(input_message_content, article.input_message_content) &&
+                Objects.equals(reply_markup, article.reply_markup) &&
+                Objects.equals(hide_url, article.hide_url);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, type, url, description, thumbnail_url, title, thumbnail_width,
+                thumbnail_height, input_message_content, reply_markup, hide_url);
+    }
 }

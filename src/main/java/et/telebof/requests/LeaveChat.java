@@ -5,8 +5,4 @@ public class LeaveChat extends AbstractBaseRequest<LeaveChat, Boolean> {
         super(chatId, requestSender, "leaveChat");
     }
 
-    @Override
-    public Boolean exec() {
-        return (Boolean) requestSender.makeRequest(this);
-    }
 }

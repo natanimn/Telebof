@@ -21,9 +21,4 @@ public class SetStickerSetThumbnail extends AbstractBaseRequest<SetStickerSetThu
         add("format", format);
     }
 
-    @Override
-    public Boolean exec() {
-        Object response = requestSender.makeRequest(this);
-        return (Boolean) response;
-    }
 }

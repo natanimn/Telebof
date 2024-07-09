@@ -12,27 +12,19 @@ public class InputInvoiceMessageContent implements Serializable {
     private Boolean need_name, need_phone_number, need_email, is_flexible, send_phone_number_to_provider,
             need_shipping_address, send_email_to_provider;
 
-
-    public InputInvoiceMessageContent title(String title) {
+    public InputInvoiceMessageContent(String title, String description, String payload,
+                                      String currency, LabeledPrice[] prices){
         this.title = title;
-        return  this;
-    }
-
-    public InputInvoiceMessageContent payload(String payload) {
+        this.description = description;
         this.payload = payload;
-        return  this;
-    }
-
-    public InputInvoiceMessageContent currency(String currency) {
         this.currency = currency;
-        return this;
-    }
-
-    public InputInvoiceMessageContent prices(LabeledPrice[] prices) {
         this.prices = List.of(prices);
-        return this;
     }
 
+    public InputInvoiceMessageContent providerToken(String providerToken){
+        this.provider_token = providerToken;
+        return this;
+    }
     public InputInvoiceMessageContent maxTipAmount(int maxTipAmount) {
         this.max_tip_amount = maxTipAmount;
         return this;

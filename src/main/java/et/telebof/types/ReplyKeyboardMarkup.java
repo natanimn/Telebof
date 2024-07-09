@@ -5,6 +5,7 @@ import et.telebof.BotLog;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Map;
+import java.util.Objects;
 import java.util.TreeMap;
 import java.util.ArrayList;
 import java.util.List;
@@ -130,4 +131,21 @@ public class ReplyKeyboardMarkup implements Markup, Serializable {
         }
     }
 
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        ReplyKeyboardMarkup markup = (ReplyKeyboardMarkup) object;
+        return Objects.equals(is_persistent, markup.is_persistent) &&
+                Objects.equals(resize_keyboard, markup.resize_keyboard) &&
+                Objects.equals(one_time_keyboard, markup.one_time_keyboard) &&
+                Objects.equals(selective, markup.selective) &&
+                Objects.equals(input_field_placeholder, markup.input_field_placeholder) &&
+                Objects.equals(keyboard, markup.keyboard);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(is_persistent, resize_keyboard, one_time_keyboard, selective, input_field_placeholder, keyboard);
+    }
 }

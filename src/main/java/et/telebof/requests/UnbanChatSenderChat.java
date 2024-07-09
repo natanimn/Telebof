@@ -6,9 +6,4 @@ public class UnbanChatSenderChat extends AbstractBaseRequest<UnbanChatSenderChat
         add("sender_chat_id", senderChatId);
     }
 
-    @Override
-    public Boolean exec() {
-        Object response = requestSender.makeRequest(this);
-        return (Boolean) response;
-    }
 }

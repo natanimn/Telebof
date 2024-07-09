@@ -5,9 +5,4 @@ public class DeleteChatPhoto extends AbstractBaseRequest<DeleteChatPhoto, Boolea
         super(chatId, requestSender, "deleteChatPhoto");
     }
 
-    @Override
-    public Boolean exec() {
-        Object response = requestSender.makeRequest(this);
-        return (Boolean) response;
-    }
 }

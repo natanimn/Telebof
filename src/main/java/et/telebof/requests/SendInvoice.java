@@ -1,26 +1,23 @@
 package et.telebof.requests;
 
-import et.telebof.Util;
 import et.telebof.types.LabeledPrice;
 import et.telebof.types.Message;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 public class SendInvoice extends DefaultParameters<SendInvoice, Message> {
-    public SendInvoice(Object chatId, String title, String description, String payload, String providerToken,
+    public SendInvoice(Object chatId, String title, String description, String payload,
                        String currency, LabeledPrice[] prices, RequestSender requestSender) {
         super(chatId, requestSender, "sendInvoice");
         add("title", title);
         add("description", description);
         add("payload", payload);
-        add("provider_token", providerToken);
         add("currency", currency);
         add("prices", prices);
     }
 
+    public SendInvoice providerToken(String providerToken){
+        return add("provider_token", providerToken);
+    }
     public SendInvoice maxTipAmount(int maxTipAmount) {
         return add("max_tip_amount", maxTipAmount);
     }
@@ -79,11 +76,6 @@ public class SendInvoice extends DefaultParameters<SendInvoice, Message> {
 
     public SendInvoice isFlexible(boolean isFlexible) {
         return add("is_flexible", isFlexible);
-    }
-
-    @Override
-    public Message exec() {
-        return Util.parse(requestSender.makeRequest(this), Message.class);
     }
 
 }

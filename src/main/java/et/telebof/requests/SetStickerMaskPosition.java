@@ -10,9 +10,4 @@ public class SetStickerMaskPosition extends AbstractBaseRequest<SetStickerMaskPo
         add("mask_position", maskPosition);
     }
 
-    @Override
-    public Boolean exec() {
-        Object response = requestSender.makeRequest(this);
-        return (Boolean) response;
-    }
 }

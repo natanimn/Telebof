@@ -5,8 +5,4 @@ public class UnpinAllGeneralForumTopicMessages extends AbstractBaseRequest<Unpin
         super(chat_id, requestSender, "unpinAllGeneralForumTopicMessages");
     }
 
-    @Override
-    public Boolean exec() {
-        return (Boolean) requestSender.makeRequest(this);
-    }
 }

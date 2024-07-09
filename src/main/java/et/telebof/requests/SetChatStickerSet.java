@@ -6,9 +6,4 @@ public class SetChatStickerSet extends AbstractBaseRequest<SetChatStickerSet, Bo
         add("sticker_set_name", stickerSetName);
     }
 
-    @Override
-    public Boolean exec() {
-        Object response = requestSender.makeRequest(this);
-        return (Boolean) response;
-    }
 }

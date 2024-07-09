@@ -1,15 +1,19 @@
 package et.telebof.requests;
 
-import et.telebof.Util;
+import com.google.gson.reflect.TypeToken;
 import et.telebof.types.Update;
 import et.telebof.enums.Updates;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
 public class GetUpdates extends AbstractBaseRequest<GetUpdates, List<Update>>{
 
+    private static final Type responseType = TypeToken.getParameterized(List.class, Update.class).getType();
+
     public GetUpdates(RequestSender requestSender){
-        super(requestSender, "getUpdates");
+        super(requestSender, "getUpdates", responseType);
     }
 
     public GetUpdates limit(Integer limit){
@@ -37,12 +41,5 @@ public class GetUpdates extends AbstractBaseRequest<GetUpdates, List<Update>>{
         return this;
     }
 
-    @Override
-    @SuppressWarnings("unchecked")
-    public List<Update> exec() {
-        Object response = requestSender.makeRequest(this);
-        List<Object> updateList = Util.parse(response, List.class);
-        return Util.parseList(updateList, Update.class);
-    }
 }
 

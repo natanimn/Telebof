@@ -6,9 +6,4 @@ public class DeleteMessage extends AbstractBaseRequest<DeleteMessage, Boolean> {
         add("message_id", messageId);
     }
 
-    @Override
-    public Boolean exec() {
-        Object response = requestSender.makeRequest(this);
-        return (Boolean) response;
-    }
 }

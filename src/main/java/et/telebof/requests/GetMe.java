@@ -5,11 +5,7 @@ import et.telebof.types.User;
 
 public class GetMe extends AbstractBaseRequest<GetMe, User> {
     public GetMe(RequestSender requestSender) {
-        super(requestSender, "getMe");
+        super(requestSender, "getMe", User.class);
     }
 
-    @Override
-    public User exec() {
-        return Util.parse(requestSender.makeRequest(this), User.class);
-    }
 }

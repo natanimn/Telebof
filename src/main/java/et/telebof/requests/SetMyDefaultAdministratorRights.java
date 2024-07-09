@@ -16,9 +16,4 @@ public class SetMyDefaultAdministratorRights extends AbstractBaseRequest<SetMyDe
         return add("for_channel", forChannel);
     }
 
-    @Override
-    public Boolean exec() {
-        Object response = requestSender.makeRequest(this);
-        return (Boolean) response;
-    }
 }

@@ -8,10 +8,4 @@ public class SetStickerSetTitle extends AbstractBaseRequest<SetStickerSetTitle, 
         add("title", title);
     }
 
-    @Override
-    public Boolean exec() {
-        Object response = requestSender.makeRequest(this);
-        return (Boolean) response;
-    }
-
 }

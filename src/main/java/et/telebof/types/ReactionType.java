@@ -3,6 +3,7 @@ package et.telebof.types;
 import et.telebof.enums.TypeReaction;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class ReactionType implements Serializable {
     public String type;
@@ -19,5 +20,19 @@ public class ReactionType implements Serializable {
 
     public void customEmojiId(String custom_emoji_id){
         this.custom_emoji_id = custom_emoji_id;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        ReactionType that = (ReactionType) object;
+        return Objects.equals(type, that.type) && Objects.equals(emoji, that.emoji) &&
+                Objects.equals(custom_emoji_id, that.custom_emoji_id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(type, emoji, custom_emoji_id);
     }
 }

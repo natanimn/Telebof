@@ -1,6 +1,7 @@
 package et.telebof.types;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class SwitchInlineQueryChosenChat implements Serializable {
     private String query;
@@ -29,5 +30,21 @@ public class SwitchInlineQueryChosenChat implements Serializable {
     public SwitchInlineQueryChosenChat allowChannelChats(boolean allowChannelChats){
         this.allow_channel_chats = allowChannelChats;
         return this;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        SwitchInlineQueryChosenChat that = (SwitchInlineQueryChosenChat) object;
+        return Objects.equals(query, that.query) && Objects.equals(allow_user_chats, that.allow_user_chats) &&
+                Objects.equals(allow_bot_chats, that.allow_bot_chats) &&
+                Objects.equals(allow_group_chats, that.allow_group_chats) &&
+                Objects.equals(allow_channel_chats, that.allow_channel_chats);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(query, allow_user_chats, allow_bot_chats, allow_group_chats, allow_channel_chats);
     }
 }
