@@ -1,6 +1,7 @@
 package et.telebof.types;
 
 import et.telebof.enums.ParseMode;
+import et.telebof.requests.MediaContentType;
 
 import java.io.File;
 import java.util.List;
@@ -9,9 +10,8 @@ import java.util.List;
 abstract public class InputMediaBuilder<T> implements InputMedia {
     protected String type, caption, parse_mode, media;
     protected List<MessageEntity> caption_entities;
-    private String contentType;
-    transient private InputFile inputFile;
-    transient private boolean isFile;
+    transient private InputFile inputFile, thumbnailFile;
+    transient private boolean isFile, thumbnailIsFile;
     T thisT = (T)this;
 
     public InputMediaBuilder(String type, String media) {
@@ -42,6 +42,11 @@ abstract public class InputMediaBuilder<T> implements InputMedia {
         return thisT;
     }
 
+    protected void setThumbnailFile(File file){
+        thumbnailFile = new InputFile(file, MediaContentType.PHOTO);
+        thumbnailIsFile = true;
+    }
+
     public void setFile(boolean file) {
         isFile = file;
     }
@@ -54,5 +59,15 @@ abstract public class InputMediaBuilder<T> implements InputMedia {
     @Override
     public InputFile getInputFile() {
         return inputFile;
+    }
+
+    @Override
+    public boolean hasThumbnailFile() {
+        return thumbnailIsFile;
+    }
+
+    @Override
+    public InputFile getThumbnailFile() {
+        return thumbnailFile;
     }
 }

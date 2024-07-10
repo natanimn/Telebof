@@ -1,5 +1,4 @@
 package et.telebof.requests;
-import com.google.gson.reflect.TypeToken;
 
 import java.io.File;
 import java.lang.reflect.Type;
