@@ -22,8 +22,8 @@ public class CopyMessage extends AbstractBaseRequest<CopyMessage, MessageId> {
         return add("message_thread_id", messageThreadId);
     }
 
-    public CopyMessage parseMode(@NotNull ParseMode parseMode) {
-        return add("parse_mode",  parseMode.name());
+    public CopyMessage parseMode(ParseMode parseMode) {
+        return add("parse_mode", parseMode != null?parseMode.name():null);
     }
 
     public CopyMessage disableWebPagePreview(boolean disableWebPagePreview) {

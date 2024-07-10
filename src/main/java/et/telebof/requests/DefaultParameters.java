@@ -24,8 +24,8 @@ abstract public class DefaultParameters<T, R> extends AbstractBaseRequest<T, R> 
         return add("message_thread_id", messageThreadId);
     }
 
-    public T parseMode(@NotNull ParseMode parseMode) {
-        return add("parse_mode",  parseMode.name());
+    public T parseMode(ParseMode parseMode) {
+        return add("parse_mode",  parseMode != null?parseMode.name():null);
     }
 
     public T disableWebPagePreview(boolean disableWebPagePreview) {

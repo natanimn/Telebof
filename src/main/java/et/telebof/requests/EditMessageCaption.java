@@ -20,8 +20,8 @@ public class EditMessageCaption extends AbstractBaseRequest<EditMessageCaption, 
         add("inline_message_id", inlineMessageId);
     }
 
-    public EditMessageCaption parseMode(@NotNull ParseMode parseMode) {
-        return add("parse_mode",  parseMode);
+    public EditMessageCaption parseMode(ParseMode parseMode) {
+        return add("parse_mode",  parseMode != null?parseMode.name():null);
     }
 
     public EditMessageCaption entities(MessageEntity[] captionEntities) {
