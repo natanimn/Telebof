@@ -252,6 +252,9 @@ public class Filter{
         return update.message != null && update.message.passport_data != null;
     }
 
+    public Boolean refundedPayment(){
+        return update.message != null && update.message.refunded_payment != null;
+    }
 
     public boolean commands(String... commands){
         if (update.message == null) return false;
