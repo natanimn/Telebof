@@ -69,6 +69,7 @@ public class Message implements Serializable {
     public ChatBackground chat_background_set;
     public String effect_id;
     public Boolean show_caption_above_media;
+    public PaidMediaInfo paid_media;
 
     @Override
     public boolean equals(Object object) {
@@ -145,7 +146,8 @@ public class Message implements Serializable {
                 Objects.equals(reply_to_story, message.reply_to_story) &&
                 Objects.equals(chat_background_set, message.chat_background_set) &&
                 Objects.equals(effect_id, message.effect_id) &&
-                Objects.equals(show_caption_above_media, message.show_caption_above_media);
+                Objects.equals(show_caption_above_media, message.show_caption_above_media) &&
+                Objects.equals(paid_media, message.paid_media);
     }
 
     @Override
@@ -161,7 +163,7 @@ public class Message implements Serializable {
                 general_forum_topic_hidden, general_forum_topic_unhidden, video_chat_scheduled, video_chat_started, video_chat_ended,
                 video_chat_participants_invited, web_app_data, reply_markup, external_reply, quote, link_preview_options, giveaway,
                 giveaway_created, giveaway_winners, giveaway_completed, forward_origin, boost_added, sender_boost_count, reply_to_story,
-                chat_background_set, effect_id, show_caption_above_media);
+                chat_background_set, effect_id, show_caption_above_media, paid_media);
     }
 
 
@@ -252,6 +254,7 @@ public class Message implements Serializable {
                 ", chat_background_set=" + chat_background_set +
                 ", effect_id='" + effect_id + '\'' +
                 ", show_caption_above_media=" + show_caption_above_media +
+                ", paid_media=" + paid_media +
                 '}';
     }
 }

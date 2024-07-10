@@ -26,6 +26,7 @@ public class ExternalReplyInfo implements Serializable {
     public Location location;
     public Invoice invoice;
     public Boolean has_media_spoiler;
+    public PaidMediaInfo paid_media;
 
     @Override
     public boolean equals(Object object) {
@@ -52,12 +53,13 @@ public class ExternalReplyInfo implements Serializable {
                 Objects.equals(venue, that.venue) &&
                 Objects.equals(location, that.location) &&
                 Objects.equals(invoice, that.invoice) &&
-                Objects.equals(has_media_spoiler, that.has_media_spoiler);
+                Objects.equals(has_media_spoiler, that.has_media_spoiler) &&
+                Objects.equals(paid_media, that.paid_media);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(origin, chat, message_id, link_preview_options, animation, audio, document, photo, sticker,
-                story, video, video_note, voice, contact, dice, game, poll, venue, location, invoice, has_media_spoiler);
+                story, video, video_note, voice, contact, dice, game, poll, venue, location, invoice, has_media_spoiler, paid_media);
     }
 }
