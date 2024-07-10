@@ -598,6 +598,10 @@ public class BotContext {
         return new UnpinAllChatMessages(getChatId(), this.requestSender);
     }
 
+    public GetStarTransactions getStarTransactions(){
+        return new GetStarTransactions(requestSender);
+    }
+
     public LeaveChat leaveChat(Object chatId) {
         return new LeaveChat(chatId, this.requestSender);
     }
