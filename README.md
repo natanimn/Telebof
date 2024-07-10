@@ -1,5 +1,7 @@
 # <p align="center">Telebo<i>f</i></p>
-<p align="center">Easy and modern Java Telegram bot API</p>
+## <p align="center"> Supported 7.6 Bot API </p> 
+##
+
 
 * [Installation](#installation)
 * [Your First Echo Bot](#your-first-echo-bot)
@@ -31,10 +33,15 @@
 <dependecy>
     <groupId>et.telebof</groupId>
     <artifactId>telegrambot</artifactId>
-    <version>1.9.1</version>
+    <version>1.11.0</version>
 </dependecy>
 ```
 
+* Grade
+
+```groovy
+implementation 'et.telebof:telegrambot:1.11.0'
+```
 ### Your First Echo Bot
 
 ```java
@@ -106,6 +113,61 @@ bot.context.sendMessage(123456789L, "Hello, World").exec();
 bot.context.sendPhoto(123456789L, new File("photo.png")).exec();
 ```
 **Assume that in our examples it is inside handler**
+
+```java
+// send photo
+context.sendPhoto(new File("photo.png")).exec(); // or
+context.sendPhoto("FILE_ID").exec();
+
+// send audio
+context.sendAudio(new File("audio.mp3")).exec();
+context.sendAudio("FILE_ID").exec();
+
+// send video
+context.sendVideo(new File("video.mp4")).exec();
+context.sendVideo("FILE_ID").exec();
+
+// send voice
+context.sendVoice(new File("voice.ogg")).exec();
+context.sendVoice("FILE_ID").exec();
+
+// send document
+context.sendDocument(new File("doc.pdf")).exec();
+context.sendDucument("FILE_ID").exec();
+
+// send animation
+context.sendAnimation(new File("animation.gif")).exec();
+context.sendAnimation("FILE_ID").exec();
+
+// send contact
+context.sendContact(phone_number, first_name).exec();
+
+// send poll
+InputPollOption option1 = new InputPollOption("option 1");
+InputPollOption option2 = new InputPollOption("option 2")
+context.sendPoll(question, new InputPollOption[]{option1, option2}).exec();
+
+// send invoice
+LabeledPrice price1 = new LabeledPrice(label1, amount1);
+LabeledPrice price2 = new LabeledPrice(label2, amount2);
+context.sendInvoice(title, dscription, payload, currency, new LabeledPrice[]{price1, price2}).exec();
+
+// send media group
+InputMediaPhoto media1 = new InputMediaPhoto(new File("photo_1.png"));
+InputMediaPhoto media2 = new InputMediaPhoto(new File("photo_2.png"));
+context.sendMediaGroup(new InputMedia[]{media1, media2}).exec();
+
+
+// get me
+User me = context.getMe().exec();
+System.out.println(me.username);
+
+// ban chat member
+context.banChatMember(user_id).exec();
+
+// leave chat
+context.leaveChat().exec();
+```
 
 ## Handling Updates
 ### Update
