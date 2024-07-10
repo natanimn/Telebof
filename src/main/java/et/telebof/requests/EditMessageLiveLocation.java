@@ -1,6 +1,5 @@
 package et.telebof.requests;
 
-import et.telebof.Util;
 import et.telebof.types.InlineKeyboardMarkup;
 import et.telebof.types.Message;
 
@@ -40,4 +39,7 @@ public class EditMessageLiveLocation extends AbstractBaseRequest<EditMessageLive
         return add("live_period", live_period);
     }
 
+    public EditMessageLiveLocation businessConnectionId(String business_connection_id){
+        return add("business_connection_id", business_connection_id);
+    }
 }

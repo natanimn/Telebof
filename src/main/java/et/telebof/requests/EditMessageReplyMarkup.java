@@ -1,6 +1,5 @@
 package et.telebof.requests;
 
-import et.telebof.Util;
 import et.telebof.types.InlineKeyboardMarkup;
 import et.telebof.types.Message;
 
@@ -17,6 +16,10 @@ public class EditMessageReplyMarkup extends AbstractBaseRequest<EditMessageReply
 
     public EditMessageReplyMarkup replyMarkup(InlineKeyboardMarkup replyMarkup) {
         return add("reply_markup", replyMarkup);
+    }
+
+    public EditMessageReplyMarkup businessConnectionId(String business_connection_id){
+        return add("business_connection_id", business_connection_id);
     }
 
 }

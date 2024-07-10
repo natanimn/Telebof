@@ -13,4 +13,7 @@ public class StopPoll extends AbstractBaseRequest<StopPoll, Poll> {
         return add("reply_markup", replyMarkup);
     }
 
+    public StopPoll businessConnectionId(String business_connection_id){
+        return add("business_connection_id", business_connection_id);
+    }
 }

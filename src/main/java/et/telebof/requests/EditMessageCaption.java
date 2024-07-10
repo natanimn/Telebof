@@ -1,11 +1,9 @@
 package et.telebof.requests;
 
 import et.telebof.enums.ParseMode;
-import et.telebof.Util;
 import et.telebof.types.InlineKeyboardMarkup;
 import et.telebof.types.Message;
 import et.telebof.types.MessageEntity;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -34,5 +32,9 @@ public class EditMessageCaption extends AbstractBaseRequest<EditMessageCaption, 
 
     public EditMessageCaption showCaptionAboveMedia(boolean show_caption_above_media){
         return add("show_caption_above_media", show_caption_above_media);
+    }
+
+    public EditMessageCaption businessConnectionId(String business_connection_id){
+        return add("business_connection_id", business_connection_id);
     }
 }

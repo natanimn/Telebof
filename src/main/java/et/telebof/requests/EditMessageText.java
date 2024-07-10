@@ -1,7 +1,6 @@
 package et.telebof.requests;
 
 import et.telebof.enums.ParseMode;
-import et.telebof.Util;
 import et.telebof.types.InlineKeyboardMarkup;
 import et.telebof.types.LinkPreviewOptions;
 import et.telebof.types.Message;
@@ -39,9 +38,11 @@ public class EditMessageText extends AbstractBaseRequest<EditMessageText, Messag
         return add("disable_web_page_preview", linkPreviewOptions);
     }
 
-
     public EditMessageText replyMarkup(InlineKeyboardMarkup replyMarkup) {
         return add("reply_markup", replyMarkup);
     }
 
+    public EditMessageText businessConnectionId(String business_connection_id){
+        return add("business_connection_id", business_connection_id);
+    }
 }

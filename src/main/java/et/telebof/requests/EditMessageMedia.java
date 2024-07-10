@@ -1,6 +1,5 @@
 package et.telebof.requests;
 
-import et.telebof.Util;
 import et.telebof.types.InlineKeyboardMarkup;
 import et.telebof.types.Message;
 
@@ -23,4 +22,7 @@ public class EditMessageMedia extends AbstractBaseRequest<EditMessageMedia, Mess
         return add("reply_markup", replyMarkup);
     }
 
+    public EditMessageMedia businessConnectionId(String business_connection_id){
+        return add("business_connection_id", business_connection_id);
+    }
 }
