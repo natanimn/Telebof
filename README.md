@@ -1,5 +1,5 @@
 # <p align="center">Telebo<i>f</i></p>
-## <p align="center"> Supported 7.6 Bot API </p> 
+## <p align="center"> Supported 7.7 Bot API </p> 
 ##
 
 
@@ -33,14 +33,14 @@
 <dependecy>
     <groupId>et.telebof</groupId>
     <artifactId>telegrambot</artifactId>
-    <version>1.11.0</version>
+    <version>1.12.0</version>
 </dependecy>
 ```
 
 * Grade
 
 ```groovy
-implementation 'et.telebof:telegrambot:1.11.0'
+implementation 'et.telebof:telegrambot:1.12.0'
 ```
 ### Your First Echo Bot
 
@@ -48,7 +48,7 @@ implementation 'et.telebof:telegrambot:1.11.0'
 import et.telebof.BotClient;
 
 public class MyFirstEchoBot {
-  static final String TOKEN = "YOUR BOT TOKEN HERE";
+  static final String TOKEN = "YOUR_BOT_TOKEN_HERE";
 
   public static void main(String[] args) {
     final BotClient bot = new BotClient(TOKEN);
@@ -188,7 +188,7 @@ Let's back to the first [echo bot](#your-first-echo-bot) example.
 import et.telebof.BotClient;
 
 public class MyFirstEchoBot {
-  static final String TOKEN = "YOUR BOT TOKEN HERE";
+  static final String TOKEN = "YOUR_BOT_TOKEN_HERE";
 
   public static void main(String[] args) {
     final BotClient bot = new BotClient(TOKEN);
@@ -364,7 +364,8 @@ The filter class is used for filtering content of updates and separate the same 
 - `filter.migrated()` - filter the group/supergroup has been migrated to/from a supergroup/group
 - `filter.chatBackgroundSet()` filter chat background set
 - `filter.pinnedMessage()` - filter a message was pinned
-- `filter.successfulPayment()` - filter message is about a successful payment
+- `filter.successfulPayment()` - filter message about successful payment
+- `filter.refundedPayment()` - filter message about refunded payment 
 - `filter.proximityAlertTrigged()` - filter a user in the chat triggered another user's proximity alert
 - `filter.boostAdded()` - filter user boosted the chat
 - `filter.giveaway()` - filter message is scheduled giveaway
