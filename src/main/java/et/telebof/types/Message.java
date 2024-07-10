@@ -70,6 +70,7 @@ public class Message implements Serializable {
     public String effect_id;
     public Boolean show_caption_above_media;
     public PaidMediaInfo paid_media;
+    public RefundedPayment refunded_payment;
 
     @Override
     public boolean equals(Object object) {
@@ -147,7 +148,8 @@ public class Message implements Serializable {
                 Objects.equals(chat_background_set, message.chat_background_set) &&
                 Objects.equals(effect_id, message.effect_id) &&
                 Objects.equals(show_caption_above_media, message.show_caption_above_media) &&
-                Objects.equals(paid_media, message.paid_media);
+                Objects.equals(paid_media, message.paid_media) &&
+                Objects.equals(refunded_payment, message.refunded_payment);
     }
 
     @Override
