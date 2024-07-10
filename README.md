@@ -31,7 +31,7 @@
 <dependecy>
     <groupId>et.telebof</groupId>
     <artifactId>telegrambot</artifactId>
-    <version>1.9.0</version>
+    <version>1.9.1</version>
 </dependecy>
 ```
 
@@ -399,7 +399,7 @@ public class FilterBot {
   public static void main(String[] args) {
       // ...
       bot.onMessage(filter -> filter.text() && filter.customFilter(new StartsWithFilter()), 
-              FilterBot::numberFilter);
+              FilterBot::startsWith);
   }
 }
 ```
