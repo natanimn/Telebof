@@ -34,6 +34,7 @@ public class ChatFullInfo{
     public BusinessOpeningHours business_opening_hours;
     public Chat personal_chat;
     public Birthdate birthdate;
+    public Boolean can_send_paid_media;
 
     @Override
     public boolean equals(Object object) {
@@ -80,7 +81,8 @@ public class ChatFullInfo{
                 Objects.equals(business_location, that.business_location) &&
                 Objects.equals(business_opening_hours, that.business_opening_hours) &&
                 Objects.equals(personal_chat, that.personal_chat) &&
-                Objects.equals(birthdate, that.birthdate);
+                Objects.equals(birthdate, that.birthdate) &&
+                Objects.equals(can_send_paid_media, that.can_send_paid_media);
     }
 
     @Override
@@ -93,7 +95,7 @@ public class ChatFullInfo{
                 emoji_status_expiration_date, available_reactions, has_visible_history, accent_color_id,
                 max_reaction_count, background_custom_emoji_id, profile_accent_color_id, profile_background_custom_emoji_id,
                 unrestrict_boost_count, custom_emoji_sticker_set_name, business_intro, business_location,
-                business_opening_hours, personal_chat, birthdate);
+                business_opening_hours, personal_chat, birthdate, can_send_paid_media);
     }
 
     @Override
@@ -142,6 +144,7 @@ public class ChatFullInfo{
                 ", business_opening_hours=" + business_opening_hours +
                 ", personal_chat=" + personal_chat +
                 ", birthdate=" + birthdate +
+                ", can_send_paid_media=" + can_send_paid_media +
                 '}';
     }
 }
