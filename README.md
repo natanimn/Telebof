@@ -430,7 +430,7 @@ bot.onMessage(filter -> filter.texts("hello"), (context, message) -> {});
 bot.onMessage(filter -> filter.regex("^hi"), (context, message) -> {});
 
 // handles any text ends with bye
-bot.onMessage(filter -> filter.regex("$bye"), (context, message) -> {});
+bot.onMessage(filter -> filter.regex("bye$"), (context, message) -> {});
 ```
 
 ### Advanced Filters
