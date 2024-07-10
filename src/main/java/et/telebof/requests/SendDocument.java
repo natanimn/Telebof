@@ -35,6 +35,7 @@ public class SendDocument extends DefaultParameters<SendDocument, Message> {
     }
 
     public SendDocument thumbnail(File thumbnail) {
+        setContentType(MediaContentType.DEFAULT);
         return add("thumbnail", thumbnail);
     }
 

@@ -28,7 +28,10 @@ public class SendVideoNote extends DefaultParameters<SendVideoNote, Message> {
     public SendVideoNote thumbnail(String thumbnail){
         return add("thumbnail", thumbnail);
     }
-
+    public SendVideoNote thumbnail(File thumbnail) {
+        setContentType(MediaContentType.DEFAULT);
+        return add("thumbnail", thumbnail);
+    }
     public SendVideoNote length(int length){
         return add("length", length);
     }

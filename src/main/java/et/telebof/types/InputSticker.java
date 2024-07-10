@@ -53,6 +53,16 @@ public class InputSticker implements InputMedia, Serializable {
     }
 
     @Override
+    public InputFile getThumbnailFile() {
+        return null;
+    }
+
+    @Override
+    public boolean hasThumbnailFile() {
+        return false;
+    }
+
+    @Override
     public boolean equals(Object object) {
         if (this == object) return true;
         if (object == null || getClass() != object.getClass()) return false;

@@ -14,13 +14,18 @@ import java.util.List;
 public class SendMediaGroup extends DefaultParameters<SendMediaGroup, List<Message>> {
 
     public static Type responseType = TypeToken.getParameterized(List.class, Message.class).getType();
-    public <T extends InputMedia> SendMediaGroup(Object chatId, T[] medias, RequestSender requestSender) {
+    public  SendMediaGroup(Object chatId, InputMedia[] medias, RequestSender requestSender) {
         super(chatId, requestSender, "sendMediaGroup", responseType);
         add("media", medias);
         for (InputMedia im: medias){
             if (im.isFile()){
                 add(im.getInputFile().file.getName(), im.getInputFile().file);
                 setContentType(im.getInputFile().contentType);
+                setHasMultipart(true);
+            }
+            if (im.hasThumbnailFile()){
+                add(im.getThumbnailFile().file.getName(), im.getThumbnailFile().file);
+                setContentType(im.getThumbnailFile().contentType);
                 setHasMultipart(true);
             }
         }

@@ -7,11 +7,16 @@ import java.io.Serializable;
 import java.util.Objects;
 
 public class MenuButton implements Serializable {
-    public String type;
+    public String type, text;
     public WebAppInfo web_app;
 
     public MenuButton(@NotNull MenuButtonType type) {
         this.type = type.name().toLowerCase();
+    }
+
+    public MenuButton text(String text){
+        this.text = text;
+        return this;
     }
 
     public MenuButton webApp(WebAppInfo web_app) {

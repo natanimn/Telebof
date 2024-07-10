@@ -37,6 +37,11 @@ public class SendVideo extends DefaultParameters<SendVideo, Message> {
         return add("thumbnail", thumbnail);
     }
 
+    public SendVideo thumbnail(File thumbnail) {
+        setContentType(MediaContentType.DEFAULT);
+        return add("thumbnail", thumbnail);
+    }
+
     public SendVideo width(int width) {
         return add("width", width);
     }
@@ -45,7 +50,7 @@ public class SendVideo extends DefaultParameters<SendVideo, Message> {
         return add("height", height);
     }
 
-    public SendVideo duration(Long duration) {
+    public SendVideo duration(int duration) {
         return add("duration", duration);
     }
 

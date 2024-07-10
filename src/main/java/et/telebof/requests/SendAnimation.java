@@ -36,7 +36,7 @@ public class SendAnimation extends DefaultParameters<SendAnimation, Message> {
     }
     
     public SendAnimation thumbnail(File thumbnail){
-        setContentType(MediaContentType.PHOTO);
+        setContentType(MediaContentType.DEFAULT);
         return add("thumbnail", thumbnail);
     }
     public SendAnimation width(int width) {

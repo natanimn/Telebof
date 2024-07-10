@@ -43,6 +43,7 @@ public class SendAudio extends DefaultParameters<SendAudio, Message> {
     }
 
     public SendAudio thumbnail(File thumbnail) {
+        setContentType(MediaContentType.DEFAULT);
         return add("thumbnail", thumbnail);
     }
 

@@ -5,18 +5,18 @@ import et.telebof.requests.MediaContentType;
 import java.io.File;
 import java.io.Serializable;
 
-public class InputMediaMediaPhoto extends InputMediaBuilder<InputMediaMediaPhoto> implements Serializable {
+public class InputMediaPhoto extends InputMediaBuilder<InputMediaPhoto> implements Serializable {
     private Boolean has_spoiler;
 
-    public InputMediaMediaPhoto(String media) {
+    public InputMediaPhoto(String media) {
         super("photo", media);
     }
 
-    public InputMediaMediaPhoto(File media) {
+    public InputMediaPhoto(File media) {
         super("photo", media, MediaContentType.PHOTO);
     }
 
-    public InputMediaMediaPhoto hasSpoiler(boolean hasSpoiler) {
+    public InputMediaPhoto hasSpoiler(boolean hasSpoiler) {
         this.has_spoiler = hasSpoiler;
         return this;
     }

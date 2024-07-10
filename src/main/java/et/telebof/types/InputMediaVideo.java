@@ -5,45 +5,51 @@ import et.telebof.requests.MediaContentType;
 import java.io.File;
 import java.io.Serializable;
 
-public class InputMediaMediaVideo extends InputMediaBuilder<InputMediaMediaVideo> implements  Serializable {
+public class InputMediaVideo extends InputMediaBuilder<InputMediaVideo> implements  Serializable {
     private String thumbnail;
     private Integer duration, width, height;
     private Boolean has_spoiler, supports_streaming;
 
-    public InputMediaMediaVideo(String media) {
+    public InputMediaVideo(String media) {
         super("video", media);
     }
 
-    public InputMediaMediaVideo(File media) {
+    public InputMediaVideo(File media) {
         super("video", media, MediaContentType.VIDEO);
     }
 
-    public InputMediaMediaVideo thumbnail(String thumbnail) {
+    public InputMediaVideo thumbnail(String thumbnail) {
         this.thumbnail = thumbnail;
         return this;
     }
 
-    public InputMediaMediaVideo width(int width) {
+    public InputMediaVideo thumbnail(File thumbnail) {
+        this.thumbnail = "attach://"+thumbnail.getName();
+        setThumbnailFile(thumbnail);
+        return this;
+    }
+
+    public InputMediaVideo width(int width) {
         this.width = width;
         return this;
     }
 
-    public InputMediaMediaVideo height(int height) {
+    public InputMediaVideo height(int height) {
         this.height = height;
         return this;
     }
 
-    public InputMediaMediaVideo duration(int duration) {
+    public InputMediaVideo duration(int duration) {
         this.duration = duration;
         return this;
     }
 
-    public InputMediaMediaVideo supportsStreaming(boolean supportsStreaming) {
+    public InputMediaVideo supportsStreaming(boolean supportsStreaming) {
         this.supports_streaming = supportsStreaming;
         return this;
     }
 
-    public InputMediaMediaVideo hasSpoiler(boolean hasSpoiler) {
+    public InputMediaVideo hasSpoiler(boolean hasSpoiler) {
         this.has_spoiler = hasSpoiler;
         return this;
     }
