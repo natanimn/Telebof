@@ -20,6 +20,7 @@
   * [Logging](#logging)
   * [Proxy](#proxy)
 * [Error Handling](#error-handling)
+* [Conclusion](#conclusion)
   
 
 ## Installation
@@ -30,7 +31,7 @@
 <dependecy>
     <groupId>et.telebof</groupId>
     <artifactId>telegrambot</artifactId>
-    <version>1.8.0</version>
+    <version>1.9.0</version>
 </dependecy>
 ```
 
@@ -117,7 +118,7 @@ and callback class. The filter class is a lambda class of `et.telebof.filter.Fil
 as an argument and returns `Boolean`, so that if the condition of this filter 
 matches with the update sent from telegram, the callback class will be called and its body gets execute.
 
-The callback class takes two parameters: `BotContext` class and type of class of an update which is being handled
+The callback class takes two parameters: `et.telebof.BotContext` class and type of class of an update which is being handled
 
 Let's back to the first [echo bot](#your-first-echo-bot) example.
 
@@ -323,7 +324,7 @@ The filter class is used for filtering content of updates and separate the same 
 - `filter.quote()` - filter message text contains quote
 - `filter.bot()` - filter user is bot
 - `filter.emptyQuery()` - filter query is empty
-- `filter.privateChat()` - filter the chat is `private`
+- `filter.Private()` - filter the chat is `private`
 - `filter.group()` - filter the chat type is `group`
 - `filter.supergroup()` - filter chat type is `supergroup`
 - `filter.channel()` - filter chat type is `channel`
@@ -332,6 +333,8 @@ The filter class is used for filtering content of updates and separate the same 
 - `filter.inlineQuery(String... queries)` - filter given query is queried
 - `filter.customFilter(CustomFilter cf)` - filter given filter
 - `filter.state(String state)` - filter current state is given state. Pass `*` for filtering any state
+- `filter.texts(String... texts)` - filter given text matched with message text
+- `filter.regex(String pattern)`- regular expression filter for message text  
 
 ```java
 // handles incoming texts
@@ -352,10 +355,10 @@ Here are some examples
 
 ```java
 // handles incoming text in private chat
-bot.onMessage(filter -> filter.text() && filter.privateChat(), (context, message) -> {});
+bot.onMessage(filter -> filter.text() && filter.Private(), (context, message) -> {});
 
 // handles an incoming text or photo
-bot.onMessage(filter -> filter.text || filter.photo(), (context, message) -> {});
+bot.onMessage(filter -> filter.text() || filter.photo(), (context, message) -> {});
 
 // handles incoming text in supergroup chat 
 bot.onMessage(filter -> filter.text() && filter.supergroup(), (context, message) -> {});
@@ -369,6 +372,7 @@ You can write your own filter using `filter.customFilter`.
 
 This example will show you how you can write filters using `et.telebof.filters.CustomFilter` and `filter.customFilter`.
 
+Let's write simple custom filter whether incoming text starts with `!` or not.
 ```java
 import et.telebof.BotContext;
 import et.telebof.filters.CustomFilter;
@@ -377,43 +381,33 @@ import et.telebof.types.Message;
 import et.telebof.types.Update;
 
 
-// Filter whether the incoming message text is number or not.
+// Filter whether the incoming message text starts with `!`. or not
 
-class IsNumberFilter implements CustomFilter {
+class StartsWithFilter implements CustomFilter {
   @Override
   public boolean check(Update update) {
-    Message message = update.message;
-    try {
-      int number = Integer.parseInt(message.text);
-      return true; // If it is parsed without any error, then it is number
-    } catch (NumberFormatException e) {
-      // If the text is not number
-      return false;
-    }
+    return update.message.text.startsWith("!");
   }
 }
 
 public class FilterBot {
 
-  static void numberFilter(BotContext context, Message message){
-      context.sendMessage("It is number").exec();
+  static void startsWith(BotContext context, Message message){
+      context.sendMessage("Message starts with !").exec();
   }
 
   public static void main(String[] args) {
       // ...
-      bot.onMessage(filter -> filter.text() && filter.customFilter(new IsNumberFilter()),
+      bot.onMessage(filter -> filter.text() && filter.customFilter(new StartsWithFilter()), 
               FilterBot::numberFilter);
   }
 }
 ```
 
-### Advanced Filters
+### Filtering message text
+Message text can be filtered by using the following methods: `filter.commands`, `filter.texts`, `filter.regex`.
 
-There are some advanced filters for handling `command` , `pressing button`, `inline query`. 
-`filter.commands`, `filter.callbackData` and `filter.inlineQuery` respectively.
-
-Example for handling commands using `filter.commands`
-
+#### Filtering command
 ```java
 // handles /start command
 bot.onMessage(filter -> filter.commands("start"), (context, message) -> {});
@@ -421,6 +415,28 @@ bot.onMessage(filter -> filter.commands("start"), (context, message) -> {});
 // handles /help command
 bot.onMessage(filter -> filter.commands("help"), (context, message) -> {});
 ```
+#### Filtering Text
+```java
+// handles hi text
+bot.onMessage(filter -> filter.texts("hi"), (context, message) -> {});
+
+// handles hello text
+bot.onMessage(filter -> filter.texts("hello"), (context, message) -> {});
+```
+
+#### Filtering using Regular Expression
+```java
+// handles any text starts with hi 
+bot.onMessage(filter -> filter.regex("^hi"), (context, message) -> {});
+
+// handles any text ends with bye
+bot.onMessage(filter -> filter.regex("$bye"), (context, message) -> {});
+```
+
+### Advanced Filters
+
+There are some advanced filters for handling `pressing button` and `inline query`. These are
+`filter.callbackData` and `filter.inlineQuery` respectively.
 
 Example for handling inline button through its callback data using `filter.callbackData`
 
@@ -436,6 +452,7 @@ Example for handling inline query using `filter.inlineQuery`
 // handles an inline query which its query equals with a word "hello"
 bot.onInline(filter -> filter.inlineQuery("hello"), (context, query) -> {});
 ```
+[Sample](#inline-bot)
 
 ### State Filter
 There is another special filter to make conversations with bot called `state filter`.
@@ -604,6 +621,8 @@ BotClient bot = new BotClient
         .build();
 ```
 
+
+Finally
 ```java
 import et.telebof.BotClient;
 import et.telebof.enums.ParseMode;
@@ -627,9 +646,21 @@ BotClient bot = new BotClient.Builder(TOKEN)
 ```java
 import et.telebof.TelegramApiException;
 
-try{     
+try {     
     context.sendMessage("Hello, World").exec();    
 } catch(TelegramApiException apiException){
     System.out.println(apiException.description);
 }
 ```
+
+## Conclusion
+
+Finally, we now assume that you have basic understanding of this library in this brief tutorial, however, if you have any question or need 
+support regarding this library, you have the following options
+
+1. Ping us on [our official Telegram group](https://t.me/telebofchat). 
+2. Ask questions by opening a [discussion](https://github.com/natanimn/Telebof/discussions/new)
+
+
+And join [our official Telegram channel](https://t.me/telebof) for update news.
+

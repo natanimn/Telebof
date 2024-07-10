@@ -431,6 +431,9 @@ public class BotContext {
         return new GetUserProfilePhotos(userId, this.requestSender);
     }
 
+    public RefundStarPayment refundStarPayment(long user_id, String telegram_payment_change_id) {
+        return new RefundStarPayment(user_id, telegram_payment_change_id, requestSender);
+    }
     public GetFile getFile(String fileId) {
         return new GetFile(fileId, this.requestSender);
     }
