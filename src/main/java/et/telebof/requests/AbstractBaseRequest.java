@@ -77,7 +77,7 @@ abstract public class AbstractBaseRequest<T, R>{
         return contentType;
     }
 
-    public R exec(){
+    public final R exec(){
         return requestSender.makeRequest(this);
     }
 
