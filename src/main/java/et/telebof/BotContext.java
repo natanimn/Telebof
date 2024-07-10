@@ -8,11 +8,13 @@ import et.telebof.types.BotCommand;
 import et.telebof.types.ChatPermission;
 import et.telebof.types.InlineQueryResult;
 import et.telebof.types.InputMedia;
+import et.telebof.types.InputPaidMedia;
 import et.telebof.types.InputPollOption;
 import et.telebof.types.InputSticker;
 import et.telebof.types.LabeledPrice;
 import et.telebof.types.MaskPosition;
 import et.telebof.types.Message;
+import et.telebof.types.PaidMedia;
 import et.telebof.types.PassportElementError;
 import et.telebof.types.ReplyParameters;
 import et.telebof.types.Update;
@@ -315,16 +317,30 @@ public class BotContext {
                 .parseMode(parseMode);
     }
 
-    public <T extends InputMedia> SendMediaGroup sendMediaGroup(Object chatId, T[] medias) {
+    public SendMediaGroup sendMediaGroup(Object chatId, InputMedia[] medias) {
         return new SendMediaGroup(chatId, medias, this.requestSender).parseMode(parseMode);
     }
 
-    public <T extends InputMedia> SendMediaGroup sendMediaGroup(T[] medias) {
+    public SendMediaGroup sendMediaGroup(InputMedia[] medias) {
         return new SendMediaGroup(getChatId(), medias, this.requestSender).parseMode(parseMode);
     }
 
-    public <T extends InputMedia> SendMediaGroup replyMediaGroup(T[] medias) {
+    public SendMediaGroup replyMediaGroup(InputMedia[] medias) {
         return new SendMediaGroup(getChatId(), medias, this.requestSender)
+                .replyParameters(new ReplyParameters(getMessageId()).allowSendingWithoutReply(true))
+                .parseMode(parseMode);
+    }
+
+    public SendPaidMedia sendPaidMedia(Object chatId, int star_count, InputPaidMedia[] medias){
+        return new SendPaidMedia(chatId, star_count, medias, requestSender).parseMode(parseMode);
+    }
+
+    public SendPaidMedia sendPaidMedia(int star_count, InputPaidMedia[] medias){
+        return new SendPaidMedia(getChatId(), star_count, medias, requestSender).parseMode(parseMode);
+    }
+
+    public SendPaidMedia replyPaidMedia(int star_count, InputPaidMedia[] medias){
+        return new SendPaidMedia(getChatId(), star_count, medias, requestSender)
                 .replyParameters(new ReplyParameters(getMessageId()).allowSendingWithoutReply(true))
                 .parseMode(parseMode);
     }
@@ -394,11 +410,6 @@ public class BotContext {
 
     public SendPoll sendPoll(Object chatId, String question, InputPollOption[] options) {
         return new SendPoll(chatId, question, options, this.requestSender);
-    }
-
-
-    public SendPoll sendPoll(String question, List<InputPollOption> options) {
-        return new SendPoll(getChatId(), question, options.toArray(new InputPollOption[0]), this.requestSender);
     }
 
     public SendPoll replyPoll(String question, InputPollOption[] options) {
@@ -966,8 +977,8 @@ public class BotContext {
         return new AnswerWebAppQuery(webAppQueryId, result, this.requestSender);
     }
 
-    public SendInvoice sendInvoice(Object chatId, String title, String description, String payload, String providerToken,
-                                   String currency, LabeledPrice[] prices) {
+    public SendInvoice sendInvoice(Object chatId, String title, String description, String payload, String currency,
+                                   LabeledPrice[] prices) {
         return new SendInvoice(chatId, title, description, payload, currency, prices, this.requestSender)
                 .parseMode(parseMode);
     }
