@@ -20,7 +20,7 @@ public class Filter{
     }
 
     public Boolean text(){
-        return update.message !=null && update.message.text != null;
+        return getText() != null;
     }
 
     public Boolean Private(){
@@ -257,8 +257,8 @@ public class Filter{
     }
 
     public boolean commands(String... commands){
-        if (update.message == null) return false;
-        String command = Util.extractCommand(update.message.text);
+        if (getText() == null) return false;
+        String command = Util.extractCommand(getText());
         if (command == null) return false;
         return List.of(commands).contains(command);
     }
@@ -322,15 +322,26 @@ public class Filter{
 
     public boolean texts(String... texts){
         if (text()){
-            return List.of(texts).contains(update.message.text);
+            return List.of(texts).contains(getText());
         } else return false;
     }
 
     public boolean regex(String pattern){
-        if (!text()) return false;
+        String text = getText();
+        if (text == null) return false;
 
         Pattern instance = Pattern.compile(pattern);
-        return instance.matcher(update.message.text).find();
+        return instance.matcher(text).find();
+    }
+
+    private String getText(){
+        if (update.message != null) return update.message.text;
+        else if (update.edited_message != null) return update.edited_message.text;
+        else if (update.edited_business_message != null) return update.edited_business_message.text;
+        else if (update.edited_channel_post != null) return update.edited_channel_post.text;
+        else if (update.channel_post != null) return update.channel_post.text;
+        else if (update.business_message != null) return update.business_message.text;
+        else return null;
     }
 
 }

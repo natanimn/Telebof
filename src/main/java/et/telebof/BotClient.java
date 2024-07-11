@@ -412,7 +412,7 @@ final public class BotClient {
                 if (httpExchange.getRequestMethod().equals("POST")){
                     String response = getString(httpExchange);
                     ApiResponse<List<Update>> apiResponse = Util.parseApiResponse(response, Update.class);
-                    List<Update> updates = Util.parseUpdates(apiResponse.result);
+                    List<Update> updates = (apiResponse.result);
                     httpExchange.sendResponseHeaders(200, response.length());
                     OutputStream outputStream = httpExchange.getResponseBody();
                     outputStream.write("!".getBytes());

@@ -3,8 +3,9 @@ package et.telebof.types;
 import et.telebof.requests.MediaContentType;
 
 import java.io.File;
+import java.io.Serializable;
 
-public class InputPaidMediaPhoto implements InputPaidMedia{
+public class InputPaidMediaPhoto implements InputPaidMedia {
     private String type;
     private String media;
     private transient boolean isFile;
@@ -18,7 +19,7 @@ public class InputPaidMediaPhoto implements InputPaidMedia{
 
     public InputPaidMediaPhoto(File media){
         this.type = "photo";
-        this.media = "attach://" + media;
+        this.media = "attach://" + media.getName();
         this.isFile = true;
         this.inputFile = new InputFile(media, MediaContentType.PHOTO);
     }
