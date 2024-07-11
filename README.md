@@ -33,14 +33,14 @@
 <dependecy>
     <groupId>et.telebof</groupId>
     <artifactId>telegrambot</artifactId>
-    <version>1.12.1</version>
+    <version>1.13.0</version>
 </dependecy>
 ```
 
 * Grade
 
 ```groovy
-implementation 'et.telebof:telegrambot:1.12.1'
+implementation 'et.telebof:telegrambot:1.13.0'
 ```
 ### Your First Echo Bot
 
@@ -396,6 +396,10 @@ The filter class is used for filtering content of updates and separate the same 
 - `filter.customFilter(CustomFilter cf)` - filter given filter
 - `filter.state(String state)` - filter current state is given state. Pass `*` for filtering any state
 - `filter.texts(String... texts)` - filter given text matched with message text
+- `filter.chatIds(Long... ids)` - filter given id matched with current chat's id
+- `filter.fromIds(Long... ids)` - filter given id matched with current user's id
+- `filter.chatUsernames(String... usernames)` - filter given username matched with current chat's username
+- `filter.usernames(String... usernames)` - filter given username matched with current user's username
 - `filter.regex(String pattern)`- regular expression filter for message text  
 
 ```java
@@ -426,9 +430,53 @@ bot.onMessage(filter -> filter.text() || filter.photo(), (context, message) -> {
 bot.onMessage(filter -> filter.text() && filter.supergroup(), (context, message) -> {});
 
 // handles incoming audio or video in private chat
-bot.onMessage(filter -> filter.privateChat() && (filter.audio() || filter.video()), (context, message) -> {});
+bot.onMessage(filter -> filter.Private() && (filter.audio() || filter.video()), (context, message) -> {});
 
 ```
+
+```java
+// handles message in chat with chat_id of 123456789
+bot.onMessage(filter -> filter.chatIds(123456789L), (context, message) -> {});
+
+// handles message from user whose id is 123456789 
+bot.onMessage(filter -> filter.fromIds(123456789L), (context, message) -> {});
+
+// handles message in chat username @this_chat
+bot.onMessage(filter -> filter.chatUsernames("this_chat"), (context, message) -> {});
+
+// handles message from user whose username is @this_user
+bot.onMessage(filter -> filter.chatUsernames("this_user"), (context, message) -> {});
+```
+
+### Filtering message text
+Message text can be filtered by using the following methods: `filter.commands`, `filter.texts`, `filter.regex`.
+
+#### Filtering command
+```java
+// handles /start command
+bot.onMessage(filter -> filter.commands("start"), (context, message) -> {});
+
+// handles /help command
+bot.onMessage(filter -> filter.commands("help"), (context, message) -> {});
+```
+#### Filtering Text
+```java
+// handles hi text
+bot.onMessage(filter -> filter.texts("hi"), (context, message) -> {});
+
+// handles hello text
+bot.onMessage(filter -> filter.texts("hello"), (context, message) -> {});
+```
+
+#### Filtering using Regular Expression
+```java
+// handles any text starts with hi 
+bot.onMessage(filter -> filter.regex("^hi"), (context, message) -> {});
+
+// handles any text ends with bye
+bot.onMessage(filter -> filter.regex("bye$"), (context, message) -> {});
+```
+
 ### Writing your own filter
 You can write your own filter using `filter.customFilter`.
 
@@ -464,35 +512,6 @@ public class FilterBot {
               FilterBot::startsWith);
   }
 }
-```
-
-### Filtering message text
-Message text can be filtered by using the following methods: `filter.commands`, `filter.texts`, `filter.regex`.
-
-#### Filtering command
-```java
-// handles /start command
-bot.onMessage(filter -> filter.commands("start"), (context, message) -> {});
-
-// handles /help command
-bot.onMessage(filter -> filter.commands("help"), (context, message) -> {});
-```
-#### Filtering Text
-```java
-// handles hi text
-bot.onMessage(filter -> filter.texts("hi"), (context, message) -> {});
-
-// handles hello text
-bot.onMessage(filter -> filter.texts("hello"), (context, message) -> {});
-```
-
-#### Filtering using Regular Expression
-```java
-// handles any text starts with hi 
-bot.onMessage(filter -> filter.regex("^hi"), (context, message) -> {});
-
-// handles any text ends with bye
-bot.onMessage(filter -> filter.regex("bye$"), (context, message) -> {});
 ```
 
 ### Advanced Filters
