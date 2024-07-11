@@ -713,7 +713,7 @@ BotClient bot = new BotClient.Builder(TOKEN)
         .log(true) // Log current status
         .skipOldUpdates(false) // Receive updates sent last 24 hours 
         .parseMode(ParseMode.HTML) // Default parse mode passed to sendXyz methods
-        .limit(10) // Limiting how many updates should be received at maximum per request 
+        .limit(10) // Limit how many updates should be received at maximum per request 
         .useTestServer(false) // Using test server
         .timeout(30) // timeout
         .offset(-1) // offset
