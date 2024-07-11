@@ -33,14 +33,14 @@
 <dependecy>
     <groupId>et.telebof</groupId>
     <artifactId>telegrambot</artifactId>
-    <version>1.12.0</version>
+    <version>1.12.1</version>
 </dependecy>
 ```
 
 * Grade
 
 ```groovy
-implementation 'et.telebof:telegrambot:1.12.0'
+implementation 'et.telebof:telegrambot:1.12.1'
 ```
 ### Your First Echo Bot
 
@@ -149,8 +149,7 @@ context.sendPoll(question, new InputPollOption[]{option1, option2}).exec();
 
 // send invoice
 LabeledPrice price1 = new LabeledPrice(label1, amount1);
-LabeledPrice price2 = new LabeledPrice(label2, amount2);
-context.sendInvoice(title, dscription, payload, currency, new LabeledPrice[]{price1, price2}).exec();
+context.sendInvoice(title, dscription, payload, currency, new LabeledPrice[]{price1}).exec();
 
 // send media group
 InputMediaPhoto media1 = new InputMediaPhoto(new File("photo_1.png"));
