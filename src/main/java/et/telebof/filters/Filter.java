@@ -1,10 +1,39 @@
 package et.telebof.filters;
 
 import et.telebof.Util;
+import et.telebof.types.Animation;
+import et.telebof.types.Audio;
+import et.telebof.types.ChatBackground;
+import et.telebof.types.ChatBoostAdded;
+import et.telebof.types.Contact;
+import et.telebof.types.Dice;
+import et.telebof.types.Document;
+import et.telebof.types.Game;
+import et.telebof.types.Giveaway;
+import et.telebof.types.GiveawayCompleted;
+import et.telebof.types.GiveawayCreated;
+import et.telebof.types.Invoice;
+import et.telebof.types.Location;
+import et.telebof.types.MessageEntity;
+import et.telebof.types.MessageOrigin;
+import et.telebof.types.PassportData;
+import et.telebof.types.PhotoSize;
+import et.telebof.types.RefundedPayment;
+import et.telebof.types.Sticker;
+import et.telebof.types.TextQuote;
 import et.telebof.types.Update;
 import et.telebof.states.StateMemoryStorage;
 import et.telebof.types.Message;
 import et.telebof.types.User;
+import et.telebof.types.Venue;
+import et.telebof.types.Video;
+import et.telebof.types.VideoChatEnded;
+import et.telebof.types.VideoChatParticipantsInvited;
+import et.telebof.types.VideoChatScheduled;
+import et.telebof.types.VideoChatStarted;
+import et.telebof.types.VideoNote;
+import et.telebof.types.Voice;
+import et.telebof.types.WebAppData;
 
 import java.util.Arrays;
 import java.util.List;
@@ -40,67 +69,67 @@ public class Filter{
     }
 
     public Boolean photo(){
-        return update.message !=null && update.message.photo != null;
+        return getPhoto() != null;
     }
 
     public Boolean video(){
-        return update.message !=null && update.message.video != null;
+        return getVideo() != null;
     }
 
     public Boolean voice(){
-        return update.message !=null && update.message.voice != null;
+        return getVoice() != null;
     }
 
     public Boolean document(){
-        return update.message !=null && update.message.document != null;
+        return getDocument() != null;
     }
 
     public Boolean videoNote(){
-        return update.message !=null && update.message.video_note != null;
+        return getVideoNote() != null;
     }
 
     public Boolean animation(){
-        return update.message !=null && update.message.animation != null;
+        return getAnimation() != null;
     }
 
     public Boolean contact(){
-        return update.message !=null && update.message.contact != null;
+        return getContact() != null;
     }
 
     public Boolean location(){
-        return update.message !=null && update.message.location != null;
+        return getLocation() != null;
     }
 
     public Boolean venue(){
-        return update.message !=null && update.message.venue != null;
+        return getVenue() != null;
     }
 
     public Boolean game(){
-        return update.message !=null && update.message.game != null;
+        return getGame() != null;
     }
 
     public Boolean dice(){
-        return update.message !=null && update.message.dice != null;
+        return getDice() != null;
     }
 
     public Boolean sticker(){
-        return update.message !=null && update.message.poll != null;
+        return getSticker() != null ;
     }
 
     public Boolean audio(){
-        return update.message !=null && update.message.audio != null;
+        return getAudio() != null;
     }
 
     public Boolean invoice(){
-        return update.message !=null && update.message.invoice != null;
+        return getInvoice() != null;
     }
 
     public Boolean quote(){
-        return update.message !=null && update.message.quote != null;
+        return getQuote() != null;
     }
 
     public Boolean giveaway(){
-        return update.message !=null && update.message.giveaway != null;
+        return getGiveaway() != null;
     }
 
     public Boolean media(){
@@ -116,7 +145,7 @@ public class Filter{
     }
 
     public Boolean pinnedMessage(){
-        return update.message !=null && update.message.pinned_message != null;
+        return getPinnedMessage() != null;
     }
 
     public Boolean newChatPhoto(){
@@ -125,10 +154,6 @@ public class Filter{
 
     public Boolean newChatTitle(){
         return update.message !=null && update.message.new_chat_title != null;
-    }
-
-    public Boolean newChat(){
-        return update.message !=null && update.message.new_chat_members != null;
     }
 
     public Boolean groupCreated(){
@@ -177,27 +202,27 @@ public class Filter{
     }
 
     public Boolean videoChatStarted() {
-        return update.message != null && update.message.video_chat_started != null;
+        return getVideoChatStarted() != null;
     }
 
     public Boolean videoChatScheduled() {
-        return update.message != null && update.message.video_chat_scheduled != null;
+        return getVideoChatScheduled() != null;
     }
 
     public Boolean videoChatParticipantInvited() {
-        return update.message != null && update.message.video_chat_participants_invited != null;
+        return getVideoChatParticipantInvited() != null;
     }
 
     public Boolean videoChatEnded() {
-        return update.message != null && update.message.video_chat_ended != null;
+        return getVideoChatEnded() != null;
     }
 
     public Boolean forwarded() {
-        return update.message != null && update.message.forward_origin != null;
+        return getForwardedMessage() != null;
     }
 
     public Boolean replied() {
-        return update.message != null && update.message.reply_to_message != null;
+        return getRepliedMessage() != null;
     }
 
     public Boolean repliedToStory() {
@@ -205,19 +230,19 @@ public class Filter{
     }
 
     public Boolean bot() {
-        return update.message != null && update.message.from.is_bot != null;
+        return isBot();
     }
 
     public Boolean giveawayCreated() {
-        return update.message != null && update.message.giveaway_created != null;
+        return getGiveawayCreated() != null;
     }
 
     public Boolean giveawayCompleted() {
-        return update.message != null && update.message.giveaway_completed != null;
+        return getGiveawayCompleted() != null;
     }
 
     public Boolean boostAdded() {
-        return update.message != null && update.message.boost_added != null;
+        return getBoostAdded() != null;
     }
 
     public Boolean usersShared() {
@@ -229,11 +254,11 @@ public class Filter{
     }
 
     public Boolean entities() {
-        return update.message != null && update.message.entities != null;
+        return getEntities() != null;
     }
 
     public Boolean chatBackgroundSet() {
-        return update.message != null && update.message.chat_background_set != null;
+        return getChatBackgroundSet() != null;
     }
 
     public Boolean chatShared() {
@@ -245,15 +270,15 @@ public class Filter{
     }
 
     public Boolean webAppData(){
-        return update.message != null && update.message.web_app_data != null;
+        return getWebAppData() != null;
     }
 
     public Boolean passportData(){
-        return update.message != null && update.message.passport_data != null;
+        return getPassportData() != null;
     }
 
     public Boolean refundedPayment(){
-        return update.message != null && update.message.refunded_payment != null;
+        return getRefundedPayment() != null;
     }
 
     public boolean commands(String... commands){
@@ -264,7 +289,7 @@ public class Filter{
     }
 
     private boolean chatType(String chat){
-        if (update.message!=null)return update.message.chat.type.equals(chat);
+        if (update.message!=null) return update.message.chat.type.equals(chat);
         else if (update.callback_query != null) return update.callback_query.message.chat.type.equals(chat);
         else if (update.edited_message != null) return update.edited_message.chat.type.equals(chat);
         else if (update.inline_query != null) return update.inline_query.chat_type.equals(chat);
@@ -334,6 +359,55 @@ public class Filter{
         return instance.matcher(text).find();
     }
 
+    public boolean chatIds(Long... ids){
+        List<Long> chatsId = List.of(ids);
+        if (update.message !=null) return chatsId.contains(update.message.chat.id);
+        else if (update.channel_post !=null) return chatsId.contains(update.channel_post.chat.id);
+        else if (update.business_message !=null) return chatsId.contains(update.business_message.chat.id);
+        else if (update.edited_channel_post !=null) return chatsId.contains(update.edited_channel_post.chat.id);
+        else if (update.callback_query !=null) return chatsId.contains(update.callback_query.message.chat.id);
+        else if (update.edited_message !=null) return chatsId.contains(update.edited_message.chat.id);
+        else if (update.edited_business_message !=null) return chatsId.contains(update.edited_business_message.chat.id);
+        else return false;
+    }
+
+    public boolean fromIds(Long... ids){
+        List<Long> usersId = List.of(ids);
+        if (update.message !=null) return usersId.contains(update.message.from.id);
+        else if (update.channel_post !=null) return usersId.contains(update.channel_post.from.id);
+        else if (update.business_message !=null) return usersId.contains(update.business_message.from.id);
+        else if (update.edited_channel_post !=null) return usersId.contains(update.edited_channel_post.from.id);
+        else if (update.callback_query !=null) return usersId.contains(update.callback_query.from.id);
+        else if (update.inline_query !=null) return usersId.contains(update.inline_query.from.id);
+        else if (update.edited_message !=null) return usersId.contains(update.edited_message.from.id);
+        else if (update.edited_business_message !=null) return usersId.contains(update.edited_business_message.from.id);
+        else return false;
+    }
+
+    public boolean chatUsernames(String... usernames){
+        List<String> chatUsernames = List.of(usernames);
+        if (update.message !=null) return chatUsernames.contains(update.message.chat.username);
+        else if (update.channel_post !=null) return chatUsernames.contains(update.channel_post.chat.username);
+        else if (update.business_message !=null) return chatUsernames.contains(update.business_message.chat.username);
+        else if (update.edited_channel_post !=null) return chatUsernames.contains(update.edited_channel_post.chat.username);
+        else if (update.callback_query !=null) return chatUsernames.contains(update.callback_query.message.chat.username);
+        else if (update.edited_message !=null) return chatUsernames.contains(update.edited_message.chat.username);
+        else if (update.edited_business_message !=null) return chatUsernames.contains(update.edited_business_message.chat.username);
+        else return false;
+    }
+
+    public boolean usernames(String... usernames){
+        List<String> $usernames = List.of(usernames);
+        if (update.message !=null) return $usernames.contains(update.message.chat.username);
+        else if (update.channel_post !=null) return $usernames.contains(update.channel_post.chat.username);
+        else if (update.business_message !=null) return $usernames.contains(update.business_message.chat.username);
+        else if (update.edited_channel_post !=null) return $usernames.contains(update.edited_channel_post.chat.username);
+        else if (update.callback_query !=null) return $usernames.contains(update.callback_query.message.chat.username);
+        else if (update.edited_message !=null) return $usernames.contains(update.edited_message.chat.username);
+        else if (update.edited_business_message !=null) return $usernames.contains(update.edited_business_message.chat.username);
+        else return false;
+    }
+
     private String getText(){
         if (update.message != null) return update.message.text;
         else if (update.edited_message != null) return update.edited_message.text;
@@ -344,4 +418,326 @@ public class Filter{
         else return null;
     }
 
+    private List<PhotoSize> getPhoto(){
+        if (update.message != null) return update.message.photo;
+        else if (update.edited_message != null) return update.edited_message.photo;
+        else if (update.edited_business_message != null) return update.edited_business_message.photo;
+        else if (update.edited_channel_post != null) return update.edited_channel_post.photo;
+        else if (update.channel_post != null) return update.channel_post.photo;
+        else if (update.business_message != null) return update.business_message.photo;
+        else return null;
+    }
+
+    private Video getVideo(){
+        if (update.message != null) return update.message.video;
+        else if (update.edited_message != null) return update.edited_message.video;
+        else if (update.edited_business_message != null) return update.edited_business_message.video;
+        else if (update.edited_channel_post != null) return update.edited_channel_post.video;
+        else if (update.channel_post != null) return update.channel_post.video;
+        else if (update.business_message != null) return update.business_message.video;
+        else return null;
+    }
+
+    private Document getDocument(){
+        if (update.message != null) return update.message.document;
+        else if (update.edited_message != null) return update.edited_message.document;
+        else if (update.edited_business_message != null) return update.edited_business_message.document;
+        else if (update.edited_channel_post != null) return update.edited_channel_post.document;
+        else if (update.channel_post != null) return update.channel_post.document;
+        else if (update.business_message != null) return update.business_message.document;
+        else return null;
+    }
+
+    private Animation getAnimation(){
+        if (update.message != null) return update.message.animation;
+        else if (update.edited_message != null) return update.edited_message.animation;
+        else if (update.edited_business_message != null) return update.edited_business_message.animation;
+        else if (update.edited_channel_post != null) return update.edited_channel_post.animation;
+        else if (update.channel_post != null) return update.channel_post.animation;
+        else if (update.business_message != null) return update.business_message.animation;
+        else return null;
+    }
+
+    private Audio getAudio(){
+        if (update.message != null) return update.message.audio;
+        else if (update.edited_message != null) return update.edited_message.audio;
+        else if (update.edited_business_message != null) return update.edited_business_message.audio;
+        else if (update.edited_channel_post != null) return update.edited_channel_post.audio;
+        else if (update.channel_post != null) return update.channel_post.audio;
+        else if (update.business_message != null) return update.business_message.audio;
+        else return null;
+    }
+
+    private Voice getVoice(){
+        if (update.message != null) return update.message.voice;
+        else if (update.edited_message != null) return update.edited_message.voice;
+        else if (update.edited_business_message != null) return update.edited_business_message.voice;
+        else if (update.edited_channel_post != null) return update.edited_channel_post.voice;
+        else if (update.channel_post != null) return update.channel_post.voice;
+        else if (update.business_message != null) return update.business_message.voice;
+        else return null;
+    }
+
+    private VideoNote getVideoNote(){
+        if (update.message != null) return update.message.video_note;
+        else if (update.edited_message != null) return update.edited_message.video_note;
+        else if (update.edited_business_message != null) return update.edited_business_message.video_note;
+        else if (update.edited_channel_post != null) return update.edited_channel_post.video_note;
+        else if (update.channel_post != null) return update.channel_post.video_note;
+        else if (update.business_message != null) return update.business_message.video_note;
+        else return null;
+    }
+
+    private Contact getContact(){
+        if (update.message != null) return update.message.contact;
+        else if (update.edited_message != null) return update.edited_message.contact;
+        else if (update.edited_business_message != null) return update.edited_business_message.contact;
+        else if (update.edited_channel_post != null) return update.edited_channel_post.contact;
+        else if (update.channel_post != null) return update.channel_post.contact;
+        else if (update.business_message != null) return update.business_message.contact;
+        else return null;
+    }
+
+    private List<MessageEntity> getEntities(){
+        if (update.message != null) return update.message.entities;
+        else if (update.edited_message != null) return update.edited_message.entities;
+        else if (update.edited_business_message != null) return update.edited_business_message.entities;
+        else if (update.edited_channel_post != null) return update.edited_channel_post.entities;
+        else if (update.channel_post != null) return update.channel_post.entities;
+        else if (update.business_message != null) return update.business_message.entities;
+        else return null;
+    }
+
+    private RefundedPayment getRefundedPayment(){
+        if (update.message != null) return update.message.refunded_payment;
+        else if (update.edited_message != null) return update.edited_message.refunded_payment;
+        else if (update.edited_business_message != null) return update.edited_business_message.refunded_payment;
+        else if (update.edited_channel_post != null) return update.edited_channel_post.refunded_payment;
+        else if (update.channel_post != null) return update.channel_post.refunded_payment;
+        else if (update.business_message != null) return update.business_message.refunded_payment;
+        else return null;
+    }
+
+    private MessageOrigin getForwardedMessage(){
+        if (update.message != null) return update.message.forward_origin;
+        else if (update.edited_message != null) return update.edited_message.forward_origin;
+        else if (update.edited_business_message != null) return update.edited_business_message.forward_origin;
+        else if (update.edited_channel_post != null) return update.edited_channel_post.forward_origin;
+        else if (update.channel_post != null) return update.channel_post.forward_origin;
+        else if (update.business_message != null) return update.business_message.forward_origin;
+        else return null;
+    }
+
+    private Message getRepliedMessage(){
+        if (update.message != null) return update.message.reply_to_message;
+        else if (update.edited_message != null) return update.edited_message.reply_to_message;
+        else if (update.edited_business_message != null) return update.edited_business_message.reply_to_message;
+        else if (update.edited_channel_post != null) return update.edited_channel_post.reply_to_message;
+        else if (update.channel_post != null) return update.channel_post.reply_to_message;
+        else if (update.business_message != null) return update.business_message.reply_to_message;
+        else return null;
+    }
+
+    private Invoice getInvoice(){
+        if (update.message != null) return update.message.invoice;
+        else if (update.edited_message != null) return update.edited_message.invoice;
+        else if (update.edited_business_message != null) return update.edited_business_message.invoice;
+        else if (update.edited_channel_post != null) return update.edited_channel_post.invoice;
+        else if (update.channel_post != null) return update.channel_post.invoice;
+        else if (update.business_message != null) return update.business_message.invoice;
+        else return null;
+    }
+
+    private Sticker getSticker(){
+        if (update.message != null) return update.message.sticker;
+        else if (update.edited_message != null) return update.edited_message.sticker;
+        else if (update.edited_business_message != null) return update.edited_business_message.sticker;
+        else if (update.edited_channel_post != null) return update.edited_channel_post.sticker;
+        else if (update.channel_post != null) return update.channel_post.sticker;
+        else if (update.business_message != null) return update.business_message.sticker;
+        else return null;
+    }
+
+    private Location getLocation(){
+        if (update.message != null) return update.message.location;
+        else if (update.edited_message != null) return update.edited_message.location;
+        else if (update.edited_business_message != null) return update.edited_business_message.location;
+        else if (update.edited_channel_post != null) return update.edited_channel_post.location;
+        else if (update.channel_post != null) return update.channel_post.location;
+        else if (update.business_message != null) return update.business_message.location;
+        else return null;
+    }
+
+
+    private Venue getVenue(){
+        if (update.message != null) return update.message.venue;
+        else if (update.edited_message != null) return update.edited_message.venue;
+        else if (update.edited_business_message != null) return update.edited_business_message.venue;
+        else if (update.edited_channel_post != null) return update.edited_channel_post.venue;
+        else if (update.channel_post != null) return update.channel_post.venue;
+        else if (update.business_message != null) return update.business_message.venue;
+        else return null;
+    }
+
+    private Game getGame(){
+        if (update.message != null) return update.message.game;
+        else if (update.edited_message != null) return update.edited_message.game;
+        else if (update.edited_business_message != null) return update.edited_business_message.game;
+        else if (update.edited_channel_post != null) return update.edited_channel_post.game;
+        else if (update.channel_post != null) return update.channel_post.game;
+        else if (update.business_message != null) return update.business_message.game;
+        else return null;
+    }
+
+    private Dice getDice(){
+        if (update.message != null) return update.message.dice;
+        else if (update.edited_message != null) return update.edited_message.dice;
+        else if (update.edited_business_message != null) return update.edited_business_message.dice;
+        else if (update.edited_channel_post != null) return update.edited_channel_post.dice;
+        else if (update.channel_post != null) return update.channel_post.dice;
+        else if (update.business_message != null) return update.business_message.dice;
+        else return null;
+    }
+
+    private TextQuote getQuote(){
+        if (update.message != null) return update.message.quote;
+        else if (update.edited_message != null) return update.edited_message.quote;
+        else if (update.edited_business_message != null) return update.edited_business_message.quote;
+        else if (update.edited_channel_post != null) return update.edited_channel_post.quote;
+        else if (update.channel_post != null) return update.channel_post.quote;
+        else if (update.business_message != null) return update.business_message.quote;
+        else return null;
+    }
+
+    private Giveaway getGiveaway(){
+        if (update.message != null) return update.message.giveaway;
+        else if (update.edited_message != null) return update.edited_message.giveaway;
+        else if (update.edited_business_message != null) return update.edited_business_message.giveaway;
+        else if (update.edited_channel_post != null) return update.edited_channel_post.giveaway;
+        else if (update.channel_post != null) return update.channel_post.giveaway;
+        else if (update.business_message != null) return update.business_message.giveaway;
+        else return null;
+    }
+
+    private GiveawayCompleted getGiveawayCompleted(){
+        if (update.message != null) return update.message.giveaway_completed;
+        else if (update.edited_message != null) return update.edited_message.giveaway_completed;
+        else if (update.edited_business_message != null) return update.edited_business_message.giveaway_completed;
+        else if (update.edited_channel_post != null) return update.edited_channel_post.giveaway_completed;
+        else if (update.channel_post != null) return update.channel_post.giveaway_completed;
+        else if (update.business_message != null) return update.business_message.giveaway_completed;
+        else return null;
+    }
+
+    private GiveawayCreated getGiveawayCreated(){
+        if (update.message != null) return update.message.giveaway_created;
+        else if (update.edited_message != null) return update.edited_message.giveaway_created;
+        else if (update.edited_business_message != null) return update.edited_business_message.giveaway_created;
+        else if (update.edited_channel_post != null) return update.edited_channel_post.giveaway_created;
+        else if (update.channel_post != null) return update.channel_post.giveaway_created;
+        else if (update.business_message != null) return update.business_message.giveaway_created;
+        else return null;
+    }
+
+    private Message getPinnedMessage(){
+        if (update.message != null) return update.message.pinned_message;
+        else if (update.edited_message != null) return update.edited_message.pinned_message;
+        else if (update.edited_business_message != null) return update.edited_business_message.pinned_message;
+        else if (update.edited_channel_post != null) return update.edited_channel_post.pinned_message;
+        else if (update.channel_post != null) return update.channel_post.pinned_message;
+        else if (update.business_message != null) return update.business_message.pinned_message;
+        else return null;
+    }
+
+    private VideoChatStarted getVideoChatStarted(){
+        if (update.message != null) return update.message.video_chat_started;
+        else if (update.edited_message != null) return update.edited_message.video_chat_started;
+        else if (update.edited_business_message != null) return update.edited_business_message.video_chat_started;
+        else if (update.edited_channel_post != null) return update.edited_channel_post.video_chat_started;
+        else if (update.channel_post != null) return update.channel_post.video_chat_started;
+        else if (update.business_message != null) return update.business_message.video_chat_started;
+        else return null;
+    }
+
+    private VideoChatScheduled getVideoChatScheduled(){
+        if (update.message != null) return update.message.video_chat_scheduled;
+        else if (update.edited_message != null) return update.edited_message.video_chat_scheduled;
+        else if (update.edited_business_message != null) return update.edited_business_message.video_chat_scheduled;
+        else if (update.edited_channel_post != null) return update.edited_channel_post.video_chat_scheduled;
+        else if (update.channel_post != null) return update.channel_post.video_chat_scheduled;
+        else if (update.business_message != null) return update.business_message.video_chat_scheduled;
+        else return null;
+    }
+
+    private VideoChatEnded getVideoChatEnded(){
+        if (update.message != null) return update.message.video_chat_ended;
+        else if (update.edited_message != null) return update.edited_message.video_chat_ended;
+        else if (update.edited_business_message != null) return update.edited_business_message.video_chat_ended;
+        else if (update.edited_channel_post != null) return update.edited_channel_post.video_chat_ended;
+        else if (update.channel_post != null) return update.channel_post.video_chat_ended;
+        else if (update.business_message != null) return update.business_message.video_chat_ended;
+        else return null;
+    }
+
+    private VideoChatParticipantsInvited getVideoChatParticipantInvited(){
+        if (update.message != null) return update.message.video_chat_participants_invited;
+        else if (update.edited_message != null) return update.edited_message.video_chat_participants_invited;
+        else if (update.edited_business_message != null) return update.edited_business_message.video_chat_participants_invited;
+        else if (update.edited_channel_post != null) return update.edited_channel_post.video_chat_participants_invited;
+        else if (update.channel_post != null) return update.channel_post.video_chat_participants_invited;
+        else if (update.business_message != null) return update.business_message.video_chat_participants_invited;
+        else return null;
+    }
+
+    private Boolean isBot(){
+        if (update.message != null) return update.message.from.is_bot;
+        else if (update.edited_message != null) return update.edited_message.from.is_bot;
+        else if (update.edited_business_message != null) return update.edited_business_message.from.is_bot;
+        else if (update.edited_channel_post != null) return update.edited_channel_post.from.is_bot;
+        else if (update.channel_post != null) return update.channel_post.from.is_bot;
+        else if (update.business_message != null) return update.business_message.from.is_bot;
+        else if (update.callback_query != null) return update.callback_query.from.is_bot;
+        else if (update.inline_query != null) return update.inline_query.from.is_bot;
+        else return null;
+    }
+
+    private ChatBoostAdded getBoostAdded(){
+        if (update.message != null) return update.message.boost_added;
+        else if (update.edited_message != null) return update.edited_message.boost_added;
+        else if (update.edited_business_message != null) return update.edited_business_message.boost_added;
+        else if (update.edited_channel_post != null) return update.edited_channel_post.boost_added;
+        else if (update.channel_post != null) return update.channel_post.boost_added;
+        else if (update.business_message != null) return update.business_message.boost_added;
+        else return null;
+    }
+
+    private ChatBackground getChatBackgroundSet(){
+        if (update.message != null) return update.message.chat_background_set;
+        else if (update.edited_message != null) return update.edited_message.chat_background_set;
+        else if (update.edited_business_message != null) return update.edited_business_message.chat_background_set;
+        else if (update.edited_channel_post != null) return update.edited_channel_post.chat_background_set;
+        else if (update.channel_post != null) return update.channel_post.chat_background_set;
+        else if (update.business_message != null) return update.business_message.chat_background_set;
+        else return null;
+    }
+
+    private WebAppData getWebAppData(){
+        if (update.message != null) return update.message.web_app_data;
+        else if (update.edited_message != null) return update.edited_message.web_app_data;
+        else if (update.edited_business_message != null) return update.edited_business_message.web_app_data;
+        else if (update.edited_channel_post != null) return update.edited_channel_post.web_app_data;
+        else if (update.channel_post != null) return update.channel_post.web_app_data;
+        else if (update.business_message != null) return update.business_message.web_app_data;
+        else return null;
+    }
+
+    private PassportData getPassportData(){
+        if (update.message != null) return update.message.passport_data;
+        else if (update.edited_message != null) return update.edited_message.passport_data;
+        else if (update.edited_business_message != null) return update.edited_business_message.passport_data;
+        else if (update.edited_channel_post != null) return update.edited_channel_post.passport_data;
+        else if (update.channel_post != null) return update.channel_post.passport_data;
+        else if (update.business_message != null) return update.business_message.passport_data;
+        else return null;
+    }
 }
