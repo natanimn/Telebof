@@ -1,11 +1,7 @@
 package et.telebof.requests;
 
 import et.telebof.types.LabeledPrice;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 public class CreateInvoiceLink extends AbstractBaseRequest<CreateInvoiceLink, String> {
     public CreateInvoiceLink(Object chatId, String title, String description, String payload,
