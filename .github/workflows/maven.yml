@@ -32,3 +32,5 @@ jobs:
         run: mvn deploy -s $GITHUB_WORKSPACE/settings.xml
         env:
           GITHUB_TOKEN: ${{ github.token }}
+          TEST_USER_ID: ${{ secrets.TEST_USER_ID }}
+          TEST_TOKEN: ${{ secrets.TEST_USER_ID }}
