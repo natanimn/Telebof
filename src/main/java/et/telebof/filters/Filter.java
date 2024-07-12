@@ -398,13 +398,13 @@ public class Filter{
 
     public boolean usernames(String... usernames){
         List<String> $usernames = List.of(usernames);
-        if (update.message !=null) return $usernames.contains(update.message.chat.username);
-        else if (update.channel_post !=null) return $usernames.contains(update.channel_post.chat.username);
-        else if (update.business_message !=null) return $usernames.contains(update.business_message.chat.username);
-        else if (update.edited_channel_post !=null) return $usernames.contains(update.edited_channel_post.chat.username);
-        else if (update.callback_query !=null) return $usernames.contains(update.callback_query.message.chat.username);
-        else if (update.edited_message !=null) return $usernames.contains(update.edited_message.chat.username);
-        else if (update.edited_business_message !=null) return $usernames.contains(update.edited_business_message.chat.username);
+        if (update.message !=null) return $usernames.contains(update.message.from.username);
+        else if (update.channel_post !=null) return $usernames.contains(update.channel_post.from.username);
+        else if (update.business_message !=null) return $usernames.contains(update.business_message.from.username);
+        else if (update.edited_channel_post !=null) return $usernames.contains(update.edited_channel_post.from.username);
+        else if (update.callback_query !=null) return $usernames.contains(update.callback_query.message.from.username);
+        else if (update.edited_message !=null) return $usernames.contains(update.edited_message.from.username);
+        else if (update.edited_business_message !=null) return $usernames.contains(update.edited_business_message.from.username);
         else return false;
     }
 
