@@ -33,14 +33,14 @@
 <dependecy>
     <groupId>et.telebof</groupId>
     <artifactId>telegrambot</artifactId>
-    <version>1.13.1</version>
+    <version>1.13.2</version>
 </dependecy>
 ```
 
 * Grade
 
 ```groovy
-implementation 'et.telebof:telegrambot:1.13.0'
+implementation 'et.telebof:telegrambot:1.13.2'
 ```
 ### Your First Echo Bot
 
@@ -413,26 +413,6 @@ bot.onMessage(filter -> filter.photo(), (context, message) -> {});
 // handles incoming videos
 bot.onMessage(filter -> filter.video(), (context, message) -> {});
 ```
-### Combining filters
-You may want to handle `text` and `photo` in one handler or a `text` in different chats. To do so use logical operators 
-(&&, ||, !) and combine them together. 
-
-Here are some examples
-
-```java
-// handles incoming text in private chat
-bot.onMessage(filter -> filter.text() && filter.Private(), (context, message) -> {});
-
-// handles an incoming text or photo
-bot.onMessage(filter -> filter.text() || filter.photo(), (context, message) -> {});
-
-// handles incoming text in supergroup chat 
-bot.onMessage(filter -> filter.text() && filter.supergroup(), (context, message) -> {});
-
-// handles incoming audio or video in private chat
-bot.onMessage(filter -> filter.Private() && (filter.audio() || filter.video()), (context, message) -> {});
-
-```
 
 ```java
 // handles message in chat with chat_id of 123456789
@@ -445,8 +425,7 @@ bot.onMessage(filter -> filter.fromIds(123456789L), (context, message) -> {});
 bot.onMessage(filter -> filter.chatUsernames("this_chat"), (context, message) -> {});
 
 // handles message from user whose username is @this_user
-bot.onMessage(filter -> filter.chatUsernames("this_user"), (context, message) -> {});
-```
+bot.onMessage(filter -> filter.usernames("this_user"), (context, message) -> {});
 
 ### Filtering message text
 Message text can be filtered by using the following methods: `filter.commands`, `filter.texts`, `filter.regex`.
@@ -475,6 +454,27 @@ bot.onMessage(filter -> filter.regex("^hi"), (context, message) -> {});
 
 // handles any text ends with bye
 bot.onMessage(filter -> filter.regex("bye$"), (context, message) -> {});
+```
+
+```
+### Combining filters
+You may want to handle `text` and `photo` in one handler or a `text` in different chats. To do so use logical operators
+(&&, ||, !) and combine them together.
+
+Here are some examples
+
+```java
+// handles incoming text in private chat
+bot.onMessage(filter -> filter.text() && filter.Private(), (context, message) -> {});
+
+// handles an incoming text or photo
+bot.onMessage(filter -> filter.text() || filter.photo(), (context, message) -> {});
+
+// handles incoming text in supergroup chat 
+bot.onMessage(filter -> filter.text() && filter.supergroup(), (context, message) -> {});
+
+// handles incoming audio or video in private chat
+bot.onMessage(filter -> filter.Private() && (filter.audio() || filter.video()), (context, message) -> {});
 ```
 
 ### Writing your own filter
