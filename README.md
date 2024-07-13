@@ -33,7 +33,7 @@
 <dependecy>
     <groupId>et.telebof</groupId>
     <artifactId>telegrambot</artifactId>
-    <version>1.13.2</version>
+    <version>1.13.3</version>
 </dependecy>
 ```
 
