@@ -33,14 +33,14 @@
 <dependecy>
     <groupId>et.telebof</groupId>
     <artifactId>telegrambot</artifactId>
-    <version>1.13.3</version>
+    <version>1.13.2-alpha</version>
 </dependecy>
 ```
 
 * Grade
 
 ```groovy
-implementation 'et.telebof:telegrambot:1.13.2'
+implementation 'et.telebof:telegrambot:1.13.2-alpha'
 ```
 ### Your First Echo Bot
 
