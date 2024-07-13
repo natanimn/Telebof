@@ -24,8 +24,10 @@ jobs:
           distribution: 'temurin'
           server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
           settings-path: ${{ github.workspace }} # location for the settings.xml file
-      - name: Secrets
-        run: echo "user id secret ${{ secrets.TEST_USER_ID }}, token {{ secrets.TEST_TOKEN }}"
+      - name: Variables
+        env:
+          TEST_USER_ID: ${{ vars.TEST_USER_ID }}
+          TEST_TOKEN: ${{ vars.TEST_BOT_TOKEN }}
       - name: Build with Maven
         run: mvn -B package --file pom.xml
 
@@ -33,5 +35,3 @@ jobs:
         run: mvn deploy -s $GITHUB_WORKSPACE/settings.xml
         env:
           GITHUB_TOKEN: ${{ github.token }}
-          TEST_USER_ID: ${{ secrets.TEST_USER_ID }}
-          TEST_TOKEN: ${{ secrets.TEST_TOKEN }}
