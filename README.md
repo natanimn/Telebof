@@ -457,7 +457,7 @@ bot.onMessage(filter -> filter.regex("^hi"), (context, message) -> {});
 bot.onMessage(filter -> filter.regex("bye$"), (context, message) -> {});
 ```
 
-```
+
 ### Combining filters
 You may want to handle `text` and `photo` in one handler or a `text` in different chats. To do so use logical operators
 (&&, ||, !) and combine them together.
