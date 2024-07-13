@@ -438,6 +438,7 @@ bot.onMessage(filter -> filter.commands("start"), (context, message) -> {});
 // handles /help command
 bot.onMessage(filter -> filter.commands("help"), (context, message) -> {});
 ```
+
 #### Filtering Text
 ```java
 // handles hi text
