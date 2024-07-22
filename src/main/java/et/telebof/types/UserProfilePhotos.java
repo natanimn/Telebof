@@ -6,7 +6,7 @@ import java.util.Objects;
 
 public class UserProfilePhotos implements Serializable {
     public Integer total_count;
-    public List<PhotoSize> photos;
+    public List<List<PhotoSize>> photos;
 
     @Override
     public boolean equals(Object object) {
